@@ -3,6 +3,9 @@
 @section('content')
     <section class="section">
         <div class="section-header">
+            <div class="section-header-back">
+                <a href="{{ url('/dashboard/post') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+            </div>
             <h1>Blog's Detail</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
@@ -44,10 +47,18 @@
                                         </div>
                                     </div>
                                     <div class="ticket-description">
+                                        @if ($post->image)
+                                            <div style="max-height: 500px; overflow:hidden">
+                                                <img src="{{ asset('storage/' . $post->image) }}"
+                                                    alt="image"class="img-fluid">
+                                            </div>
+                                        @else
+                                            <img src="https://source.unsplash.com/500x200?{{ $post->category->name }}"
+                                                alt="">
+                                        @endif
                                         {!! $post->body !!}
-
                                         <div class="gallery">
-                                            <div class="gallery-item" data-image="{{ $post->images }}"
+                                            <div class="gallery-item" data-image="{{ $post->image }}"
                                                 data-title="Image 1">
                                             </div>
                                         </div>

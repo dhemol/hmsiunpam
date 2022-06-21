@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Admin;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -47,7 +49,9 @@ class PostController extends Controller
     public function create()
     {
         // Route Tambah Post
-        return view('/dashboard.post.create');
+        return view('/dashboard.post.create', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -59,16 +63,24 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         // Route Simpan Post
-        $post = new Post;
-        $post->title = $request->title;
-        $post->author = $request->author;
-        $post->slug = $request->slug;
-        $post->excerpt = $request->excerpt;
-        $post->body = $request->body;
-        $post->images = $request->images;
-        $post->published_at = $request->published_at;
-        $post->save();
-        return redirect()->route('/dashboard.post.index')->with('success', 'Post berhasil ditambahkan');
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|unique:posts',
+            'category_id' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'body' => 'required'
+        ]);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('images', 'public');
+        }
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+
+        Post::create($validatedData);
+
+        return redirect('/dashboard/post')->with('success', 'New Post Has Been Added');
     }
 
     /**
@@ -97,8 +109,8 @@ class PostController extends Controller
     {
         // Route Edit Post
         return view('/dashboard.post.edit', [
-            "title" => "Edit Post",
-            "post" => $post
+            "post" => $post,
+            'categories' => Category::all()
         ]);
     }
 
@@ -112,15 +124,31 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         // Route Update Post
-        $post->title = $request->title;
-        $post->author = $request->author;
-        $post->slug = $request->slug;
-        $post->excerpt = $request->excerpt;
-        $post->body = $request->body;
-        $post->images = $request->images;
-        $post->published_at = $request->published_at;
-        $post->save();
-        return redirect()->route('/dashboard.post.index')->with('success', 'Post berhasil diubah');
+        $rules = [
+            'title' => 'required|max:255',
+            'category_id' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'body' => 'required'
+        ];
+
+        if ($request->slug != $post->slug) {
+            if ($request->old_image) {
+                Storage::delete($request->old_image);
+            }
+            $rules['slug'] = 'required|unique:posts';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('images', 'public');
+        }
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+
+        Post::where('id', $post->id)->update($validatedData);
+        return redirect('/dashboard/post')->with('success', 'Post Has Been Updated');
     }
 
     /**
@@ -132,7 +160,11 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         // Route Hapus Post
-        $post->delete();
-        return redirect()->route('/dashboard.post.index')->with('success', 'Post berhasil dihapus');
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
+        Post::destroy($post->id);
+
+        return redirect('/dashboard/post')->with('success', 'Post Has Been Deleted');
     }
 }

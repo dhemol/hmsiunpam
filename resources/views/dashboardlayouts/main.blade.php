@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Title --}}
     <title>@yield('title', 'ADMINISTRATOR | HMSI UNPAM')</title>
@@ -23,6 +24,14 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ url('/template/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ url('/template/assets/css/components.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('/template/assets/css/trix.css') }}">
+
+    <style>
+        trix-toolbar [data-trix-button-group="file-tools"] {
+            display: none;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -74,7 +83,8 @@
     <!-- Page Specific JS File -->
     <script src="{{ url('/template/assets/js/page/index-0.js') }}"></script>
     <script src="{{ url('/template/assets/js/page/features-posts.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/calendar.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/calendar.js') }}"></script> {{-- # SCRIPT FULL CALENDAR --}}
+    <script type="text/javascript" src="{{ url('/template/assets/js/trix.js') }}"></script>
 
 </body>
 

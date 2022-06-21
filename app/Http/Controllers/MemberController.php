@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
+use App\Models\User;
+use App\Models\Role;
+use App\Models\Field;
+use App\Models\Department;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -16,7 +20,7 @@ class MemberController extends Controller
     {
         // Route Anggota
         return view('dashboard.member.index', [
-            "anggota" => Member::latest()->filter(request(['searchAnggota']))->paginate(10),
+            "anggota" => User::latest()->filter(request(['searchAnggota', 'role', 'status', 'field', 'department']))->paginate(10)->withQueryString(),
             "title" => "Anggota | HMSI UNPAM",
         ]);
     }
@@ -43,7 +47,7 @@ class MemberController extends Controller
         // Route Simpan Anggota
         return $request->file('image')->store('img');
 
-        $anggota = new Member;
+        $anggota = new User;
         $anggota->nik = $request->nik;
         $anggota->nama = $request->nama;
         $anggota->username = $request->username;
@@ -61,10 +65,10 @@ class MemberController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\User  $member
      * @return \Illuminate\Http\Response
      */
-    public function show(Member $member)
+    public function show(User $User)
     {
         // Route Anggota
         return view('dashboard.member.show', compact('member'));
@@ -73,10 +77,10 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\User  $member
      * @return \Illuminate\Http\Response
      */
-    public function edit(Member $member)
+    public function edit(User $User)
     {
         // Route Edit Anggota
         return view('dashboard.member.show', compact('member'));
@@ -88,10 +92,10 @@ class MemberController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\User  $member
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Member $member)
+    public function update(Request $request, User $member)
     {
         // Route Update Anggota
         $member->nik = $request->nik;
@@ -111,10 +115,10 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Member  $member
+     * @param  \App\Models\User  $member
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Member $member)
+    public function destroy(User $member)
     {
         // Route Hapus Anggota
         $member->delete();

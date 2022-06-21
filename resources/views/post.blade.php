@@ -40,8 +40,15 @@
                                     {{ $posts[0]->category->name }}</a>
                             </div>
                             <a href="/post/{{ $posts[0]->slug }}">
-                                <img src="https://source.unsplash.com/1200x400? {{ $posts[0]->category->name }}"
-                                    alt="#">
+                                @if ($posts[0]->image)
+                                    <div style="max-height: 500px; overflow:hidden">
+                                        <img src="{{ asset('storage/' . $posts[0]->image) }}"
+                                            alt="{{ $posts[0]->title }}"class="img-fluid">
+                                    </div>
+                                @else
+                                    <img
+                                        src="https://source.unsplash.com/1200x400? {{ $posts[0]->category->name }}"alt="#">
+                                @endif
                                 <div class="content">
                                     <p class="date">{{ $posts[0]->created_at->diffForHumans() }}</p>
                                     <p class="date"> By: <a
@@ -70,8 +77,12 @@
                                         {{ $post->category->name }}</a>
                                 </div>
                                 <a href="/post/{{ $post->slug }}">
-                                    <img src="https://source.unsplash.com/400x400?{{ $post->category->name }}"
-                                        alt="#">
+                                    @if ($post->image)
+                                        <img src="{{ $post->image }}" alt="#">
+                                    @else
+                                        <img
+                                            src="https://source.unsplash.com/400x400?{{ $post->category->name }}"alt="#">
+                                    @endif
                                     <div class="content">
                                         <p class="date">{{ $post->published_at }}</p>
                                         <p class="date"> By: <a

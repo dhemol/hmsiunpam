@@ -916,13 +916,13 @@ select.form-control:not([size]):not([multiple]) {
 .table {
   color: inherit;
   text-align: center;
-width: max-content;
+  width: max-content;
 }
   .table td, .table:not(.table-bordered) th {
     border-top: none; }
   .table:not(.table-sm):not(.table-md):not(.dataTable) td,
   .table:not(.table-sm):not(.table-md):not(.dataTable) th {
-    padding: 25px 25px;
+    padding: 10px 25px;
     height: 60px;
     vertical-align: middle; }
   .table:not(.table-sm) thead th {
@@ -933,7 +933,8 @@ width: max-content;
     padding-bottom: 15px; }
   .table.table-md th,
   .table.table-md td {
-    padding: 10px 15px; }
+    padding: 10px 15px;
+    vertical-align: middle; }
   .table.table-bordered td,
   .table.table-bordered th {
     border-color: #f6f6f6; }

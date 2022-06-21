@@ -17,16 +17,13 @@ class EventController extends Controller
                 ->whereDate('end',   '<=', $request->end)
                 ->get(['id', 'title', 'start', 'end']);
 
+
             return response()->json($data);
         }
 
         return view('dashboard/agenda');
     }
-    /**
-     * This method is to handle event ajax operation
-     *
-     * @return response()
-     */
+
     public function ajax(Request $request)
     {
         switch ($request->type) {

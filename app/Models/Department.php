@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Department extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'slug'];
+    protected $guarded = ['id'];
 
-    public function posts()
+    public function users()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(User::class, 'user_id');
     }
 
     public function getRouteKeyName()
@@ -20,8 +20,8 @@ class Category extends Model
         return 'slug';
     }
 
-    public function event()
+    public function field()
     {
-        return $this->hasMany(Event::class);
+        return $this->belongsTo(Field::class);
     }
 }

@@ -29,14 +29,21 @@
                             <div class="col-12">
                                 <h2 class="blog-title">{{ $posts->title }}</h2>
                                 <div class="image">
-                                    <img src="https://source.unsplash.com/1200x600?{{ $posts->category->name }}">
+                                    @if ($posts->image)
+                                        <div style="max-height: 500px; overflow:hidden">
+                                            <img src="{{ asset('storage/' . $posts->image) }}"
+                                                alt="image"class="img-fluid">
+                                        </div>
+                                    @else
+                                        <img src="https://source.unsplash.com/500x200?{{ $posts->category->name }}"
+                                            alt="">
+                                    @endif>
                                 </div>
                                 <div class="blog-detail">
                                     <div class="blog-meta">
                                         <span class="author"><a href="/post?author={{ $posts->author->username }}"><i
                                                     class="fa fa-user"></i>{{ $posts->author->name }}</a><a
-                                                href="#"><i
-                                                    class="fa fa-calendar"></i>{{ $posts->published_at }}</a>
+                                                href="#"><i class="fa fa-calendar"></i>{{ $posts->created_at }}</a>
                                     </div>
                                     <div class="content">
                                         {!! $posts->body !!}

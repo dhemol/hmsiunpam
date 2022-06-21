@@ -24,8 +24,8 @@ class EventFactory extends Factory
             'cost' => $this->faker->numberBetween(50000, 150000),
             'description' => $this->faker->sentence(mt_rand(5, 10)),
             'image' => $this->faker->imageUrl(640, 480),
-            'start' => $this->faker->dateTimeBetween('now', '+1 year'),
-            'end' => $this->faker->dateTimeBetween('+1 year', '+2 years'),
+            'start' => $this->faker->date('Y-m-d'),
+            'end' => $this->faker->date('Y-m-d'),
         ];
     }
 }

@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class Role extends Model
 {
     use HasFactory;
-
     protected $guarded = ['id'];
 
-    public function posts()
+    public function users()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(User::class, 'user_id');
     }
 
-    public function category()
+    public function getRouteKeyName()
     {
-        return $this->belongsTo(Category::class);
+        return 'slug';
     }
 }

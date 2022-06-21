@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Status extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $table = 'Status';
 
-    public function posts()
+    public function users()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(User::class, 'user_id');
     }
 
-    public function categories()
+    public function getRouteKeyName()
     {
-        return $this->hasMany(Category::class);
+        return 'slug';
     }
 }

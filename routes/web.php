@@ -10,7 +10,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\MemberController;
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 
@@ -45,6 +45,10 @@ Route::get('/contact', [PagesController::class, 'contact']);
 Route::get('/dashboard', [PagesController::class, 'index'])->middleware('auth');
 // Route Data Anggota
 Route::resource('/dashboard/member', MemberController::class)->middleware('auth');
+Route::get('/dashboard/member/{status:slug}', [MemberController::class, 'status']);
+Route::get('/dashboard/member/{role:slug}', [MemberController::class, 'role']);
+Route::get('/dashboard/member/{field:slug}', [MemberController::class, 'field']);
+Route::get('/dashboard/member/{department:slug}', [MemberController::class, 'department']);
 // Route Data Arsip
 // Route::resource('/dashboard/arsip', ArsipController::class)->middleware('auth');
 // Route Data Agenda
@@ -54,6 +58,8 @@ Route::post('/dashboard/eventAjax', [EventController::class, 'ajax'])->middlewar
 // Route Data Konten
 // Route Data Post
 Route::resource('/dashboard/post', PostController::class)->middleware('auth');
+// Route Data Kategori
+Route::resource('/dashboard/category', CategoryController::class)->except('show')->middleware('auth');
 // // Route Data Event
 // Route::resource('/dashboard/event', EventController::class)->middleware('auth');
 // // Route Data About

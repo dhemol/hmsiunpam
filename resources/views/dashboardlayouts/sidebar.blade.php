@@ -45,8 +45,8 @@
     </ul>
 
     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-        <a href="{{ url('/logout') }}" class="btn btn-primary btn-lg btn-block btn-icon-split">
-            <i class="fas fa-rocket"></i> Logout
+        <a href="{{ url('/') }}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+            <i class="fas fa-rocket"></i> Print Your FIle
         </a>
     </div>
 </aside>

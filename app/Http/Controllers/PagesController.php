@@ -8,7 +8,7 @@ use App\Models\Contact;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Event;
-use App\Models\Admin;
+use App\Models\User;
 
 class PagesController extends Controller
 {
@@ -53,7 +53,7 @@ class PagesController extends Controller
         }
 
         if (request('author')) {
-            $author = Admin::firstWhere('username', request('author'));
+            $author = User::firstWhere('username', request('author'));
             $title = ' by ' . $author->name;
         }
 

@@ -3,30 +3,35 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Posts</h1>
+            <h1>Blogs</h1>
             <div class="section-header-button">
-                <a href="{{ url('/dashboard.post.create') }}" class="btn btn-primary">Add New</a>
+                <a href="{{ url('/dashboard/post/create') }}" class="btn btn-primary">Add New</a>
             </div>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ url('/dashboard.post.index') }}">Posts</a></div>
-                <div class="breadcrumb-item">All Posts</div>
+                <div class="breadcrumb-item"><a href="{{ url('/dashboard.post.index') }}">Blogs</a></div>
+                <div class="breadcrumb-item">All Blogs</div>
             </div>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Posts</h2>
+            <h2 class="section-title">Blogs</h2>
             <p class="section-lead">
-                You can manage all posts, such as editing, deleting and more.
+                You can manage all Blogs, such as editing, deleting and more.
             </p>
 
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Posts</h4>
+                            <h4>All Blogs</h4>
                         </div>
                         <div class="card-body">
                             <div class="float-left">
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
                             </div>
                             <div class="float-right">
                                 <form>
@@ -48,6 +53,7 @@
                                         <th>Title</th>
                                         <th>Author</th>
                                         <th>Category</th>
+                                        <th>Excerpt</th>
                                         <th>Created At</th>
                                         <th>Action</th>
                                     </tr>
@@ -56,7 +62,7 @@
                                             <td>
                                                 {{ $loop->iteration }}
                                             </td>
-                                            <td style="text-align: left">
+                                            <td style="text-align: left" width="200px">
                                                 {{ $post->title }}
                                             </td>
                                             <td>
@@ -64,8 +70,9 @@
                                             </td>
                                             <td>
                                                 {{ $post->category->name }}
-                                            <td>
-                                                {{ $post->created_at->format('d M Y') }}
+                                            </td>
+                                            <td style="text-align: justify" width="230px">{{ $post->excerpt }}</td>
+                                            <td> {{ $post->created_at->format('d M Y') }}
                                             </td>
                                             <td>
                                                 <a href="/dashboard/post/{{ $post->slug }}"
@@ -74,10 +81,14 @@
                                                 <a href="/dashboard/post/{{ $post->slug }}/edit"
                                                     class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                     title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a href="/dashboard/post/{{ $post->slug }}/destroy"
-                                                    class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
+                                                <form action="/dashboard/post/{{ $post->slug }}" method="POST"
+                                                    class="d-inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-danger btn-action"
+                                                        onclick="return confirm('Are you sure?')"><i
+                                                            class="fas fa-trash"></i></button>
+                                                </form>
                                     </tr>
                                     @endforeach
                                 </table>

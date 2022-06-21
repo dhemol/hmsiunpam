@@ -15,7 +15,6 @@ class Post extends Model
 
     {
 
-
         $query->when($filters['search'] ?? false, function ($query, $search) {
             return $query->where('title', 'like', '%' . $search . '%')
                 ->orWhere('body', 'like', '%' . $search . '%');
@@ -41,7 +40,7 @@ class Post extends Model
 
     public function author()
     {
-        return $this->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function event()

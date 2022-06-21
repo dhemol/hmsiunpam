@@ -14,7 +14,7 @@ $(document).ready(function () {
     events: SITEURL + "/event",
     displayEventTime: true,
     eventRender: function (event, element, view) {
-      element
+
       if (event.allDay === true) {
         event.allDay = true;
       } else {

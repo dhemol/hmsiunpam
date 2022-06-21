@@ -38,7 +38,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Anggota Pasif<span
-                                                class="badge badge-primary">0data</span></a>
+                                                class="badge badge-primary">0</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -58,26 +58,28 @@
                         <div class="card-body">
                             <div class="clearfix mb-3"></div>
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table class="table table-striped table-md">
                                     <tr>
                                         <th>No</th>
                                         <th>NIK</th>
+                                        <th>Role</th>
                                         <th>Images</th>
                                         <th>Name</th>
-                                        <th>Position</th>
+                                        <th>Email</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     @foreach ($anggota as $member)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $member->nik }}</td>
+                                            <td>{{ $member->id }}</td>
+                                            <td width="200px">{{ $member->role->name }}</td>
                                             <td><img src="{{ $member->images }}" alt="image" width="100"
                                                     height="100" data-toggle="title" title=""></td>
                                             <td>{{ $member->name }}</td>
-                                            <td>{{ $member->position }}</td>
+                                            <td width="150px">{{ $member->email }}</td>
                                             <td>
-                                                <div class="badge badge-primary">Aktif</div>
+                                                <div class="badge badge-primary">{{ $member->status->name }}</div>
                                             </td>
                                             <td>
                                                 <a href="/dashboard/member/{{ $member->username }}"

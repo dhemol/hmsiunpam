@@ -17,7 +17,7 @@ class CategoryController extends Controller
     {
         // Route Category
         $categories = Category::all();
-        return view('/dashboard.category.index', [
+        return view('/dashboard/category/index', [
             "categories" => $categories,
             "title" => "Category | HMSI UNPAM"
         ]);

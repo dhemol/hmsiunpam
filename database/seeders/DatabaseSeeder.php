@@ -4,14 +4,16 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Faq;
+use App\Models\User;
 use App\Models\Event;
-use App\Models\About;
-use App\Models\Galeri;
-use App\Models\Member;
+use App\Models\Field;
+use App\Models\Department;
+use App\Models\Status;
+use App\Models\Role;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,12 +24,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Admin::create([
-            'name' => 'Dede Maulana',
-            'email' => 'dhemol@icloud.com',
-            'username' => 'dhemol',
-            'password' => bcrypt('dhemol'),
-        ]);
 
         Category::create([
             'name' => 'Academic',
@@ -59,54 +55,18 @@ class DatabaseSeeder extends Seeder
             'slug' => 'community-service',
         ]);
 
-        // Post::create([
-        //     'title' => 'Batas Registrasi Gelombang 2 PMB Program Studi Sistem Informasi',
-        //     'category_id' => '1',
-        //     'admin_id' => '1',
-        //     'slug' => 'batas-registrasi-gelombang-2-pmb-program-studi-sistem-informasi',
-        //     'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo',
-        //     'body' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo, debitis facere hic rem repellendus aliquid, accusamus non sunt. Cupiditate culpa in laudantium reprehenderit sint quibusdam dolorum ab quisquam? Beatae, fugiat! Nostrum minus nisi in voluptate illo placeat! </p><p> nesciunt fuga harum repudiandae recusandae inventore sapiente explicabo voluptatibus ratione labore temporibus non quis corrupti dignissimos sequi debitis, odio molestiae sed quisquam, quas ipsam aspernatur adipisci laboriosam libero. Alias, ipsa illo rem dolores officia consequatur, reprehenderit at enim inventore, </p> <p>eius natus fugiat nam soluta ducimus iure eaque amet. Enim, tempora amet. Possimus quod, consequuntur eveniet recusandae incidunt dolorem tempore expedita nobis voluptates id sequi beatae, suscipit nam voluptatibus sint qui ipsam nesciunt quos repellat accusantium debitis modi maxime voluptatum? Harum necessitatibus eveniet nisi, odio quam fugit commodi consequatur laborum voluptas totam corporis quas distinctio dolor alias inventore repellat delectus adipisci soluta neque officia!</p>'
-        // ]);
-
-        // Post::create([
-        //     'title' => 'SIFEST TOURNAMENT 2022',
-        //     'category_id' => '2',
-        //     'admin_id' => '1',
-        //     'slug' => 'sifest-tournament-2022',
-        //     'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo',
-        //     'body' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo, debitis facere hic rem repellendus aliquid, accusamus non sunt. Cupiditate culpa in laudantium reprehenderit sint quibusdam dolorum ab quisquam? Beatae, fugiat! Nostrum minus nisi in voluptate illo placeat! </p><p> nesciunt fuga harum repudiandae recusandae inventore sapiente explicabo voluptatibus ratione labore temporibus non quis corrupti dignissimos sequi debitis, odio molestiae sed quisquam, quas ipsam aspernatur adipisci laboriosam libero. Alias, ipsa illo rem dolores officia consequatur, reprehenderit at enim inventore, </p> <p>eius natus fugiat nam soluta ducimus iure eaque amet. Enim, tempora amet. Possimus quod, consequuntur eveniet recusandae incidunt dolorem tempore expedita nobis voluptates id sequi beatae, suscipit nam voluptatibus sint qui ipsam nesciunt quos repellat accusantium debitis modi maxime voluptatum? Harum necessitatibus eveniet nisi, odio quam fugit commodi consequatur laborum voluptas totam corporis quas distinctio dolor alias inventore repellat delectus adipisci soluta neque officia!</p>'
-        // ]);
-
-        // Post::create([
-        //     'title' => 'BEASISWA UKT 2022',
-        //     'category_id' => '3',
-        //     'admin_id' => '1',
-        //     'slug' => 'beasiswa-ukt-2022',
-        //     'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo',
-        //     'body' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo, debitis facere hic rem repellendus aliquid, accusamus non sunt. Cupiditate culpa in laudantium reprehenderit sint quibusdam dolorum ab quisquam? Beatae, fugiat! Nostrum minus nisi in voluptate illo placeat! </p><p> nesciunt fuga harum repudiandae recusandae inventore sapiente explicabo voluptatibus ratione labore temporibus non quis corrupti dignissimos sequi debitis, odio molestiae sed quisquam, quas ipsam aspernatur adipisci laboriosam libero. Alias, ipsa illo rem dolores officia consequatur, reprehenderit at enim inventore, </p> <p>eius natus fugiat nam soluta ducimus iure eaque amet. Enim, tempora amet. Possimus quod, consequuntur eveniet recusandae incidunt dolorem tempore expedita nobis voluptates id sequi beatae, suscipit nam voluptatibus sint qui ipsam nesciunt quos repellat accusantium debitis modi maxime voluptatum? Harum necessitatibus eveniet nisi, odio quam fugit commodi consequatur laborum voluptas totam corporis quas distinctio dolor alias inventore repellat delectus adipisci soluta neque officia!</p>'
-        // ]);
-
-        // Post::create([
-        //     'title' => 'MAKRAB & UPGRADING PENGURUS HMSI UNPAM 2022/2023',
-        //     'category_id' => '4',
-        //     'admin_id' => '1',
-        //     'slug' => 'makrab-upgrading-pengurus-hmsi-unpam-2022-2023',
-        //     'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo',
-        //     'body' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo, debitis facere hic rem repellendus aliquid, accusamus non sunt. Cupiditate culpa in laudantium reprehenderit sint quibusdam dolorum ab quisquam? Beatae, fugiat! Nostrum minus nisi in voluptate illo placeat! </p><p> nesciunt fuga harum repudiandae recusandae inventore sapiente explicabo voluptatibus ratione labore temporibus non quis corrupti dignissimos sequi debitis, odio molestiae sed quisquam, quas ipsam aspernatur adipisci laboriosam libero. Alias, ipsa illo rem dolores officia consequatur, reprehenderit at enim inventore, </p> <p>eius natus fugiat nam soluta ducimus iure eaque amet. Enim, tempora amet. Possimus quod, consequuntur eveniet recusandae incidunt dolorem tempore expedita nobis voluptates id sequi beatae, suscipit nam voluptatibus sint qui ipsam nesciunt quos repellat accusantium debitis modi maxime voluptatum? Harum necessitatibus eveniet nisi, odio quam fugit commodi consequatur laborum voluptas totam corporis quas distinctio dolor alias inventore repellat delectus adipisci soluta neque officia!</p>'
-        // ]);
-
-        // Post::create([
-        //     'title' => 'PKM DI DESA PENARI OLEH PENGURUS HMSI UNPAM',
-        //     'category_id' => '5',
-        //     'admin_id' => '1',
-        //     'slug' => 'pkm-di-desa-penari-oleh-pengurus-hmsi-unpam',
-        //     'excerpt' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo',
-        //     'body' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo, debitis facere hic rem repellendus aliquid, accusamus non sunt. Cupiditate culpa in laudantium reprehenderit sint quibusdam dolorum ab quisquam? Beatae, fugiat! Nostrum minus nisi in voluptate illo placeat! </p><p> nesciunt fuga harum repudiandae recusandae inventore sapiente explicabo voluptatibus ratione labore temporibus non quis corrupti dignissimos sequi debitis, odio molestiae sed quisquam, quas ipsam aspernatur adipisci laboriosam libero. Alias, ipsa illo rem dolores officia consequatur, reprehenderit at enim inventore, </p> <p>eius natus fugiat nam soluta ducimus iure eaque amet. Enim, tempora amet. Possimus quod, consequuntur eveniet recusandae incidunt dolorem tempore expedita nobis voluptates id sequi beatae, suscipit nam voluptatibus sint qui ipsam nesciunt quos repellat accusantium debitis modi maxime voluptatum? Harum necessitatibus eveniet nisi, odio quam fugit commodi consequatur laborum voluptas totam corporis quas distinctio dolor alias inventore repellat delectus adipisci soluta neque officia!</p>'
-        // ]);
-
         Post::factory(18)->create();
-        Event::factory(1)->create();
-        Member::factory(100)->create();
+
+        Event::create([
+            'title' => 'RAKASI',
+            'category_id' => '4',
+            'slug' => 'rakasi',
+            'cost' => '100000',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam necessitatibus itaque unde vel totam. Quae, aperiam tempora explicabo',
+            'start' => '2022-06-20',
+            'end' => '2022-06-25',
+
+        ]);
 
         Faq::create([
             'question' => 'Apa itu HMSI UNPAM?',
@@ -135,6 +95,162 @@ class DatabaseSeeder extends Seeder
             'question' => 'Apa saja keuntungan menjadi anggota resmi HMSI UNPAM?',
             'slug' => 'apa-saja-keuntungan-menjadi-anggota-resmi-hmsi-unpam',
             'answer' => '<p><b>PASTINYA BANYAK SEKALI</b>, Selain dapat belajar mengenai dunia teknologi lainnya, HMSI UNPAM juga memberikan dampak yang luar biasa untuk pengalaman dalam belajar berorganisasi, meningkatkan kemampuan public speaking, leadership, kewirausahaan dan lain - lain.</p>'
+        ]);
+
+        Field::create([
+            'name' => 'Pengembangan Kader Organisasi',
+            'slug' => 'pengembangan-kader-organisasi',
+        ]);
+
+        Field::create([
+            'name' => 'Pengembangan Ilmu Pengetahuan Komunikasi dan Informasi',
+            'slug' => 'pengembangan-ilmu-pengetahuan-komunikasi-dan-informasi',
+        ]);
+
+        Field::create([
+            'name' => 'Kerohanian',
+            'slug' => 'kerohanian',
+        ]);
+
+        Field::create([
+            'name' => 'Hubungan Masyarakat',
+            'slug' => 'hubungan-masyarakat',
+        ]);
+
+        Field::create([
+            'name' => 'Minat Bakat dan Olahraga',
+            'slug' => 'minat-bakat-dan-olahraga',
+        ]);
+
+        Department::create([
+            'field_id' => '1',
+            'name' => 'Latihan Dasar Kepemimpinan Organisasi',
+            'slug' => 'latihan-dasar-kepemimpinan-organisasi',
+        ]);
+
+        Department::create([
+            'field_id' => '1',
+            'name' => 'Pengkaderan',
+            'slug' => 'pengkaderan',
+        ]);
+
+        Department::create([
+            'field_id' => '2',
+            'name' => 'Admin Sosial Media',
+            'slug' => 'admin-sosial-media',
+        ]);
+
+        Department::create([
+            'field_id' => '2',
+            'name' => 'Editor',
+            'slug' => 'editor',
+        ]);
+
+        Department::create([
+            'field_id' => '2',
+            'name' => 'Penerapan Konsep Manajemen Informasi',
+            'slug' => 'penerapan-konsep-manajemen-informasi',
+        ]);
+
+        Department::create([
+            'field_id' => '3',
+            'name' => 'Kajian Kerohanian',
+            'slug' => 'kajian-kerohanian',
+        ]);
+
+        Department::create([
+            'field_id' => '3',
+            'name' => 'Toleransi dan Kepribadian',
+            'slug' => 'toleransi-dan-kepribadian',
+        ]);
+
+        Department::create([
+            'field_id' => '4',
+            'name' => 'Humas Internal',
+            'slug' => 'humas-internal',
+        ]);
+
+        Department::create([
+            'field_id' => '4',
+            'name' => 'Humas External',
+            'slug' => 'humas-external',
+        ]);
+
+        Department::create([
+            'field_id' => '5',
+            'name' => 'Kegiatan Olahraga Mingguan',
+            'slug' => 'kegiatan-olahraga-mingguan',
+        ]);
+
+        Department::create([
+            'field_id' => '5',
+            'name' => 'Koordinator Lomba',
+            'slug' => 'koordinator-lomba',
+        ]);
+
+        Status::create([
+            'name' => 'Anggota Aktif',
+            'slug' => 'anggota-aktif',
+        ]);
+
+        Status::create([
+            'name' => 'Anggota Pasif',
+            'slug' => 'anggota-pasif',
+        ]);
+
+        Status::create([
+            'name' => 'Demisioner',
+            'slug' => 'demisioner',
+        ]);
+
+        Role::create([
+            'name' => 'Anggota',
+            'slug' => 'anggota'
+        ]);
+
+        Role::create([
+            'name' => 'Admin',
+            'slug' => 'admin'
+        ]);
+
+        Role::create([
+            'name' => 'Superadmin',
+            'slug' => 'superadmin'
+        ]);
+
+        User::create([
+            'name' => 'Akram Daffa',
+            'username' => 'akramdaffa',
+            'email' => 'akramdaffa@gmail.com',
+            'password' => bcrypt('akram123'),
+            'address' => 'Karawaci, Tangerang',
+            'no_hp' => '088866667777',
+            'role_id' => 1,
+            'status_id' => 1,
+            'field_id' => 2,
+            'department_id' => 2
+        ]);
+
+        User::create([
+            'name' => 'Dede Maulana',
+            'username' => 'dhemol',
+            'email' => 'dhemol@icloud.com',
+            'password' => bcrypt('dhemol123'),
+            'address' => 'Serua, Bojongsari, Depok',
+            'no_hp' => '085157740434',
+            'role_id' => 2,
+            'status_id' => 1,
+        ]);
+
+        User::create([
+            'name' => 'Selly Septiani, S.Si, M.Kom',
+            'username' => 'sellyseptiani',
+            'email' => 'sellyseptiani@gmail.com',
+            'password' => bcrypt('selly123'),
+            'address' => 'Serang, Banten',
+            'no_hp' => '08886666666',
+            'role_id' => 3,
+            'status_id' => 1,
         ]);
     }
 }

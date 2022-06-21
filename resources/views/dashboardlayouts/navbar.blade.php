@@ -38,13 +38,14 @@
             <a href="features-profile.html" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
             </a>
-            <a href="features-activities.html" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> Activities
-            </a>
             <div class="dropdown-divider"></div>
-            <a href="{{ url('/logout') }}" class="dropdown-item has-icon text-danger">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
+            <a href=""></a>
+            <form action="{{ url('/logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="dropdown-item has-icon text-danger">
+                    <i class="fas fa-sign-out-alt"> Logout</i>
+                </button>
+            </form>
         </div>
     </li>
 </ul>

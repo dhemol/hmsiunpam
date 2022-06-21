@@ -24,7 +24,8 @@
                         </div>
                         <div class="card-body">
                             <div class="fc-overflow">
-                                <div id="calendar"></div>
+                                <div id="calendar">
+                                </div>
                             </div>
                         </div>
                     </div>

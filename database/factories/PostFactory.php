@@ -21,10 +21,10 @@ class PostFactory extends Factory
             'slug' => $this->faker->slug(),
             'excerpt' => $this->faker->paragraph(),
             'body' => collect($this->faker->paragraphs(mt_rand(5, 10)))->map(fn ($p) => "<p>{$p}</p>")->implode("\n"),
-            'images' => $this->faker->imageUrl(640, 480),
+            'image' => $this->faker->imageUrl(640, 480),
             'published_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
             'category_id' => (mt_rand(1, 5)),
-            'admin_id' => 1,
+            'user_id' => 2,
         ];
     }
 }
