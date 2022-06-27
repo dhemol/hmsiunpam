@@ -13,11 +13,14 @@ class FaqController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         // Route Faq
-        $faqs = Faq::all();
-        return view('/dashboard.faq.index', compact('faqs'));
+        return view('/dashboard/faq/index', [
+            "faqs" => Faq::all(),
+            "title" => "Faq | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -27,8 +30,11 @@ class FaqController extends Controller
      */
     public function create()
     {
-        // Route Tambah Faq
-        return view('/dashboard.faq.create');
+        // Route Faq Create
+        return view('/dashboard/faq/create', [
+            "faqs" => Faq::all(),
+            "title" => "Faq Create | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -39,12 +45,16 @@ class FaqController extends Controller
      */
     public function store(StoreFaqRequest $request)
     {
-        // Route Store Faq
-        $faq = new Faq;
-        $faq->question = $request->question;
-        $faq->answer = $request->answer;
-        $faq->save();
-        return redirect('/dashboard/faq/index')->with('success', 'Data Berhasil Ditambahkan');
+        // Route Faq Store
+        $validatedData = $request->validate([
+            'question' => 'required|string|max:255',
+            'slug' => 'required||unique:faqs',
+            'answer' => 'required'
+        ]);
+
+        Faq::create($validatedData);
+
+        return redirect('/dashboard/faq')->with('success', 'Faq has been created');
     }
 
     /**
@@ -56,7 +66,10 @@ class FaqController extends Controller
     public function show(Faq $faq)
     {
         // Route Show Faq
-        return view('/dashboard.faq.show', compact('faq'));
+        return view('/dashboard/faq/show', [
+            "faq" => $faq,
+            "title" => "Faq Show | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -68,7 +81,10 @@ class FaqController extends Controller
     public function edit(Faq $faq)
     {
         // Route Edit Faq
-        return view('/dashboard.faq.edit', compact('faq'));
+        return view('/dashboard/faq/edit', [
+            "faq" => $faq,
+            "title" => "Faq Edit | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -80,12 +96,20 @@ class FaqController extends Controller
      */
     public function update(UpdateFaqRequest $request, Faq $faq)
     {
-        // Route Update Faq
+        // Route Faq Update
+        $rules = [
+            'question' => 'required|string|max:255',
+            'answer' => 'required'
+        ];
 
-        $faq->question = $request->question;
-        $faq->answer = $request->answer;
-        $faq->save();
-        return redirect('/dashboard.faq.index');
+        if ($request->slug != $faq->slug) {
+
+            $rules['slug'] = 'required|unique:faqs';
+        }
+
+        $validatedData = $request->validate($rules);
+        $faq->update($validatedData);
+        return redirect('/dashboard/faq')->with('success', 'Faq has been updated');
     }
 
     /**
@@ -96,8 +120,9 @@ class FaqController extends Controller
      */
     public function destroy(Faq $faq)
     {
-        // Route Delete Faq
-        $faq->delete();
-        return redirect('/dashboard.faq.index');
+        // Route Faq Destroy
+        Faq::destroy($faq->id);
+
+        return redirect('/dashboard/faq')->with('success', 'Faq has been deleted');
     }
 }

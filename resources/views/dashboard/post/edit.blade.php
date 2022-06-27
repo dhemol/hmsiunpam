@@ -1,5 +1,5 @@
 @extends('dashboardlayouts.main')
-@section('title', 'Tambah Data Blog | HMSI UNPAM')
+@section('title', 'Edit Data Blog | HMSI UNPAM')
 @section('content')
 
     <section class="section">
@@ -59,7 +59,7 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="category_id" id="category" class="form-select">
+                                        <select name="category_id" id="category" class="form-select form-control-sm">
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ old('category_id', $post->category_id) == $category->id ? ' selected' : ' ' }}>
@@ -73,7 +73,7 @@
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Image</label>
                                     <div class="col-sm-12 col-md-7">
                                         <label for="image" id="image">Choose File</label>
-                                        <input type="hidden" name="old_image" value="{{ $post->image }}id="image"
+                                        <input type="hidden" name="old_image" value="{{ $post->image }}" id="old_image"
                                             onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
                                         @if ($post->image)
                                             <img src="{{ asset('storage/' . $post->image) }}"

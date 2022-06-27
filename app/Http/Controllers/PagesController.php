@@ -34,11 +34,15 @@ class PagesController extends Controller
     // Route Event
     public function event()
     {
-        $events = Event::all();
+        $title = '';
+        if (request('category')) {
+            $category = Category::firstWhere('slug', request('category'));
+            $title = ' in ' . $category->name;
+        }
         return view('event', [
-            "title" => "Event | HMSI UNPAM",
+            "title" => "Event | HMSI UNPAM" . $title,
             "active" => "Event | HMSI UNPAM",
-            "events" => $events
+            "events" => Event::latest()->filter(request(['searchEvent', 'category']))->paginate(10)->withQueryString(),
         ]);
     }
 
@@ -75,6 +79,15 @@ class PagesController extends Controller
     }
 
     public function categories()
+    {
+        return view('category', [
+            "title" => "All Categories",
+            "active" => "Blog | HMSI UNPAM",
+            "categories" => Category::all()
+        ]);
+    }
+
+    public function category()
     {
         return view('category', [
             "title" => "All Categories",

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use App\Http\Requests\StoreAboutRequest;
 use App\Http\Requests\UpdateAboutRequest;
+use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
@@ -13,11 +14,13 @@ class AboutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        // Route About
-        $abouts = About::all();
-        return view('/dashboard.about.index', compact('abouts'));
+        return view('/dashboard/about/index', [
+            "abouts" => About::all(),
+            "title" => "About | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -40,12 +43,20 @@ class AboutController extends Controller
     public function store(StoreAboutRequest $request)
     {
         // Route Store About
-        $about = new About;
-        $about->title = $request->title;
-        $about->description = $request->description;
-        $about->image = $request->image;
-        $about->save();
-        return redirect('/dashboard/about/index')->with('success', 'Data Berhasil Ditambahkan');
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' =>  'required|string|max:255|unique:abouts',
+            'description' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('images', 'public');
+        }
+
+        About::create($validatedData);
+
+        return redirect('/dashboard/about')->with('success', 'About has been created');
     }
 
     /**
@@ -57,7 +68,10 @@ class AboutController extends Controller
     public function show(About $about)
     {
         // Route Show About
-        return view('/dashboard.about.show', compact('about'));
+        return view('/dashboard/about/show', [
+            "about" => $about,
+            "title" => "About Show | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -69,7 +83,10 @@ class AboutController extends Controller
     public function edit(About $about)
     {
         // Route Edit About
-        return view('/dashboard.about.edit', compact('about'));
+        return view('/dashboard/about/edit', [
+            "about" => $about,
+            "title" => "About Edit | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -82,11 +99,26 @@ class AboutController extends Controller
     public function update(UpdateAboutRequest $request, About $about)
     {
         // Route Update About
-        $about->title = $request->title;
-        $about->description = $request->description;
-        $about->image = $request->image;
-        $about->save();
-        return redirect('/dashboard/about/index')->with('success', 'Data Berhasil Diubah');
+        $rules = [
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ];
+
+        if ($request->slug != $about->slug) {
+
+            $rules['slug'] = 'required|unique:abouts';
+        }
+
+        $validatedData = $request->validate($rules);
+        if ($request->file('image')) {
+            if ($request->old_image) {
+                Storage::delete($request->old_image);
+            }
+            $validatedData['image'] = $request->file('image')->store('images', 'public');
+        }
+        $about->update($validatedData);
+        return redirect('/dashboard/about')->with('success', 'About has been updated');
     }
 
     /**
@@ -98,7 +130,11 @@ class AboutController extends Controller
     public function destroy(About $about)
     {
         // Route Hapus About
-        $about->delete();
-        return redirect('/dashboard/about/index')->with('success', 'Data Berhasil Dihapus');
+        if ($about->image) {
+            Storage::delete($about->image);
+        }
+        About::destroy($about->id);
+
+        return redirect('/dashboard/about')->with('success', 'About has been deleted');
     }
 }

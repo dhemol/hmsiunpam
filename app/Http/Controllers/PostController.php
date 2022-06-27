@@ -79,8 +79,6 @@ class PostController extends Controller
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
         Post::create($validatedData);
-
-        return redirect('/dashboard/post')->with('success', 'New Post Has Been Added');
     }
 
     /**
@@ -132,15 +130,15 @@ class PostController extends Controller
         ];
 
         if ($request->slug != $post->slug) {
-            if ($request->old_image) {
-                Storage::delete($request->old_image);
-            }
             $rules['slug'] = 'required|unique:posts';
         }
 
         $validatedData = $request->validate($rules);
 
         if ($request->file('image')) {
+            if ($request->old_image) {
+                Storage::delete($request->old_image);
+            }
             $validatedData['image'] = $request->file('image')->store('images', 'public');
         }
 

@@ -4,12 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\ArsipController;
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\FieldController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -39,33 +41,54 @@ Route::get('/author/{author:username}', [PagesController::class, 'author']);
 Route::get('/faq', [PagesController::class, 'faq']);
 Route::get('/contact', [PagesController::class, 'contact']);
 
-
 // Ini adalah Route yang mengarahkan ke view Dashboard
 // Route Dashboard
 Route::get('/dashboard', [PagesController::class, 'index'])->middleware('auth');
+// Route Data Admin
+Route::resource('/dashboard/admin', AdminController::class)->middleware('can:superadmin');
+Route::get('/dashboard/admin/{status:slug}', [AdminController::class, 'status'])->middleware('can:superadmin');
+Route::get('/dashboard/admin/{role:slug}', [AdminController::class, 'role'])->middleware('can:superadmin');
+Route::get('/dashboard/admin/{field:slug}', [AdminController::class, 'field'])->middleware('can:superadmin');
+Route::get('/dashboard/admin/{department:slug}', [AdminController::class, 'department'])->middleware('can:superadmin');
+Route::get('/dashboard/adminPDF', [AdminController::class, 'export'])->middleware('can:superadmin');
+
+// Route Data Field (Bidang)
+Route::resource('/dashboard/field', FieldController::class)->except('show')->middleware('can:admin');
+
+// Route Data Department
+Route::resource('/dashboard/department', DepartmentController::class)->except('show')->middleware('can:admin');
+
 // Route Data Anggota
-Route::resource('/dashboard/member', MemberController::class)->middleware('auth');
-Route::get('/dashboard/member/{status:slug}', [MemberController::class, 'status']);
-Route::get('/dashboard/member/{role:slug}', [MemberController::class, 'role']);
-Route::get('/dashboard/member/{field:slug}', [MemberController::class, 'field']);
-Route::get('/dashboard/member/{department:slug}', [MemberController::class, 'department']);
+Route::resource('/dashboard/member', MemberController::class)->middleware('can:admin');
+Route::get('/dashboard/member/{status:slug}', [MemberController::class, 'status'])->middleware('can:admin');
+Route::get('/dashboard/member/{role:slug}', [MemberController::class, 'role'])->middleware('can:admin');
+Route::get('/dashboard/member/{field:slug}', [MemberController::class, 'field'])->middleware('can:admin');
+Route::get('/dashboard/member/{department:slug}', [MemberController::class, 'department'])->middleware('can:admin');
+Route::get('/dashboard/memberPDF', [MemberController::class, 'export'])->middleware('can:admin');
+
 // Route Data Arsip
-// Route::resource('/dashboard/arsip', ArsipController::class)->middleware('auth');
+Route::get('/download', [ArchiveController::class, 'download'])->middleware('can:admin');
+Route::resource('/dashboard/archive', ArchiveController::class)->middleware('can:admin');
+
 // Route Data Agenda
-Route::get('/dashboard/event', [EventController::class, 'index'])->middleware('auth');
-Route::post('/dashboard/eventAjax', [EventController::class, 'ajax'])->middleware('auth');
+Route::get('/dashboard/agenda', [EventController::class, 'home'])->middleware('auth');
+Route::resource('/dashboard/event', EventController::class)->middleware('can:admin');
+Route::get('/dashboard/eventPDF', [EventController::class, 'export'])->middleware('can:admin');
 
 // Route Data Konten
 // Route Data Post
 Route::resource('/dashboard/post', PostController::class)->middleware('auth');
+
 // Route Data Kategori
-Route::resource('/dashboard/category', CategoryController::class)->except('show')->middleware('auth');
-// // Route Data Event
-// Route::resource('/dashboard/event', EventController::class)->middleware('auth');
+Route::get('/dashboard/kategori', [CategoryController::class, 'home'])->middleware('auth');
+Route::resource('/dashboard/category', CategoryController::class)->except('show')->middleware('can:admin');
+
 // // Route Data About
-// Route::resource('/dashboard/about', AboutController::class)->middleware('auth');
-// // Route Data FAQ
-// Route::resource('/dashboard/faq', FaqController::class)->middleware('auth');
+Route::resource('/dashboard/about', AboutController::class)->middleware('can:admin');
+
+// Route Data FAQ
+Route::resource('/dashboard/faq', FaqController::class)->except('show')->middleware('can:admin');
+
 // // Route Data Contact
 // Route::resource('/dashboard/contact', ContactController::class)->middleware('auth');
 // // Route Data Galeri

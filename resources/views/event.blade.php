@@ -24,7 +24,7 @@
                     @foreach ($events as $event)
                         <div class="col-lg-6 col-12 padding-right">
                             <div class="image">
-                                <img src="{{ $event->image }}" alt="#">
+                                <img src="{{ asset('storage/' . $event->image) }}" alt="#">
                             </div>
                         </div>
                         <div class="col-lg-6 col-12 padding-left">
@@ -38,7 +38,7 @@
                                     <h1 class="price">Rp{{ $event->cost }}</h1>
                                     <p class="small-title">Save The Date</p>
                                     <div class="coming-time">
-                                        <div class="clearfix" data-countdown="{{ $event->event_date }}"></div>
+                                        <div class="clearfix" data-countdown="{{ $event->end }}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -46,6 +46,7 @@
                     @endforeach
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection

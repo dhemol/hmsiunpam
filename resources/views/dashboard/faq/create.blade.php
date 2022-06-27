@@ -5,28 +5,27 @@
     <section class="section">
         <div class="section-header">
             <div class="section-header-back">
-                <a href="{{ url('/dashboard/member') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+                <a href="{{ url('/dashboard/faq') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
             <h1>Create Data FAQ</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ url('/dashboard/faq') }}">Data Frequently Asked Questions</a>
-                </div>
-                <div class="breadcrumb-item">Create Data Frequently Asked Questions</div>
+                <div class="breadcrumb-item"><a href="{{ url('/dashboard/faq') }}">Data FAQ</a></div>
+                <div class="breadcrumb-item">Create Data FAQ</div>
             </div>
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Create Data Frequently Asked Questions</h2>
+            <h2 class="section-title">Create Data FAQ</h2>
             <p class="section-lead">
-                On this page you can create a new Data Frequently Asked Questions and fill in all fields.
+                On this page you can create a new Data FAQ and fill in all fields.
             </p>
 
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Add Your Data</h4>
+                            <h4>Add Your FAQ's Data</h4>
                         </div>
                         <div class="card-body">
                             <form action="{{ url('/dashboard/faq') }}" method="POST" enctype="multipart/form-data">
@@ -34,20 +33,42 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Question</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <textarea name="question" id="question" cols="100" rows="10"></textarea>
+                                        <input type="text" class="form-control @error('question') is-invalid @enderror"
+                                            name="question" id="question" value="{{ old('question') }}" required
+                                            autofocus>
+                                        @error('question')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Slug</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control @error('slug') is-invalid @enderror"
+                                            name="slug" id="slug" value="{{ old('slug') }}" required>
+                                        @error('slug')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Answer</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <textarea name="answer" id="answer" cols="100" rows="10"></textarea>
+                                        @error('answer')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                        <input id="answer" type="hidden" name="answer" value="{{ old('answer') }}">
+                                        <trix-editor input="answer"></trix-editor>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                     <div class="col-sm-12 col-md-7">
-                                        <button class="btn btn-primary" type="submit">Create Data Frequently Asked
-                                            Questions</button>
+                                        <button class="btn btn-primary" type="submit">Create Data FAQ</button>
                                     </div>
                                 </div>
                             </form>
@@ -57,4 +78,18 @@
             </div>
         </div>
     </section>
+    <script>
+        const question = document.querySelector("#question");
+        const slug = document.querySelector("#slug");
+
+        question.addEventListener("keyup", function() {
+            let preslug = question.value;
+            preslug = preslug.replace(/ /g, "-");
+            slug.value = preslug.toLowerCase();
+        });
+
+        document.addEventListener('trix-file-accept', function(e) {
+            e.preventDefault();
+        });
+    </script>
 @endsection

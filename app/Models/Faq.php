@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Faq extends Model
 {
     use HasFactory;
-    protected $fillable = ['question', 'slug', 'answer', 'image'];
+    protected $guarded = ['id'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

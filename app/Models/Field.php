@@ -20,7 +20,7 @@ class Field extends Model
         return 'slug';
     }
 
-    public function department()
+    public function departments()
     {
         return $this->hasMany(Department::class);
     }

@@ -62,7 +62,7 @@
                                             <td>
                                                 {{ $loop->iteration }}
                                             </td>
-                                            <td style="text-align: left" width="200px">
+                                            <td style="text-align: left" width="210px">
                                                 {{ $post->title }}
                                             </td>
                                             <td>
@@ -71,7 +71,7 @@
                                             <td>
                                                 {{ $post->category->name }}
                                             </td>
-                                            <td style="text-align: justify" width="230px">{{ $post->excerpt }}</td>
+                                            <td style="text-align: justify" width="300px">{{ $post->excerpt }}</td>
                                             <td> {{ $post->created_at->format('d M Y') }}
                                             </td>
                                             <td>

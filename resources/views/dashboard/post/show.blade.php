@@ -1,5 +1,5 @@
 @extends('dashboardlayouts.main')
-@section('title', 'Detail Artikel | HMSI UNPAM')
+@section('title', 'Detail Blog | HMSI UNPAM')
 @section('content')
     <section class="section">
         <div class="section-header">

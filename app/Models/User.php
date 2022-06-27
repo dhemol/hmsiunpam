@@ -11,8 +11,6 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Field;
 use App\Models\Department;
-use App\Models\Status;
-use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -24,7 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guarded = ['id'];
-    protected $with = ['role', 'status', 'field', 'department'];
+    protected $with = ['field', 'department'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -64,16 +62,6 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class);
     }
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
-
-    public function status()
-    {
-        return $this->belongsTo(Status::class);
-    }
-
     public function getRouteKeyName()
     {
         return 'username';
@@ -87,19 +75,18 @@ class User extends Authenticatable
                 ->orWhere('username', 'like', '%' . $searchAnggota . '%')
                 ->orWhere('no_hp', 'like', '%' . $searchAnggota . '%')
                 ->orWhere('address', 'like', '%' . $searchAnggota . '%')
-                ->orWhere('images', 'like', '%' . $searchAnggota . '%');
+                ->orWhere('role', 'like', '%' . $searchAnggota . '%')
+                ->orWhere('status', 'like', '%' . $searchAnggota . '%');
         });
 
-        $query->when($filters['status'] ?? false, function ($query, $category) {
-            return $query->whereHas('status', function ($query) use ($category) {
-                $query->where('slug', $category);
-            });
-        });
-
-        $query->when($filters['role'] ?? false, function ($query, $role) {
-            return $query->whereHas('role', function ($query) use ($role) {
-                $query->where('slug', $role);
-            });
+        $query->when($filters['searchAdmin'] ?? false, function ($query, $searchAdmin) {
+            return $query->where('name', 'like', '%' . $searchAdmin . '%')
+                ->orWhere('email', 'like', '%' . $searchAdmin . '%')
+                ->orWhere('username', 'like', '%' . $searchAdmin . '%')
+                ->orWhere('no_hp', 'like', '%' . $searchAdmin . '%')
+                ->orWhere('address', 'like', '%' . $searchAdmin . '%')
+                ->orWhere('role', 'like', '%' . $searchAdmin . '%')
+                ->orWhere('status', 'like', '%' . $searchAdmin . '%');
         });
 
         $query->when($filters['field'] ?? false, function ($query, $field) {

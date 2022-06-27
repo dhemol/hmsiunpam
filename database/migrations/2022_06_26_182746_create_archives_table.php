@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('archives', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('title');
+            $table->string('slug');
+            $table->string('nomor_surat');
+            $table->enum('type', ['Surat Masuk', 'Surat Keluar', 'Surat Internal', 'Laporan', 'Lain-lain']);
+            $table->string('file');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('archives');
     }
 };

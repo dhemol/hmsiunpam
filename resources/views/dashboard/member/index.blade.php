@@ -17,7 +17,11 @@
             <p class="section-lead">
                 You can manage all Members, such as editing, deleting and more.
             </p>
-
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card">
@@ -25,20 +29,8 @@
                             <div class="float-left">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#">All <span
-                                                class="badge badge-white">5</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Pengurus<span
-                                                class="badge badge-primary">1</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Anggota Aktif<span
-                                                class="badge badge-primary">1</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Anggota Pasif<span
-                                                class="badge badge-primary">0</span></a>
+                                        <a class="nav-link active" href="{{ url('dashboard/memberPDF') }}">Print
+                                            PDF<span class="badge badge-white"><i class="fas fa-print"></i></span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -62,10 +54,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>NIK</th>
-                                        <th>Role</th>
-                                        <th>Images</th>
+                                        <th>Image</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Field</th>
+                                        <th>Department</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -73,25 +66,33 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $member->id }}</td>
-                                            <td width="200px">{{ $member->role->name }}</td>
-                                            <td><img src="{{ $member->images }}" alt="image" width="100"
-                                                    height="100" data-toggle="title" title=""></td>
+                                            <td> <img src="{{ asset('storage/' . $member->image) }}" alt="image"
+                                                    width="100" height="100"></td>
                                             <td>{{ $member->name }}</td>
-                                            <td width="150px">{{ $member->email }}</td>
+                                            <td>{{ $member->email }}</td>
+                                            <td width="230px">{{ $member->field->name }}</td>
+                                            <td width="230px">{{ $member->department->name }}</td>
                                             <td>
-                                                <div class="badge badge-primary">{{ $member->status->name }}</div>
+                                                @if ($member->status == 'demisioner')
+                                                    <div class="badge badge-success">{{ $member->status }}</div>
+                                                @elseif ($member->status == 'nonaktif')
+                                                    <div class="badge badge-danger">{{ $member->status }}</div>
+                                                @else
+                                                    <div class="badge badge-primary">{{ $member->status }}</div>
+                                                @endif
                                             </td>
                                             <td>
                                                 <a href="/dashboard/member/{{ $member->username }}"
-                                                    class="btn btn-success btn-action mr-1" data-toggle="tooltip"
-                                                    title="View"><i class="fas fa-user-alt"></i></a>
-                                                <a href="/dashboard/member/{{ $member->username }}/edit"
                                                     class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                     title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a href="/dashboard/member/{{ $member->username }}/destroy"
-                                                    class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
+                                                <form action="/dashboard/member/{{ $member->username }}" method="post"
+                                                    class="d-inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger btn-action"
+                                                        onclick="return confirm('Are you sure?')"><i
+                                                            class="fas fa-trash"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

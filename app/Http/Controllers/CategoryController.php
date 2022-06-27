@@ -13,12 +13,18 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function home()
+    {
+        return view('dashboard/category/home', [
+            "categories" => Category::all()
+        ]);
+    }
+
     public function index()
     {
         // Route Category
-        $categories = Category::all();
         return view('/dashboard/category/index', [
-            "categories" => $categories,
+            "categories" => Category::all(),
             "title" => "Category | HMSI UNPAM"
         ]);
     }
@@ -31,7 +37,7 @@ class CategoryController extends Controller
     public function create()
     {
         // Route Category Create
-        return view('/dashboard.category.create', [
+        return view('/dashboard/category/create', [
             "title" => "Category Create | HMSI UNPAM"
         ]);
     }
@@ -45,8 +51,13 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         // Route Category Store
-        $category = Category::create($request->all());
-        return redirect()->route('/dashboard.category.index')->with('success', 'Category created successfully.');
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories',
+        ]);
+        Category::create($validatedData);
+
+        return redirect('/dashboard/category')->with('success', 'Category has been created');
     }
 
     /**
@@ -58,7 +69,7 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         // Route Category Show
-        return view('/dashboard.category.show', [
+        return view('/dashboard/category/show', [
             "category" => $category,
             "title" => "Category Show | HMSI UNPAM"
         ]);
@@ -73,7 +84,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         // Route Category Edit
-        return view('/dashboard.category.edit', [
+        return view('/dashboard/category/edit', [
             "category" => $category,
             "title" => "Category Edit | HMSI UNPAM"
         ]);
@@ -89,8 +100,19 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         // Route Category Update
-        $category->update($request->all());
-        return redirect()->route('/dashboard.category.index')->with('success', 'Category updated successfully.');
+        $rules = [
+            'name' => 'required|string|max:255',
+        ];
+
+        if ($request->slug != $category->slug) {
+
+            $rules['slug'] = 'required|unique:events';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        $category->update($validatedData);
+        return redirect('/dashboard/category')->with('success', 'Category has been updated');
     }
 
     /**
@@ -102,7 +124,8 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         // Route Category Destroy
-        $category->delete();
-        return redirect()->route('/dashboard.category.index')->with('success', 'Category deleted successfully.');
+        Category::destroy($category->id);
+
+        return redirect('/dashboard/category')->with('success', 'Category has been deleted');
     }
 }

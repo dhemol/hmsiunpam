@@ -11,42 +11,105 @@
         <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a class="nav-link"
                 href="{{ url('/dashboard') }}"><i class="fas fa-fire"></i>
                 <span>Beranda</span></a>
-        <li><a class="nav-link" href="{{ url('/') }}"><i class="fas fa-newspaper"></i>
-                <span>BASI</span></a></li>
         </li>
+        @can('superadmin')
+            <li class="{{ Request::is('dashboard/admin*') ? 'active' : '' }}"><a class="nav-link"
+                    href="{{ url('/dashboard/admin') }}"><i class="fas fa-user"></i>
+                    <span>Data Admin</span></a></li>
+        @endcan
+        @can('superadmin')
+            <li class="{{ Request::is('dashboard/archive*') ? 'active' : '' }}"><a class="nav-link "
+                    href="{{ url('/dashboard/archive') }}"><i class="fas fa-file"></i>
+                    <span>Data Arsip</span></a></li>
+        @elsecan('admin')
+            <li class="{{ Request::is('dashboard/archive*') ? 'active' : '' }}"><a class="nav-link "
+                    href="{{ url('/dashboard/archive') }}"><i class="fas fa-file"></i>
+                    <span>Data Arsip</span></a></li>
+        @endcan
+        @can('superadmin')
+            <li
+                class="nav-item dropdown {{ Request::is('dashboard/post') && 'dashboard/event' && 'dashboard/about' && 'dashboard/faq' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-home"></i>
+                    <span>Data Organisasi</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::is('dashboard/field*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/field') }}">Daftar Bidang</a></li>
+                    <li class="{{ Request::is('dashboard/department*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/department') }}">Daftar Departement</a></li>
+                    <li class="{{ Request::is('dashboard/member*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/member') }}">Daftar Anggota</a></li>
+                </ul>
+            </li>
+        @elsecan('admin')
+            <li
+                class="nav-item dropdown {{ Request::is('dashboard/post') && 'dashboard/event' && 'dashboard/about' && 'dashboard/faq' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-home"></i>
+                    <span>Data Organisasi</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::is('dashboard/field*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/field') }}">Daftar Bidang</a></li>
+                    <li class="{{ Request::is('dashboard/department*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/department') }}">Daftar Departement</a></li>
+                    <li class="{{ Request::is('dashboard/member*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/member') }}">Daftar Anggota</a></li>
+                </ul>
+            </li>
+        @endcan
+        @can('superadmin')
+            <li class="nav-item dropdown"
+                class="{{ Request::is('dashboard/post') && 'dashboard/event' && 'dashboard/about' && 'dashboard/faq' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-newspaper"></i>
+                    <span>Data Konten</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::is('dashboard/post*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/post') }}">Blog</a></li>
+                    <li class="{{ Request::is('dashboard/category*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/category') }}">Category</a></li>
+                    <li class="{{ Request::is('dashboard/event*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/event') }}">Agenda</a></li>
+                    <li class="{{ Request::is('dashboard/about*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/about') }}">About</a></li>
+                    <li class="{{ Request::is('dashboard/faq*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/faq') }}">FAQ</a></li>
+                </ul>
+            </li>
+        @elsecan('admin')
+            <li class="nav-item dropdown"
+                class="{{ Request::is('dashboard/post') && 'dashboard/event' && 'dashboard/about' && 'dashboard/faq' ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-newspaper"></i>
+                    <span>Data Konten</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::is('dashboard/post*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/post') }}">Blog</a></li>
+                    <li class="{{ Request::is('dashboard/category*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/category') }}">Category</a></li>
+                    <li class="{{ Request::is('dashboard/event*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/event') }}">Agenda</a></li>
+                    <li class="{{ Request::is('dashboard/about*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/about') }}">About</a></li>
+                    <li class="{{ Request::is('dashboard/faq*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/faq') }}">FAQ</a></li>
+                </ul>
+            </li>
+        @endcan
         <li class="menu-header">Main Menu</li>
-        <li class="{{ Request::is('dashboard/member') ? 'active' : '' }}"><a class="nav-link"
-                href="{{ url('/dashboard/member') }}"><i class="fas fa-user"></i>
-                <span>Anggota</span></a></li>
-        <li class="{{ Request::is('dashboard/archive') ? 'active' : '' }}"><a class="nav-link "
-                href="{{ url('/dashboard/archive') }}"><i class="fas fa-file"></i>
-                <span>Arsip</span></a></li>
-        <li class="{{ Request::is('dashboard/event') ? 'active' : '' }}"><a class="nav-link "
-                href="{{ url('/dashboard/event') }}"><i class="fas fa-calendar"></i>
+        <li class="{{ Request::is('dashboard/post*') ? 'active' : '' }}"><a class="nav-link "
+                href="{{ url('/dashboard/post') }}"><i class="fas fa-newspaper"></i>
+                <span>Blog</span></a></li>
+        <li class="{{ Request::is('dashboard/kategori*') ? 'active' : '' }}"><a class="nav-link "
+                href="{{ url('/dashboard/kategori') }}"><i class="fas fa-newspaper"></i>
+                <span>Category</span></a></li>
+        <li class="{{ Request::is('dashboard/agenda*') ? 'active' : '' }}"><a class="nav-link "
+                href="{{ url('/dashboard/agenda') }}"><i class="fas fa-calendar"></i>
                 <span>Agenda</span></a></li>
-        <li class="nav-item dropdown"
-            class="{{ Request::is('dashboard/post') && 'dashboard/event' && 'dashboard/about' && 'dashboard/faq' ? 'active' : '' }}">
-            <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-newspaper"></i>
-                <span>Konten</span></a>
-            <ul class="dropdown-menu">
-                <li class="{{ Request::is('dashboard/post') ? 'active' : '' }}"><a class="nav-link "
-                        href="{{ url('/dashboard/post') }}">Article</a></li>
-                <li class="{{ Request::is('dashboard/event') ? 'active' : '' }}"><a class="nav-link "
-                        href="{{ url('/dashboard/event') }}">Event</a></li>
-                <li class="{{ Request::is('dashboard/about') ? 'active' : '' }}"><a class="nav-link "
-                        href="{{ url('/dashboard/about') }}">About</a></li>
-                <li class="{{ Request::is('dashboard/faq') ? 'active' : '' }}"><a class="nav-link "
-                        href="{{ url('/dashboard/faq') }}">FAQ</a></li>
-            </ul>
-        </li>
         <li class="{{ Request::is('dashboard/gallery') ? 'active' : '' }}"><a class="nav-link "
                 href="{{ url('/dashboard/gallery') }}"><i class="far fa-images"></i>
-                <span>Galeri</span></a></li>
+                <span>Dokumentasi Kegiatan</span></a></li>
     </ul>
 
     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
         <a href="{{ url('/') }}" class="btn btn-primary btn-lg btn-block btn-icon-split">
-            <i class="fas fa-rocket"></i> Print Your FIle
+            <i class="fas fa-rocket"></i> Back To BASI
         </a>
     </div>
 </aside>

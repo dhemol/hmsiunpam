@@ -12,7 +12,7 @@ class Department extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->hasMany(User::class);
     }
 
     public function getRouteKeyName()

@@ -31,60 +31,118 @@
                             <form action="{{ url('/dashboard/member') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <input type="text" class="form-control" name="nik">
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" class="form-control" name="nama">
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Username</label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <input type="text" class="form-control" name="username">
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password</label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <input type="password" class="form-control" name="password">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                            name="name" id="name" value="{{ old('name') }}" required autofocus>
+                                        @error('name')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Email</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type=" email" class="form-control" name="email">
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                            name="email" id="email" value="{{ old('email') }}" required>
+                                        @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class=" form-group row mb-4">
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Username</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                            name="username" id="username" value="{{ old('username') }}" required>
+                                        @error('username')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control @error('password') is-invalid @enderror"
+                                            name="password" id="password" value="{{ old('password') }}" required>
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No.Hp</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="number" class="form-control" name="no_hp">
+                                        <input type="number" class="form-control @error('no_hp') is-invalid @enderror"
+                                            name="no_hp" id="no_hp" value="{{ old('no_hp') }}" required>
+                                        @error('no_hp')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class=" form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jabatan</label>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                        Address
+                                    </label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" class="form-control" name="jabatan">
+                                        <input type="text" class="form-control @error('address') is-invalid @enderror"
+                                            name="address" id="address" value="{{ old('address') }}" required>
+                                        @error('address')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class=" form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Field</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="field_id" id="field" class="form-select">
+                                            @foreach ($fields as $field)
+                                                <option value="{{ $field->id }}">
+                                                    {{ old('field_id') == $field->id ? ' selected' : ' ' }}
+                                                    {{ $field->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class=" form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Department</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="department_id" id="department" class="form-select">
+                                            @foreach ($departments as $department)
+                                                <option value="{{ $department->id }}">
+                                                    {{ old('department_id') == $department->id ? ' selected' : ' ' }}
+                                                    {{ $department->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Address</label>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Image</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <textarea class="summernote-simple" name="alamat"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Images</label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <div id="image-preview" class="image-preview">
-                                            <label for="image-upload" id="image-label">Choose File</label>
-                                            <input type="file" name="foto" id="image-upload" />
-                                        </div>
+                                        <img class="img-fluid mb-3 col-sm-5" id="img-preview">
+                                        <label for="image" id="image"></label>
+                                        <input class="form-control @error('image') is-invalid @enderror" type="file"
+                                            id="image" name="image"
+                                            onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])">
+                                        @error('image')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">

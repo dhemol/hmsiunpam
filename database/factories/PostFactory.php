@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\Category;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -22,9 +25,9 @@ class PostFactory extends Factory
             'excerpt' => $this->faker->paragraph(),
             'body' => collect($this->faker->paragraphs(mt_rand(5, 10)))->map(fn ($p) => "<p>{$p}</p>")->implode("\n"),
             'image' => $this->faker->imageUrl(640, 480),
-            'published_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
-            'category_id' => (mt_rand(1, 5)),
-            'user_id' => 2,
+            'user_id' => 1,
+            'category_id' => 1
+
         ];
     }
 }

@@ -18,7 +18,7 @@ class EventFactory extends Factory
     {
         return [
             // 
-            'category_id' => 2,
+            'category_id' => $this->faker->unique()->numberBetween(1, 6),
             'title' => $this->faker->sentence(mt_rand(2, 10)),
             'slug' => $this->faker->slug(),
             'cost' => $this->faker->numberBetween(50000, 150000),

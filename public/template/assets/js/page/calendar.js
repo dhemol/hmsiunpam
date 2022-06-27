@@ -9,107 +9,154 @@ $(document).ready(function () {
     },
   });
 
-  var calendar = $("#calendar").fullCalendar({
-    editable: false,
-    events: SITEURL + "/event",
-    displayEventTime: true,
-    eventRender: function (event, element, view) {
+  $("#calendar").fullCalendar({
+    height: 'auto',
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay,listWeek'
+    },
 
+    defaultDate: moment(),
+    navLinks: true, // can click day/week names to navigate views
+    editable: false,
+    eventLimit: true, // allow "more" link when too many events
+    events: SITEURL + "/agenda",
+    eventRender: function (event, element) {
       if (event.allDay === true) {
         event.allDay = true;
+        element.find(".fc-title").append("<br/>" + event.location);
       } else {
         event.allDay = false;
       }
     },
-    selectable: true,
-    selectHelper: true,
-    select: function (start, end, allDay) {
-      var title = prompt("Event Title:");
-      if (title) {
-        var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
-        var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
-        $.ajax({
-          url: SITEURL + "/eventAjax",
-          data: "title=" + title + "&start=" + start + "&end=" + end,
-          "&type=" : "add",
-          type: "POST",
-          success: function (data) {
-            calendar.fullCalendar(
-              "renderEvent",
-              {
-                
-                title: title,
-                start: start,
-                end: end,
-                allDay: allDay,
-              },
-              true // make the event "stick"
-            );
-          },
-        });
-      }
-      calendar.fullCalendar("unselect");
-    },
-
-    eventDrop: function (event, revertFunc) {
-      event.start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-      event.end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
-      $.ajax({
-        url: SITEURL + "/eventAjax",
-        data: {
-          id: event.id,
-          start: event.start,
-          end: event.end,
-          type: "update",
-        },
-        type: "POST",
-        success: function (response) {
-          if (response.status != "success") {
-            revertFunc();
-          }
-        },
-      });
-    },
-    eventClick: function (event) {
-      if (confirm("Are you sure you want to remove it?")) {
-        $.ajax({
-          url: SITEURL + "/eventAjax",
-          data: {
-            id: event.id,
-            type: "delete",
-          },
-          type: "POST",
-          success: function (response) {
-            calendar.fullCalendar("removeEvents", event.id);
-            response.forEach(function (event) {
-              calendar.fullCalendar("renderEvent", event, true);
-            });
-          },
-        });
-      }
-      calendar.fullCalendar("unselect");
-    },
-    eventResize: function (event, revertFunc) {
-      event.start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-      event.end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
-      $.ajax({
-        url: SITEURL + "/eventAjax",
-        data: {
-          id: event.id,
-          start: event.start,
-          end: event.end,
-          type: "update",
-        },
-        type: "POST",
-        success: function (response) {
-          if (response.status != "success") {
-            revertFunc();
-          }
-        },
-      });
-    },
-  });
+    eventColor: "#2C2550",
+    eventBackgroundColor: "#E31E25",
+    eventBorderColor: "#E31E25",
+    eventTextColor: "#fff",
 });
+});
+
+
+
+
+
+//     editable: false,
+//     events: SITEURL + "/event",
+//     displayEventTime: true,
+//     eventRender: function (event, element, view) {
+//       if (event.allDay === true) {
+//         event.allDay = true;
+//         element.find(".fc-title").append("<br/>" + event.location + "<br/>" + event.description);
+//       } else {
+//         event.allDay = false;
+//       }
+//     },
+//     eventClick: function (event) {
+//       $("#event-modal").modal();
+//       $("#event-modal #event-title").html(event.title);
+//       $("#event-modal #event-body").html(event.description);
+//       $("#event-modal #event-location").html(event.location);
+//       $("#event-modal #event-start").html(moment(event.start).format("MMMM Do YYYY, h:mm:ss a"));
+//       $("#event-modal #event-end").html(moment(event.end).format("MMMM Do YYYY, h:mm:ss a"));
+//     }
+//   });
+// }
+// );
+//       {
+//         title: "All Day Event",
+//         start: event.start,
+
+//     eventColor: ,
+//     selectable: true,
+//     selectHelper: true,
+    // select: function (start, end, allDay) {
+    //   var title = prompt("Event Title:");
+    //   if (title) {
+    //     var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
+    //     var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
+    //     $.ajax({
+    //       url: SITEURL + "/eventAjax",
+    //       data: "title=" + title + "&start=" + start + "&end=" + end,
+    //       "&type=" : "add",
+    //       type: "POST",
+    //       success: function (data) {
+    //         calendar.fullCalendar(
+    //           "renderEvent",
+    //           {
+                
+    //             title: title,
+    //             start: start,
+    //             end: end,
+    //             allDay: allDay,
+    //           },
+    //           true // make the event "stick"
+    //         );
+    //       },
+    //     });
+    //   }
+    //   calendar.fullCalendar("unselect");
+    // },
+
+    // eventDrop: function (event, revertFunc) {
+    //   event.start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
+    //   event.end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
+    //   $.ajax({
+    //     url: SITEURL + "/eventAjax",
+    //     data: {
+    //       id: event.id,
+    //       start: event.start,
+    //       end: event.end,
+    //       type: "update",
+    //     },
+    //     type: "POST",
+    //     success: function (response) {
+    //       if (response.status != "success") {
+    //         revertFunc();
+    //       }
+    //     },
+    //   });
+    // },
+    // eventClick: function (event) {
+    //   if (confirm("Are you sure you want to remove it?")) {
+    //     $.ajax({
+    //       url: SITEURL + "/eventAjax",
+    //       data: {
+    //         id: event.id,
+    //         type: "delete",
+    //       },
+    //       type: "POST",
+    //       success: function (response) {
+    //         calendar.fullCalendar("removeEvents", event.id);
+    //         response.forEach(function (event) {
+    //           calendar.fullCalendar("renderEvent", event, true);
+    //         });
+    //       },
+    //     });
+    //   }
+    //   calendar.fullCalendar("unselect");
+    // },
+    // eventResize: function (event, revertFunc) {
+    //   event.start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
+    //   event.end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
+    //   $.ajax({
+    //     url: SITEURL + "/eventAjax",
+    //     data: {
+    //       id: event.id,
+    //       start: event.start,
+    //       end: event.end,
+    //       type: "update",
+    //     },
+    //     type: "POST",
+    //     success: function (response) {
+    //       if (response.status != "success") {
+    //         revertFunc();
+    //       }
+    //     },
+    //   });
+    // },
+//   });
+// });
 
 //   if (event.allDay === "true") {
 //     event.allDay = true;
@@ -291,4 +338,4 @@ $(document).ready(function () {
 //   toastr.success(message, "Event");
 // }
 
-// console.log("");
+// console.log("")

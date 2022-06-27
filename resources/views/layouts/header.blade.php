@@ -26,7 +26,7 @@
                         <ul class="list-main">
                             <li><i class="ti-anchor"></i><a href="#">{{ auth()->user()->name }}</a></li>
                             <li>
-                                <form action="{{ url('/logout') }}" method="POST">
+                                <form action="{{ url('/logout') }}" method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit" class="list-main"><i class="ti-power-off"></i>Logout</button>
                                 </form>
@@ -84,14 +84,6 @@
             <div class="col-lg-10 col-md-8 col-12">
                 <div class="search-bar-top">
                     <div class="search-bar">
-                        <select>
-                            <option selected="selected">All Category</option>
-                            <option>Academic</option>
-                            <option>Event</option>
-                            <option>Scholarship</option>
-                            <option>Technology Research</option>
-                            <option>Community Service</option>
-                        </select>
                         <form name="search" method="get" action="/post">
                             @if (request('category'))
                                 <input type="hidden" name="category" value="{{ request('category') }}">

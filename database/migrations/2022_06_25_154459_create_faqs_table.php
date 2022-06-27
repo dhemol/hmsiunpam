@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('question');
             $table->string('slug')->unique();
             $table->text('answer');
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

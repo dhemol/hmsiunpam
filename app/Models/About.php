@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class About extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description', 'image'];
+    protected $guarded = ['id'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

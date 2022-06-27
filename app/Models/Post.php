@@ -43,11 +43,6 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function event()
-    {
-        return $this->belongsTo(Event::class);
-    }
-
     public function getRouteKeyName()
     {
         return 'slug';
