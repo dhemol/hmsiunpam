@@ -48,7 +48,7 @@
 <div class="middle-inner">
     <div class="container">
         <div class="row">
-            <div class="col-lg-2 col-md-4 col-12">
+            <div class="col-lg-4 col-md-4 col-12">
 
 
                 <!-- Logo -->
@@ -81,7 +81,7 @@
                 <!--/ End Search Form -->
                 <div class="mobile-nav"></div>
             </div>
-            <div class="col-lg-10 col-md-8 col-12">
+            <div class="col-lg-8 col-md-8 col-12">
                 <div class="search-bar-top">
                     <div class="search-bar">
                         <form name="search" method="get" action="/post">

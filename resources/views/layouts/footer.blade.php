@@ -1,3 +1,26 @@
+<!-- Start Shop Newsletter  -->
+<section class="shop-newsletter section">
+    <div class="container">
+        <div class="inner-top">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-12">
+                    <!-- Start Newsletter Inner -->
+                    <div class="inner">
+                        <h4>Collaboration</h4>
+                        <p>Wanna collaboration with us? <span>Send Your Email</span> here!</p>
+                        <form action="" method="get" target="_blank" class="newsletter-inner">
+                            <input name="EMAIL" placeholder="Your email address" required="" type="email">
+                            <button class="btn">Send</button>
+                        </form>
+                    </div>
+                    <!-- End Newsletter Inner -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Shop Newsletter -->
+
 <section class="shop-services section home">
     <div class="container">
         <div class="row">
@@ -41,7 +64,9 @@
         </div>
     </div>
 </section>
-<!-- Footer Top -->
+<!-- End Services Area -->
+
+<!-- Start Footer Area -->
 <div class="copyright">
     <div class="container">
         <div class="inner">
@@ -64,3 +89,4 @@
         </div>
     </div>
 </div>
+<!-- Footer Top -->

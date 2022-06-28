@@ -8,6 +8,7 @@ use App\Models\Archive;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\About;
 use App\Models\User;
 
 class PagesController extends Controller
@@ -15,10 +16,22 @@ class PagesController extends Controller
     // Route Home
     public function home()
     {
+        $title = '';
+        if (request('category')) {
+            $category = Category::firstWhere('slug', request('category'));
+            $title = ' in ' . $category->name;
+        }
+
+        if (request('author')) {
+            $author = User::firstWhere('username', request('author'));
+            $title = ' by ' . $author->name;
+        }
         return view('index', [
-            "posts" => Post::latest()->get(),
-            "pengurus" => User::where('role', 'admin')->get(),
-            "title" => "Home | HMSI UNPAM",
+
+            "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(2)->withQueryString(),
+            "pengurus" => User::where('role', 'admin')->with(['field', 'department', 'position'])->get(),
+            "events" => Event::latest()->filter(request(['searchEvent', 'category']))->get(),
+            "title" => "Home | HMSI UNPAM" . $title,
             "active" => "Home | HMSI UNPAM"
         ]);
     }
@@ -27,6 +40,7 @@ class PagesController extends Controller
     public function about()
     {
         return view('about', [
+            "abouts" => About::all(),
             "title" => "About | HMSI UNPAM",
             "active" => "About | HMSI UNPAM"
         ]);
@@ -74,8 +88,7 @@ class PagesController extends Controller
         return view('post_detail', [
             "title" => "Blog | HMSI UNPAM",
             "active" => "Blog | HMSI UNPAM",
-            "posts" => $posts,
-            "categories" => Category::all(),
+            "posts" => $posts->with('category', 'author')->first(),
         ]);
     }
 

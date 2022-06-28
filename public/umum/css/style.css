@@ -159,7 +159,7 @@ Version:1.0
   width: 100px;
   height: 100px;
   border-radius: 100%;
-  background:#2C2550;
+  background:#E31E25;
   -webkit-animation: preloader-fx 1.6s linear infinite;
   animation: preloader-fx 1.6s linear infinite;
 }
@@ -3836,7 +3836,7 @@ Version:1.0
 	text-align:center;
 }
 .shop-newsletter .inner h4 {
-	color: #fff;
+	color: #2C2550;
 	font-size: 17px;
 	font-weight: 600;
 	margin-bottom: 5px;
@@ -3849,7 +3849,7 @@ Version:1.0
 	margin-bottom:30px;
 }
 .shop-newsletter .inner p span{
-	color:#2C2550;
+	color:#E31E25;
 }
 .shop-newsletter .newsletter-inner{
 	position:relative;
@@ -4352,9 +4352,6 @@ Version:1.0
 	border-color:transparent;
 }
 /* Blog Newslatter CSS */
-.main-sidebar .newsletter{
-	
-}
 .main-sidebar .newsletter .letter-inner {
 	position:relative;
 	padding: 35px 30px;
@@ -4368,6 +4365,7 @@ Version:1.0
 	font-size: 18px;
 	font-weight: 600;
 	line-height: 24px;
+	color: #2C2550;
 }
 .main-sidebar .newsletter .letter-inner p{
 	margin-bottom: 20px;

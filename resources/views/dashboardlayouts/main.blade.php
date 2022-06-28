@@ -13,13 +13,16 @@
     <link rel="icon" type="image/png" href="{{ url('/img/hmsi.png') }}">
 
     <!-- General CSS Files -->
-    <link rel="stylesheet" href="{{ url('/template/node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/template/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('/template/node_modules/@fortawesome/fontawesome-free/css/all.min.css') }}">
 
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ url('/template/node_modules/fullcalendar/dist/fullcalendar.min.css') }}">
-    <link rel="stylesheet" href="{{ url('/template/node_modules/bootstrap-social/bootstrap-social.css') }}">
-    <link rel="stylesheet" href="{{ url('/template/node_modules/summernote/dist/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ url('/template/assets/css/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/template/assets/css/bootstrap-social.css') }}">
+    <link rel="stylesheet" href="{{ url('/template/assets/css/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ url('/template/assets/css/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/template/assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/template/assets/css/owl.theme.default.min.css') }}">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ url('/template/assets/css/style.css') }}">
@@ -64,17 +67,21 @@
     </div>
 
     <!-- General JS Scripts -->
-    <script src="{{ url('/template/node_modules/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ url('/template/node_modules/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url('/template/node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ url('/template/node_modules/chart.js/dist/Chart.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/Chart.min.js') }}"></script>
     <script src="{{ url('/template/assets/js/stisla.js') }}"></script>
-    <script src="{{ url('/template/node_modules/moment/min/moment.min.js') }}"></script>
-    <script src="{{ url('/template/node_modules/popper.js/dist/popper.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/moment.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/popper.min.js') }}"></script>
 
     <!-- JS Libraies -->
-    <script src="{{ url('/template/node_modules/selectric/public/jquery.selectric.min.js') }}"></script>
-    <script src="{{ url('/template/node_modules/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/jquery.selectric.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/chocolat.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/fullcalendar.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ url('/template/assets/js/summernote-bs4.min.js') }}"></script>
 
     <!-- Template JS File -->
     <script src="{{ url('/template/assets/js/scripts.js') }}"></script>
@@ -82,8 +89,26 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ url('/template/assets/js/page/index-0.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/index.js') }}"></script>
     <script src="{{ url('/template/assets/js/page/features-posts.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/calendar.js') }}"></script> {{-- # SCRIPT FULL CALENDAR --}}
+    <script src="{{ url('/template/assets/js/page/features-post-create.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/features-setting-detail.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/forms-advanced-forms.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/calendar.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/components-chat-box.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/components-multiple-upload.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/components-statistic.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/components-table.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/components-user.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/bootstrap-modal.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/modules-slider.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/modules-chartjs.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/modules-datatables.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/modules-ion-icons.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/modules-sparkline.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/modules-sweetalert.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/modules-toastr.js') }}"></script>
+    <script src="{{ url('/template/assets/js/page/utilities-contact.js') }}"></script>
     <script type="text/javascript" src="{{ url('/template/assets/js/trix.js') }}"></script>
 
 </body>
