@@ -18,7 +18,7 @@
             <table class="table table-striped table-md">
                 <tr>
                     <th>No</th>
-                    <th>NIK</th>
+                    <th>NBA</th>
                     <th>Name</th>
                     <th>Field</th>
                     <th>Department</th>
@@ -27,7 +27,7 @@
                 @foreach ($admin as $admin)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td width="100px">{{ $admin->id }}</td>
+                        <td width="100px">{{ $admin->nba }}</td>
                         <td width="100px">{{ $admin->name }}</td>
                         <td width="100px">{{ $admin->field->name }}</td>
                         <td width="100px">{{ $admin->department->name }}</td>

@@ -55,11 +55,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Perihal</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control @error('perihal') is-invalid @enderror"
+                                            name="perihal" id="perihal" value="{{ old('perihal') }}" required>
+                                        @error('perihal')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nomor Surat</label>
                                     <div class="col-sm-12 col-md-7">
                                         <input type="text"
                                             class="form-control @error('nomor_surat') is-invalid @enderror"
-                                            name="nomor_surat" id="nomor_surat" value="{{ old('nomor_surat') }}" required>
+                                            name="nomor_surat" id="nomor_surat" value="{{ old('nomor_surat') }}"
+                                            required>
                                         @error('nomor_surat')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

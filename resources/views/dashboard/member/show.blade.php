@@ -41,7 +41,7 @@
                             <div class="media">
                                 <div class="media-icon"><i class="far fa-circle"></i></div>
                                 <div class="media-body">
-                                    <h6>{{ $member->id }}</h6>
+                                    <h6>{{ $member->nba }}</h6>
                                     <p>ID</p>
                                 </div>
                             </div>
@@ -93,6 +93,20 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>NBA</label>
+                                            <div class="col-sm-12 col-md-12">
+                                                <input type="text"
+                                                    class="form-control @error('nba') is-invalid @enderror" name="nba"
+                                                    id="nba" value="{{ old('nba', $member->nba) }}" disabled
+                                                    readonly>
+                                                @error('nba')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="form-group col-md-12 col-12">
                                             <label>Name</label>
                                             <div class="col-sm-12 col-md-12">
@@ -152,8 +166,9 @@
                                             <label>No.Hp</label>
                                             <div class="col-sm-12 col-md-12">
                                                 <input type="number"
-                                                    class="form-control @error('no_hp') is-invalid @enderror" name="no_hp"
-                                                    id="no_hp" value="{{ old('no_hp', $member->no_hp) }}" required>
+                                                    class="form-control @error('no_hp') is-invalid @enderror"
+                                                    name="no_hp" id="no_hp"
+                                                    value="{{ old('no_hp', $member->no_hp) }}" required>
                                                 @error('no_hp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -197,6 +212,19 @@
                                                         {{ $member->status == 'demisioner' ? 'selected' : '' }}>
                                                         Demisioner
                                                     </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Position</label>
+                                            <div class="col-sm-12 col-md-12">
+                                                <select name="position_id" id="position" class="form-select">
+                                                    @foreach ($positions as $position)
+                                                        <option value="{{ $position->id }}">
+                                                            {{ old('position_id', $member->position_id) == $position->id ? ' selected' : ' ' }}
+                                                            {{ $position->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

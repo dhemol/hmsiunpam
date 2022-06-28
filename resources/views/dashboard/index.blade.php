@@ -8,15 +8,30 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-primary">
+                    <div class="card-icon bg-success">
                         <i class="far fa-user"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Pengurus</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $pengurus->count() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-primary">
+                        <i class="fas fa-users"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
                             <h4>Anggota</h4>
                         </div>
                         <div class="card-body">
-                            100
+                            {{ $anggota->count() }}
                         </div>
                     </div>
                 </div>
@@ -31,7 +46,7 @@
                             <h4>Arsip</h4>
                         </div>
                         <div class="card-body">
-                            1,201
+                            {{ $archives->count() }}
                         </div>
                     </div>
                 </div>
@@ -46,71 +61,47 @@
                             <h4>Konten</h4>
                         </div>
                         <div class="card-body">
-                            42
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-success">
-                        <i class="far fa-images"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Galeri</h4>
-                        </div>
-                        <div class="card-body">
-                            47
+                            {{ $posts->count() }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+            <div class="col-12 col-md-6 col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Statistik Kegiatan</h4>
-                        <div class="card-header-action">
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-primary">Week</a>
-                                <a href="#" class="btn">Month</a>
-                            </div>
-                        </div>
+                        <h4>BPH HMSI UNPAM</h4>
                     </div>
                     <div class="card-body">
-                        <canvas id="myChart" height="182"></canvas>
-                        <div class="statistic-details mt-sm-4">
-                            <div class="statistic-details-item">
-                                <span class="text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 7%</span>
-                                <div class="detail-value">$243</div>
-                                <div class="detail-name">Today's Sales</div>
+                        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                @foreach ($pengurus as $key => $bph)
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                        <img class="d-block w-100" src="{{ asset('storage/' . $bph->image) }}"
+                                            alt="{{ $bph->name }}">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>{{ $bph->name }}</h5>
+                                            <p>{{ $bph->position->name }} HMSI UNPAM</p>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-                            <div class="statistic-details-item">
-                                <span class="text-muted"><span class="text-danger"><i
-                                            class="fas fa-caret-down"></i></span> 23%</span>
-                                <div class="detail-value">$2,902</div>
-                                <div class="detail-name">This Week's Sales</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <span class="text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span>9%</span>
-                                <div class="detail-value">$12,821</div>
-                                <div class="detail-name">This Month's Sales</div>
-                            </div>
-                            <div class="statistic-details-item">
-                                <span class="text-muted"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> 19%</span>
-                                <div class="detail-value">$92,142</div>
-                                <div class="detail-name">This Year's Sales</div>
-                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+            <div class="col-lg-5 col-md-12 col-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Recent Activities</h4>
@@ -123,7 +114,8 @@
                                 <div class="media-body">
                                     <div class="float-right text-primary">Now</div>
                                     <div class="media-title">Farhan A Mujib</div>
-                                    <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla
+                                    <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
+                                        Nulla
                                         vel metus scelerisque ante sollicitudin.</span>
                                 </div>
                             </li>
@@ -133,7 +125,8 @@
                                 <div class="media-body">
                                     <div class="float-right">12m</div>
                                     <div class="media-title">Ujang Maman</div>
-                                    <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla
+                                    <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
+                                        Nulla
                                         vel metus scelerisque ante sollicitudin.</span>
                                 </div>
                             </li>
@@ -143,7 +136,8 @@
                                 <div class="media-body">
                                     <div class="float-right">17m</div>
                                     <div class="media-title">Rizal Fakhri</div>
-                                    <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla
+                                    <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
+                                        Nulla
                                         vel metus scelerisque ante sollicitudin.</span>
                                 </div>
                             </li>

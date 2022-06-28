@@ -8,10 +8,10 @@ use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -58,6 +58,9 @@ Route::resource('/dashboard/field', FieldController::class)->except('show')->mid
 // Route Data Department
 Route::resource('/dashboard/department', DepartmentController::class)->except('show')->middleware('can:admin');
 
+// Route Data Department
+Route::resource('/dashboard/position', PositionController::class)->except('show')->middleware('can:admin');
+
 // Route Data Anggota
 Route::resource('/dashboard/member', MemberController::class)->middleware('can:admin');
 Route::get('/dashboard/member/{status:slug}', [MemberController::class, 'status'])->middleware('can:admin');
@@ -91,8 +94,6 @@ Route::resource('/dashboard/faq', FaqController::class)->except('show')->middlew
 
 // // Route Data Contact
 // Route::resource('/dashboard/contact', ContactController::class)->middleware('auth');
-// // Route Data Galeri
-// Route::resource('/dashboard/galeri', GaleriController::class)->middleware('auth');
 
 // Ini adalah Route yang mengarahkan ke view Login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

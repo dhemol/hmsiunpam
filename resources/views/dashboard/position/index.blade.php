@@ -1,65 +1,59 @@
 @extends('dashboardlayouts.main')
-@section('title', 'Data Archive | HMSI UNPAM')
+@section('title', 'Data Jabatan | HMSI UNPAM')
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Archive</h1>
+            <h1>Positions</h1>
             <div class="section-header-button">
-                <a href="{{ url('/dashboard/archive/create') }}" class="btn btn-primary">Add New</a>
+                <a href="{{ url('/dashboard/position/create') }}" class="btn btn-primary">Add New</a>
             </div>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ url('/dashboard.archive.index') }}">Archive</a></div>
-                <div class="breadcrumb-item">All Archive</div>
+                <div class="breadcrumb-item"><a href="{{ url('/dashboard.position.index') }}">Positions</a></div>
+                <div class="breadcrumb-item">All Positions</div>
             </div>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Archive</h2>
+            <h2 class="section-title">Positions</h2>
             <p class="section-lead">
-                You can manage all Archive, such as editing, deleting and more.
+                You can manage all Positions, such as editing, deleting and more.
             </p>
-
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="row mt-4">
-                <div class="col-12">
+                <div class="col-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Archive</h4>
+                            <h4>All Positions</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tr>
                                         <th>No</th>
-                                        <th>Titlle</th>
-                                        <th>Type</th>
-                                        <th>Perihal</th>
-                                        <th>Nomor Surat</th>
-                                        <th>File</th>
-                                        <th>Tanggal</th>
+                                        <th>Name</th>
+                                        <th>Total</th>
                                         <th>Action</th>
                                     </tr>
                                     <tr>
-                                        @foreach ($archives as $archive)
+                                        @foreach ($positions as $position)
                                             <td>
                                                 {{ $loop->iteration }}
                                             </td>
-                                            <td style="text-align: justify" width="230px">
-                                                {{ $archive->title }}
+                                            <td style="text-align: left">
+                                                {{ $position->name }}
                                             </td>
-                                            <td>{{ $archive->type }}</td>
-                                            <td>{{ $archive->perihal }}</td>
-                                            <td>{{ $archive->nomor_surat }}</td>
                                             <td>
-                                                <a href="{{ asset('storage/' . $archive->file) }}" target="_blank"
-                                                    class="btn btn-success">
-                                                    <i class="fas fa-file-pdf"></i>
-                                                </a>
-                                            <td>{{ $archive->created_at }}</td>
+                                                {{ $position->users->count('pivot.field_id') }}
+                                            </td>
                                             <td>
-                                                <a href="/dashboard/archive/{{ $archive->slug }}/edit"
+                                                <a href="/dashboard/position/{{ $position->slug }}/edit"
                                                     class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                     title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <form action="/dashboard/archive/{{ $archive->slug }}" method="POST"
+                                                <form action="/dashboard/position/{{ $position->slug }}" method="POST"
                                                     class="d-inline">
                                                     @method('delete')
                                                     @csrf
@@ -72,6 +66,20 @@
                                     @endforeach
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>A Typography by Developer</h4>
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0">You are THE CREATOR of your own destiny.</p>
+                                <footer class="blockquote-footer">Dhemol <cite title="Source Title">&copy;
+                                        <?= date('Y') ?></cite></footer>
+                            </blockquote>
                         </div>
                     </div>
                 </div>

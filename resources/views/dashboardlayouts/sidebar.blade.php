@@ -36,6 +36,8 @@
                             href="{{ url('/dashboard/field') }}">Daftar Bidang</a></li>
                     <li class="{{ Request::is('dashboard/department*') ? 'active' : '' }}"><a class="nav-link "
                             href="{{ url('/dashboard/department') }}">Daftar Departement</a></li>
+                    <li class="{{ Request::is('dashboard/position*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/position') }}">Daftar Jabatan</a></li>
                     <li class="{{ Request::is('dashboard/member*') ? 'active' : '' }}"><a class="nav-link "
                             href="{{ url('/dashboard/member') }}">Daftar Anggota</a></li>
                 </ul>
@@ -49,7 +51,9 @@
                     <li class="{{ Request::is('dashboard/field*') ? 'active' : '' }}"><a class="nav-link "
                             href="{{ url('/dashboard/field') }}">Daftar Bidang</a></li>
                     <li class="{{ Request::is('dashboard/department*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/department') }}">Daftar Departement</a></li>
+                            href="{{ url('/dashboard/department') }}">Daftar Department</a></li>
+                    <li class="{{ Request::is('dashboard/position*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/position') }}">Daftar Jabatan</a></li>
                     <li class="{{ Request::is('dashboard/member*') ? 'active' : '' }}"><a class="nav-link "
                             href="{{ url('/dashboard/member') }}">Daftar Anggota</a></li>
                 </ul>
@@ -102,9 +106,6 @@
         <li class="{{ Request::is('dashboard/agenda*') ? 'active' : '' }}"><a class="nav-link "
                 href="{{ url('/dashboard/agenda') }}"><i class="fas fa-calendar"></i>
                 <span>Agenda</span></a></li>
-        <li class="{{ Request::is('dashboard/gallery') ? 'active' : '' }}"><a class="nav-link "
-                href="{{ url('/dashboard/gallery') }}"><i class="far fa-images"></i>
-                <span>Dokumentasi Kegiatan</span></a></li>
     </ul>
 
     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

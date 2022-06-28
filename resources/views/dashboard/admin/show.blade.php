@@ -38,8 +38,8 @@
                             </div>
                         </div>
                         <div class="card-footer text-justify">
-                            <div class="font-weight-bold mb-2">NIK</div>
-                            <div class="font-weight mb-2">{{ $admin->id }}</div>
+                            <div class="font-weight-bold mb-2">NBA</div>
+                            <div class="font-weight mb-2">{{ $admin->nba }}</div>
                             <div class="font-weight-bold mb-2">Name</div>
                             <div class="font-weight mb-2">{{ $admin->name }}</div>
                             <div class="font-weight-bold mb-2">Username</div>
@@ -63,6 +63,20 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>NBA</label>
+                                            <div class="col-sm-12 col-md-12">
+                                                <input type="text"
+                                                    class="form-control @error('nba') is-invalid @enderror" name="nba"
+                                                    id="nba" value="{{ old('nba', $admin->nba) }}" disabled
+                                                    readonly>
+                                                @error('name')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="form-group col-md-12 col-12">
                                             <label>Name</label>
                                             <div class="col-sm-12 col-md-12">
@@ -150,7 +164,8 @@
                                         <div class="form-group col-md-6 col-12">
                                             <label>Role</label>
                                             <div class="col-sm-12 col-md-12">
-                                                <select name="role" id="role" class="form-select form-control-sm">
+                                                <select name="role" id="role"
+                                                    class="form-select form-control-sm">
                                                     <option value="{{ $admin->role }}">
                                                         {{ old('role', $admin->role) == $admin->role ? ' selected' : ' ' }}
                                                         {{ $admin->role }}
@@ -191,6 +206,20 @@
                                                         {{ $admin->status == 'demisioner' ? 'selected' : '' }}>
                                                         Demisioner
                                                     </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Position</label>
+                                            <div class="col-sm-12 col-md-12">
+                                                <select name="position_id" id="position"
+                                                    class="form-select form-control-sm">
+                                                    @foreach ($positions as $position)
+                                                        <option value="{{ $position->id }}">
+                                                            {{ old('position_id', $admin->position_id) == $position->id ? ' selected' : ' ' }}
+                                                            {{ $position->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

@@ -53,10 +53,10 @@
                                 <table class="table table-striped table-md">
                                     <tr>
                                         <th>No</th>
-                                        <th>NIK</th>
+                                        <th>NBA</th>
                                         <th>Image</th>
                                         <th>Name</th>
-                                        <th>Email</th>
+                                        <th>Position</th>
                                         <th>Field</th>
                                         <th>Department</th>
                                         <th>Status</th>
@@ -65,11 +65,11 @@
                                     @foreach ($admins as $admin)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $admin->id }}</td>
+                                            <td>{{ $admin->nba }}</td>
                                             <td> <img src="{{ asset('storage/' . $admin->image) }}" alt="image"
                                                     width="100" height="100"></td>
                                             <td>{{ $admin->name }}</td>
-                                            <td>{{ $admin->email }}</td>
+                                            <td>{{ $admin->position->name }}</td>
                                             <td width="230px">{{ $admin->field->name }}</td>
                                             <td width="230px">{{ $admin->department->name }}</td>
                                             <td>

@@ -31,6 +31,18 @@
                             <form action="{{ url('/dashboard/admin') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NBA</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" class="form-control @error('nba') is-invalid @enderror"
+                                            name="nba" id="nba" value="{{ old('nba') }}" required autofocus>
+                                        @error('nba')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name</label>
                                     <div class="col-sm-12 col-md-7">
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
@@ -144,6 +156,19 @@
                                                 {{ $admin->status == 'demisioner' ? 'selected' : '' }}>
                                                 Demisioner
                                             </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class=" form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Position</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="position_id" id="position" class="form-select form-control-sm">
+                                            @foreach ($positions as $position)
+                                                <option value="{{ $position->id }}">
+                                                    {{ old('position_id') == $position->id ? ' selected' : ' ' }}
+                                                    {{ $position->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

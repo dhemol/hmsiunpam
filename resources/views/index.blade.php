@@ -13,31 +13,32 @@
                 <div class="col-12">
                     <div class="owl-carousel popular-slider">
                         <!-- Start Single Product -->
-                        @foreach ($posts as $post)
+                        @foreach ($pengurus as $bph)
                             <div class="single-product">
                                 <div class="product-img">
-                                    <a href="/post_detail/{{ $post->slug }}">
-                                        <img class="default-img" src="{{ $post->images }}" alt="#">
-                                        <img class="hover-img" src="{{ $post->images }}" alt="#">
-                                        <span class="out-of-stock"></span>
+                                    <a href="#">
+                                        <img class="default-img" src="{{ asset('storage/' . $bph->image) }}"
+                                            alt="{{ $bph->name }}">
+                                        <img class="hover-img" src="{{ asset('storage/' . $bph->image) }}" alt="#">
                                     </a>
                                     <div class="button-head">
                                         <div class="product-action-2">
-                                            <a title="Add to cart" href="/post_detail/{{ $post->slug }}">VIEW MORE</a>
+                                            <a title="Add to cart" href="/post_detail/{{ $bph->username }}">VIEW MORE</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="product-content">
-                                    <h3><a href="/post_detail/{{ $post->slug }}" class="title">{{ $post->excerpt }}</a>
-                                    </h3>
+                                    <h5>{{ $bph->name }}</h5>
+                                    <div class="product-price">
+                                        <p>{{ $bph->position->name }} HMSI UNPAM</p>
+                                    </div>
                                 </div>
+                                <!-- End Single Product -->
                             </div>
                         @endforeach
-                        <!-- End Single Product -->
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection

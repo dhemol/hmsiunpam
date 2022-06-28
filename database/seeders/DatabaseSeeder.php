@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Field;
 use App\Models\Department;
+use App\Models\Position;
 
 
 class DatabaseSeeder extends Seeder
@@ -22,6 +23,56 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Position::create([
+            'name' => 'None',
+            'slug' => 'none',
+        ]);
+
+        Position::create([
+            'name' => 'Anggota',
+            'slug' => 'anggota',
+        ]);
+
+        Position::create([
+            'name' => 'Ketua Umum',
+            'slug' => 'ketua-umum',
+        ]);
+
+        Position::create([
+            'name' => 'Wakil Ketua Umum',
+            'slug' => 'wakil-ketua-umum',
+        ]);
+
+        Position::create([
+            'name' => 'Sekretaris Umum',
+            'slug' => 'sekretaris-umum',
+        ]);
+
+        Position::create([
+            'name' => 'Wakil Sekretaris Umum',
+            'slug' => 'wakil-sekretaris-umum',
+        ]);
+
+        Position::create([
+            'name' => 'Bendahara Umum',
+            'slug' => 'bendahara-umum',
+        ]);
+
+        Position::create([
+            'name' => 'Wakil Bendahara Umum',
+            'slug' => 'wakil-bendahara-umum',
+        ]);
+
+        Position::create([
+            'name' => 'Ketua Bidang',
+            'slug' => 'ketua-bidang',
+        ]);
+
+        Position::create([
+            'name' => 'Wakil Sekretaris Bidang',
+            'slug' => 'wakil-sekretaris-bidang',
+        ]);
+
 
         Field::create([
             'name' => 'None',
@@ -120,7 +171,6 @@ class DatabaseSeeder extends Seeder
 
         Department::create([
             'field_id' => 1,
-
             'name' => 'Kegiatan Olahraga Mingguan',
             'slug' => 'kegiatan-olahraga-mingguan',
         ]);
@@ -133,46 +183,54 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'Akram Daffa',
+            'nba' => 4,
             'username' => 'akramdaffa',
             'email' => 'akramdaffa@gmail.com',
             'password' => bcrypt('akram123'),
             'address' => 'Karawaci, Tangerang',
             'no_hp' => '088866667777',
+            'position_id' => 1,
             'field_id' => 2,
             'department_id' => 2
         ]);
 
         User::create([
             'name' => 'Vega Anggara Saputra',
+            'nba' => 3,
             'username' => 'vegaanggara',
             'email' => 'vegaanggara@gmail.com',
             'password' => bcrypt('vega123'),
             'address' => 'Karawaci, Tangerang',
             'no_hp' => '088866668888',
+            'position_id' => 1,
             'field_id' => 5,
             'department_id' => 1
         ]);
 
         User::create([
             'name' => 'Dede Maulana',
+            'nba' => 2,
             'username' => 'dhemol',
             'email' => 'dhemol@icloud.com',
             'password' => bcrypt('dhemol123'),
             'address' => 'Serua, Bojongsari, Depok',
             'no_hp' => '085157740434',
             'role' => 'admin',
+            'position_id' => 1,
             'field_id' => 1,
             'department_id' => 1
         ]);
 
         User::create([
             'name' => 'Selly Septiani, S.Si, M.Kom',
+            'nba' => 1,
             'username' => 'sellyseptiani',
             'email' => 'sellyseptiani@gmail.com',
             'password' => bcrypt('selly123'),
             'address' => 'Serang, Banten',
             'no_hp' => '08886666666',
             'role' => 'superadmin',
+            'position_id' => 1,
             'field_id' => 1,
             'department_id' => 1
         ]);

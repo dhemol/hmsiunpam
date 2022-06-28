@@ -155,7 +155,7 @@ class EventController extends Controller
             }
             $validatedData['image'] = $request->file('image')->store('images', 'public');
         }
-        $validatedData['description'] = Str::limit(strip_tags($request->description), 100);
+        $validatedData['description'] = Str::limit(strip_tags($request->description), 200);
         $event->update($validatedData);
         return redirect('/dashboard/event')->with('success', 'Event has been updated');
     }

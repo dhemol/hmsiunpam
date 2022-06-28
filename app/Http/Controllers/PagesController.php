@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Faq;
-use App\Models\Contact;
+use App\Models\Archive;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Event;
@@ -17,6 +17,7 @@ class PagesController extends Controller
     {
         return view('index', [
             "posts" => Post::latest()->get(),
+            "pengurus" => User::where('role', 'admin')->get(),
             "title" => "Home | HMSI UNPAM",
             "active" => "Home | HMSI UNPAM"
         ]);
@@ -121,6 +122,12 @@ class PagesController extends Controller
     // Route Dashboard
     public function index()
     {
-        return view('dashboard.index');
+        return view('dashboard.index', [
+            "anggota" => User::where('role', 'anggota')->get(),
+            "pengurus" => User::where('role', 'admin')->get(),
+            "archives" => Archive::all(),
+            "posts" => Post::all(),
+
+        ]);
     }
 }

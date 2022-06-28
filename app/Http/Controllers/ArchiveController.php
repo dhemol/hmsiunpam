@@ -50,7 +50,8 @@ class ArchiveController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'slug' => 'required||unique:archives',
-            'nomor_surat' => 'required|string|max:255',
+            'perihal' => 'required',
+            'nomor_surat' => 'required',
             'type' => 'required',
             'file' => 'required|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,zip,rar,7z'
         ]);
@@ -102,7 +103,8 @@ class ArchiveController extends Controller
         //
         $rules = [
             'title' => 'required|string|max:255',
-            'nomor_surat' => 'required|string|max:255',
+            'perihal' => 'required',
+            'nomor_surat' => 'required',
             'type' => 'required',
             'file' => 'required|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,zip,rar,7z'
         ];

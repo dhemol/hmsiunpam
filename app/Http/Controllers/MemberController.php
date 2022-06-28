@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Field;
 use App\Models\Department;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\Storage;
@@ -35,7 +36,8 @@ class MemberController extends Controller
         // Route Tambah Anggota
         return view('dashboard.member.create', [
             'fields' => Field::all(),
-            'departments' => Department::all()
+            'departments' => Department::all(),
+            'positions' => Position::all(),
         ]);
     }
 
@@ -49,6 +51,7 @@ class MemberController extends Controller
     {
         // Route Simpan Anggota
         $validatedData = $request->validate([
+            'nba' => 'filled',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'username' => 'required|min:6|max:255|unique:users',
@@ -56,6 +59,7 @@ class MemberController extends Controller
             'no_hp' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'position_id' => 'required',
             'field_id' => 'required',
             'department_id' => 'required',
             'status' => 'required',
@@ -84,6 +88,7 @@ class MemberController extends Controller
             "member" => $member,
             'fields' => Field::all(),
             'departments' => Department::all(),
+            'positions' => Position::all(),
             "title" => "Anggota | HMSI UNPAM",
         ]);
     }
@@ -100,7 +105,8 @@ class MemberController extends Controller
         return view('dashboard/member/edit', [
             "member" => $member,
             'fields' => Field::all(),
-            'departments' => Department::all()
+            'departments' => Department::all(),
+            'positions' => Position::all()
         ]);
     }
 
@@ -115,11 +121,13 @@ class MemberController extends Controller
     {
         // Route Update Anggota
         $rules = [
+            'nba' => 'filled',
             'name' => 'required|string|max:255',
             'password' => 'required|string|min:6',
             'no_hp' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'position_id' => 'required',
             'field_id' => 'required',
             'department_id' => 'required',
             'status' => 'required',

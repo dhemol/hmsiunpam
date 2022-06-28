@@ -31,12 +31,12 @@
                             <div class="content">
                                 <div class="heading-block">
                                     <p class="small-title">
-                                    <h1>Up Coming Event</h1>
+                                    <h1>HMSI UNPAM PROUDLY PRESENT</h1>
                                     </p>
                                     <h3><a href="{{ $event->slug }}" class="title">{{ $event->title }}</a></h3>
                                     <p class="text">{{ $event->description }}</p>
                                     <h1 class="price">Rp{{ $event->cost }}</h1>
-                                    <p class="small-title">Save The Date</p>
+                                    <p class="small-title">{{ $event->location }}</p>
                                     <div class="coming-time">
                                         <div class="clearfix" data-countdown="{{ $event->end }}"></div>
                                     </div>

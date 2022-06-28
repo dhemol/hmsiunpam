@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Field;
 use App\Models\Department;
+use App\Models\Position;
 use PDF;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,7 +37,8 @@ class AdminController extends Controller
         return view('dashboard.admin.create', [
             'admin' => new User,
             'fields' => Field::all(),
-            'departments' => Department::all()
+            'departments' => Department::all(),
+            'positions' => Position::all(),
         ]);
     }
 
@@ -50,6 +52,7 @@ class AdminController extends Controller
     {
         // 
         $validatedData = $request->validate([
+            'nba' => 'filled',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'username' => 'required|min:6|max:255|unique:users',
@@ -57,6 +60,7 @@ class AdminController extends Controller
             'no_hp' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'position_id' => 'required',
             'field_id' => 'required',
             'department_id' => 'required',
             'role' => 'required',
@@ -86,6 +90,7 @@ class AdminController extends Controller
             "admin" => $admin,
             'fields' => Field::all(),
             'departments' => Department::all(),
+            'positions' => Position::all(),
             "title" => "Anggota | HMSI UNPAM",
         ]);
     }
@@ -102,7 +107,8 @@ class AdminController extends Controller
         return view('dashboard/admin/edit', [
             "admin" => $admin,
             'fields' => Field::all(),
-            'departments' => Department::all()
+            'departments' => Department::all(),
+            'positions' => Position::all(),
         ]);
     }
 
@@ -117,11 +123,13 @@ class AdminController extends Controller
     {
         //
         $rules = [
+            'nba' => 'filled',
             'name' => 'required|string|max:255',
             'password' => 'required|string|min:6',
             'no_hp' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'position_id' => 'required',
             'field_id' => 'required',
             'department_id' => 'required',
             'role' => 'required',

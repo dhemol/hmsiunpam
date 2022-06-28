@@ -11,6 +11,8 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Field;
 use App\Models\Department;
+use App\Models\Position;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class User extends Authenticatable
 {
@@ -22,7 +24,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guarded = ['id'];
-    protected $with = ['field', 'department'];
+    protected $with = ['field', 'department', 'position'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -60,6 +62,11 @@ class User extends Authenticatable
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
     }
 
     public function getRouteKeyName()
