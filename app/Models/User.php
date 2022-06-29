@@ -44,6 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getHMSINBA()
+    {
+        return sprintf('%03d-1-2022', $this->nba);
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);

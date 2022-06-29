@@ -16,8 +16,10 @@ class ContactController extends Controller
     public function index()
     {
         // Route Contact
-        $contacts = Contact::all();
-        return view('/dashboard.contact.index', compact('contacts'));
+        return view('/dashboard/contact/index', [
+            "contacts" => Contact::all(),
+            "title" => "Contact | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -28,7 +30,10 @@ class ContactController extends Controller
     public function create()
     {
         // Route Tambah Contact
-        return view('/dashboard.contact.create');
+        return view('/dashboard/contact/create', [
+            "contacts" => Contact::all(),
+            "title" => "Tambah Contact | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -40,14 +45,17 @@ class ContactController extends Controller
     public function store(StoreContactRequest $request)
     {
         // Route Store Contact
-        $contact = new Contact;
-        $contact->name = $request->name;
-        $contact->email = $request->email;
-        $contact->no_hp = $request->no_hp;
-        $contact->subject = $request->subject;
-        $contact->message = $request->message;
-        $contact->save();
-        return redirect('/dashboard/contact/index')->with('success', 'Data Berhasil Ditambahkan');
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:50',
+            'email' => 'required|string|email',
+            'no_hp' => 'required|min:8|max:14|regex:/^[0-9]+$/',
+            'subject' => 'required|string',
+            'message' => 'required|text'
+        ]);
+
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->message), 100);
+        Contact::create($validatedData);
+        return redirect('/dashboard/contact')->with('success', 'Contact has been created');
     }
 
     /**
@@ -59,7 +67,10 @@ class ContactController extends Controller
     public function show(Contact $contact)
     {
         // Route Show Contact
-        return view('/dashboard.contact.show', compact('contact'));
+        return view('/dashboard/contact/show', [
+            "contact" => $contact,
+            "title" => "Contact | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -71,7 +82,10 @@ class ContactController extends Controller
     public function edit(Contact $contact)
     {
         // Route Edit Contact
-        return view('/dashboard.contact.edit', compact('contact'));
+        return view('/dashboard/contact/edit', [
+            "contact" => $contact,
+            "title" => "Edit Contact | HMSI UNPAM"
+        ]);
     }
 
     /**
@@ -84,13 +98,17 @@ class ContactController extends Controller
     public function update(UpdateContactRequest $request, Contact $contact)
     {
         // Route Update Contact
-        $contact->name = $request->name;
-        $contact->email = $request->email;
-        $contact->no_hp = $request->no_hp;
-        $contact->subject = $request->subject;
-        $contact->message = $request->message;
-        $contact->save();
-        return redirect('/dashboard/contact/index')->with('success', 'Data Berhasil Diubah');
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:50',
+            'email' => 'required|string|email',
+            'no_hp' => 'required|min:8|max:14|regex:/^[0-9]+$/',
+            'subject' => 'required|string',
+            'message' => 'required|text'
+        ]);
+
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->message), 100);
+        $contact->update($validatedData);
+        return redirect('/dashboard/contact')->with('success', 'Contact has been updated');
     }
 
     /**
@@ -102,7 +120,7 @@ class ContactController extends Controller
     public function destroy(Contact $contact)
     {
         // Route Delete Contact
-        $contact->delete();
-        return redirect('/dashboard/contact/index')->with('success', 'Data Berhasil Dihapus');
+        $contact->delete($contact->id);
+        return redirect('/dashboard/contact')->with('success', 'Contact has been deleted');
     }
 }

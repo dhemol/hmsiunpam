@@ -1,18 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FaqController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\ArchiveController;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 
@@ -40,6 +41,7 @@ Route::get('/category/{category:slug}', [PagesController::class, 'category']);
 Route::get('/author/{author:username}', [PagesController::class, 'author']);
 Route::get('/faq', [PagesController::class, 'faq']);
 Route::get('/contact', [PagesController::class, 'contact']);
+Route::post('/contact', [PagesController::class, 'submitcontact']);
 
 // Ini adalah Route yang mengarahkan ke view Dashboard
 // Route Dashboard
@@ -92,8 +94,8 @@ Route::resource('/dashboard/about', AboutController::class)->middleware('can:adm
 // Route Data FAQ
 Route::resource('/dashboard/faq', FaqController::class)->except('show')->middleware('can:admin');
 
-// // Route Data Contact
-// Route::resource('/dashboard/contact', ContactController::class)->middleware('auth');
+// Route Data Contact
+Route::resource('/dashboard/contact', ContactController::class)->except(['show', 'edit'])->middleware('can:admin');
 
 // Ini adalah Route yang mengarahkan ke view Login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('field_id')->constrained()->default(1);
-            $table->string('name');
+            $table->string('name', 100);
             $table->string('slug')->unique();
             $table->timestamps();
         });

@@ -52,8 +52,8 @@ class CategoryController extends Controller
     {
         // Route Category Store
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories',
+            'name' => 'required|string|max:100',
+            'slug' => 'required|string|max:100|unique:categories',
         ]);
         Category::create($validatedData);
 
@@ -101,7 +101,7 @@ class CategoryController extends Controller
     {
         // Route Category Update
         $rules = [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:100',
         ];
 
         if ($request->slug != $category->slug) {

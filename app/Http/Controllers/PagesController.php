@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\About;
 use App\Models\User;
+use App\Models\Contact;
 
 class PagesController extends Controller
 {
@@ -130,6 +131,22 @@ class PagesController extends Controller
             "title" => "Contact | HMSI UNPAM",
             "active" => "Contact | HMSI UNPAM"
         ]);
+    }
+
+    public function submitcontact(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'subject' => 'required',
+            'email' => 'required|email',
+            'no_hp' => 'required',
+            'message' => 'required'
+        ]);
+        $data = $request->all();
+        $data['created_at'] = now();
+        $data['updated_at'] = now();
+        Contact::create($data);
+        return redirect()->back()->with('success', 'Message Sent');
     }
 
     // Route Dashboard

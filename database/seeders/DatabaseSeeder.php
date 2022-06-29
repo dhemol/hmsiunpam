@@ -24,13 +24,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Position::create([
-            'name' => 'None',
-            'slug' => 'none',
-        ]);
-
-        Position::create([
-            'name' => 'Anggota',
-            'slug' => 'anggota',
+            'name' => '-',
+            'slug' => '-',
         ]);
 
         Position::create([
@@ -73,10 +68,20 @@ class DatabaseSeeder extends Seeder
             'slug' => 'wakil-sekretaris-bidang',
         ]);
 
+        Position::create([
+            'name' => 'Anggota',
+            'slug' => 'anggota',
+        ]);
+
+        Position::create([
+            'name' => 'Dewan Pertimbangan Keorganisasian',
+            'slug' => 'DPK',
+        ]);
+
 
         Field::create([
-            'name' => 'None',
-            'slug' => 'none',
+            'name' => '--',
+            'slug' => '--',
         ]);
 
         Field::create([
@@ -111,14 +116,14 @@ class DatabaseSeeder extends Seeder
 
         Department::create([
             'field_id' => 1,
-            'name' => 'Latihan Dasar Kepemimpinan Organisasi',
-            'slug' => 'latihan-dasar-kepemimpinan-organisasi',
+            'name' => '---',
+            'slug' => '---',
         ]);
 
         Department::create([
             'field_id' => 1,
-            'name' => 'None',
-            'slug' => 'none',
+            'name' => 'Latihan Dasar Kepemimpinan Organisasi',
+            'slug' => 'latihan-dasar-kepemimpinan-organisasi',
         ]);
 
         Department::create([
@@ -182,41 +187,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Akram Daffa',
-            'nba' => 4,
-            'username' => 'akramdaffa',
-            'email' => 'akramdaffa@gmail.com',
-            'password' => bcrypt('akram123'),
-            'address' => 'Karawaci, Tangerang',
-            'no_hp' => '088866667777',
-            'position_id' => 1,
-            'field_id' => 2,
-            'department_id' => 2
-        ]);
-
-        User::create([
-            'name' => 'Vega Anggara Saputra',
-            'nba' => 3,
-            'username' => 'vegaanggara',
-            'email' => 'vegaanggara@gmail.com',
-            'password' => bcrypt('vega123'),
-            'address' => 'Karawaci, Tangerang',
-            'no_hp' => '088866668888',
-            'position_id' => 1,
-            'field_id' => 5,
-            'department_id' => 1
-        ]);
-
-        User::create([
             'name' => 'Dede Maulana',
-            'nba' => 2,
+            'nba' => '002-1-2022',
             'username' => 'dhemol',
             'email' => 'dhemol@icloud.com',
             'password' => bcrypt('dhemol123'),
             'address' => 'Serua, Bojongsari, Depok',
             'no_hp' => '085157740434',
             'role' => 'admin',
-            'position_id' => 1,
+            'position_id' => 11,
             'field_id' => 1,
             'department_id' => 1
         ]);

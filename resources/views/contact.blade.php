@@ -29,36 +29,77 @@
                                 <h4>Get in touch</h4>
                                 <h3>Write us a message</h3>
                             </div>
-                            <form enctype="multipart/form-data" class="form" method="post" action="">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            <form enctype="multipart/form-data" class="form" method="post" action="/contact">
+                                @csrf
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <label>Your Name<span>*</span></label>
-                                            <input name="name" type="text" class="form-control" placeholder="">
+                                            <input name="name" type="text"
+                                                class="form-control @error('name') is-invalid @enderror" placeholder=""
+                                                value="{{ old('name') }}" required autofocus>
+                                            @error('name')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <label>Your Email<span>*</span></label>
-                                            <input name="email" type="email" class="form-control" placeholder="">
+                                            <input name="email" type="email"
+                                                class="form-control @error('email') is-invalid @enderror" placeholder=""
+                                                value="{{ old('email') }}" required>
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <label>Your Phone<span>*</span></label>
-                                            <input name="no_hp" type="text" class="form-control" placeholder="">
+                                            <input name="no_hp" type="text"
+                                                class="form-control @error('no_hp') is-invalid @enderror" placeholder=""
+                                                value="{{ old('no_hp') }}" required>
+                                            @error('no_hp')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-12">
                                         <div class="form-group">
                                             <label>Your Subjects<span>*</span></label>
-                                            <input name="subject" type="text" class="form-control" placeholder="">
+                                            <input name="subject" type="text"
+                                                class="form-control @error('subject') is-invalid @enderror" placeholder=""
+                                                value="{{ old('subject') }}" required>
+                                            @error('subject')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group message">
-                                            <label>your message<span>*</span></label>
-                                            <textarea name="message" class="form-control" placeholder=""></textarea>
+                                            <label>Your message<span>*</span></label>
+                                            <textarea name="message" class="form-control @error('message') is-invalid @enderror" placeholder=""
+                                                value="{{ old('message') }}" required>
+                                            </textarea>
+                                            @error('message')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">
