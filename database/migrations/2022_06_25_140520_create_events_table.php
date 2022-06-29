@@ -16,13 +16,14 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained();
-            $table->string('title');
+            $table->string('title', 100);
             $table->string('slug')->unique();
             $table->date('start');
             $table->date('end');
             $table->string('location')->nullable();
-            $table->float('cost')->nullable();
-            $table->string('description')->nullable();
+            $table->float('cost', 8, 2)->nullable();
+            $table->string('excerpt')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

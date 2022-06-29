@@ -71,8 +71,8 @@ class EventController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' =>  'required|string|max:255|unique:events',
+            'title' => 'required|string|max:100',
+            'slug' =>  'required|string|max:100|unique:events',
             'cost' => 'required|numeric',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -85,7 +85,7 @@ class EventController extends Controller
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('images', 'public');
         }
-        $validatedData['description'] = Str::limit(strip_tags($request->description), 200);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->description), 200);
         Event::create($validatedData);
 
         return redirect('/dashboard/event')->with('success', 'Event has been created');
@@ -132,7 +132,7 @@ class EventController extends Controller
     {
         //
         $rules = [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:100',
             'cost' => 'required|numeric',
             'description' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -155,7 +155,7 @@ class EventController extends Controller
             }
             $validatedData['image'] = $request->file('image')->store('images', 'public');
         }
-        $validatedData['description'] = Str::limit(strip_tags($request->description), 200);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->description), 200);
         $event->update($validatedData);
         return redirect('/dashboard/event')->with('success', 'Event has been updated');
     }

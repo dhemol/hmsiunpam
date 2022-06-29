@@ -64,7 +64,7 @@ class PostController extends Controller
     {
         // Route Simpan Post
         $validatedData = $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required|max:100',
             'slug' => 'required|unique:posts',
             'category_id' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -123,7 +123,7 @@ class PostController extends Controller
     {
         // Route Update Post
         $rules = [
-            'title' => 'required|max:255',
+            'title' => 'required|max:100',
             'category_id' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'body' => 'required'

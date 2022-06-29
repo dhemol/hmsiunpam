@@ -142,7 +142,7 @@
                                     <div class="col-sm-12 col-md-7">
                                         <select name="status" id="status" class="form-select form-control-sm">
                                             <option value="{{ $admin->status }}">
-                                                {{ old('status', $admin->status) == $admin->status ? ' selected' : ' ' }}
+                                                {{ old('status') == $admin->status ? ' selected' : ' ' }}
                                                 {{ $admin->status }}
                                             </option>
                                             <option value="Aktif" {{ $admin->status == 'aktif' ? 'selected' : '' }}>

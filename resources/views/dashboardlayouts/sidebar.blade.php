@@ -21,10 +21,16 @@
             <li class="{{ Request::is('dashboard/archive*') ? 'active' : '' }}"><a class="nav-link "
                     href="{{ url('/dashboard/archive') }}"><i class="fas fa-file"></i>
                     <span>Data Arsip</span></a></li>
+            <li class="{{ Request::is('dashboard/contact*') ? 'active' : '' }}"><a class="nav-link "
+                    href="{{ url('/dashboard/contact') }}"><i class="fas fa-file"></i>
+                    <span>Data Contact</span></a></li>
         @elsecan('admin')
             <li class="{{ Request::is('dashboard/archive*') ? 'active' : '' }}"><a class="nav-link "
                     href="{{ url('/dashboard/archive') }}"><i class="fas fa-file"></i>
                     <span>Data Arsip</span></a></li>
+            <li class="{{ Request::is('dashboard/contact*') ? 'active' : '' }}"><a class="nav-link "
+                    href="{{ url('/dashboard/contact') }}"><i class="fas fa-file"></i>
+                    <span>Data Contact</span></a></li>
         @endcan
         @can('superadmin')
             <li

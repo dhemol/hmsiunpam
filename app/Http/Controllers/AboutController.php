@@ -44,8 +44,8 @@ class AboutController extends Controller
     {
         // Route Store About
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' =>  'required|string|max:255|unique:abouts',
+            'title' => 'required|string|max:50',
+            'slug' =>  'required|string|unique:abouts',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -100,7 +100,7 @@ class AboutController extends Controller
     {
         // Route Update About
         $rules = [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:50',
             'description' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
