@@ -51,7 +51,7 @@
                                             <td style="text-align: left" width="230px">
                                                 {{ $contact->subject }}
                                             </td>
-                                            <td style="text-align: justify" width="230px">
+                                            <td style="text-align: justify" width="500px">
                                                 {{ $contact->message }}
                                             </td>
                                             <td>

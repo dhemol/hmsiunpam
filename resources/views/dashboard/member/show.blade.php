@@ -37,47 +37,51 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="list-unstyled list-unstyled-border mt-4">
-                            <div class="media">
-                                <div class="media-icon"><i class="far fa-circle"></i></div>
-                                <div class="media-body">
-                                    <h6>{{ $member->nba }}</h6>
-                                    <p>ID</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-icon"><i class="far fa-circle"></i></div>
-                                <div class="media-body">
-                                    <h6>{{ $member->name }}</h6>
-                                    <p>Name</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-icon"><i class="far fa-circle"></i></div>
-                                <div class="media-body">
-                                    <h6>{{ $member->username }}</h6>
-                                    <p>Username</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-icon"><i class="far fa-circle"></i></div>
-                                <div class="media-body">
-                                    <h6>{{ $member->email }}</h6>
-                                    <p>Email</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-icon"><i class="far fa-circle"></i></div>
-                                <div class="media-body">
-                                    <h6>{{ $member->no_hp }}</h6>
-                                    <p>Phone Number</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-icon"><i class="far fa-circle"></i></div>
-                                <div class="media-body">
-                                    <h6>{{ $member->address }}</h6>
-                                    <p>Address</p>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="list-unstyled list-unstyled-border mt-4">
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $member->nba }}</h6>
+                                            <p>ID</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $member->name }}</h6>
+                                            <p>Name</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $member->username }}</h6>
+                                            <p>Username</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $member->email }}</h6>
+                                            <p>Email</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $member->no_hp }}</h6>
+                                            <p>Phone Number</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $member->address }}</h6>
+                                            <p>Address</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -72,6 +72,71 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label>Role</label>
+                                        <select name="role" id="role" class="form-select form-control-sm">
+                                            <option value="{{ $member->role }}">
+                                                {{ old('role') == $member->role ? ' selected' : ' ' }}
+                                                {{ $member->role }}
+                                            </option>
+                                            <option value="Anggota" {{ $member->role == 'anggota' ? 'selected' : '' }}>
+                                                Anggota
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Status</label>
+                                        <select name="status" id="status" class="form-select form-control-sm">
+                                            <option value="{{ $member->status }}">
+                                                {{ old('status') == $member->status ? ' selected' : ' ' }}
+                                                {{ $member->status }}
+                                            </option>
+                                            <option value="Aktif" {{ $member->status == 'aktif' ? 'selected' : '' }}>
+                                                Aktif
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label>Position</label>
+                                        <select name="position_id" id="position" class="form-select">
+                                            @foreach ($positions as $position)
+                                                <option value="{{ $position->id }}">
+                                                    {{ old('position_id') == $position->id ? ' selected' : ' ' }}
+                                                    {{ $position->name == 'Anggota' ? ' selected' : ' ' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Fields</label>
+                                        <select name="field_id" id="field_id" class="form-select">
+                                            @foreach ($fields as $field)
+                                                <option value="{{ $field->id }}">
+                                                    {{ old('field_id') == $field->id ? ' selected' : ' ' }}
+                                                    {{ $field->name == '--' ? ' selected' : ' ' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Department</label>
+                                        <select name="department_id" id="department_id" class="form-select form-control-sm">
+                                            @foreach ($departments as $department)
+                                                <option value="{{ $department->id }}">
+                                                    {{ old('department_id') == $department->id ? ' selected' : ' ' }}
+                                                    {{ $department->name == '---' ? ' selected' : ' ' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 {{-- <div class="form-group">
                                     <label for="email">Email</label>
                                     <input id="email" type="email" class="form-control" name="email">

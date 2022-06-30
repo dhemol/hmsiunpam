@@ -89,6 +89,7 @@
                                                         onclick="return confirm('Are you sure?')"><i
                                                             class="fas fa-trash"></i></button>
                                                 </form>
+                                            </td>
                                     </tr>
                                     @endforeach
                                 </table>

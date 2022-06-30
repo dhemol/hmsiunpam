@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Position;
+use App\Models\Field;
+use App\Models\Department;
 
 class RegisterController extends Controller
 {
@@ -11,6 +14,10 @@ class RegisterController extends Controller
     public function create()
     {
         return view('/auth/register', [
+            'member' => new User,
+            'positions' => Position::all(),
+            'fields' => Field::all(),
+            'departments' => Department::all(),
             'title' => 'Register'
         ]);
     }
@@ -24,6 +31,11 @@ class RegisterController extends Controller
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+            'role' => 'required',
+            'status' => 'required',
+            'field_id' => 'required',
+            'department_id' => 'required',
+            'position_id' => 'required',
 
         ]);
 

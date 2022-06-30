@@ -116,6 +116,28 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="status" id="status" class="form-select form-control-sm">
+                                            <option value="{{ $member->status }}">
+                                                {{ old('status') == $member->status ? ' selected' : ' ' }}
+                                                {{ $member->status }}
+                                            </option>
+                                            <option value="Aktif" {{ $member->status == 'aktif' ? 'selected' : '' }}>
+                                                Aktif
+                                            </option>
+                                            <option value="Nonaktif"
+                                                {{ $member->status == 'nonaktif' ? 'selected' : '' }}>
+                                                Nonaktif
+                                            </option>
+                                            <option value="Demisioner"
+                                                {{ $member->status == 'demisioner' ? 'selected' : '' }}>
+                                                Demisioner
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class=" form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Position</label>
                                     <div class="col-sm-12 col-md-7">

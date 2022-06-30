@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\Position;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -125,7 +126,7 @@ class AdminController extends Controller
         $rules = [
             'nba' => 'filled',
             'name' => 'required|string|max:50',
-            'password' => 'required|string|min:6',
+            'password' => 'required',
             'no_hp' => 'required|min:8|max:14|regex:/^[0-9]+$/',
             'address' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -138,13 +139,17 @@ class AdminController extends Controller
 
         if ($request->email != $admin->email) {
             if ($request->username != $admin->username) {
-                $rules['username'] = 'required|min:6|max:255|unique:users';
+                $rules['username'] = 'required|min:6|unique:users';
             }
-            $rules['email'] = 'required|string|email|max:255|unique:users';
+            $rules['email'] = 'required|string|email|unique:users';
+        }
+        if ($request->password != $admin->password) {
+            if (!Hash::check($rules['password'], User::get('password'))) {
+                $request = $request->merge(['password' => bcrypt($request->password)]);
+            }
         }
 
         $validatedData = $request->validate($rules);
-        $validatedData['password'] = bcrypt($validatedData['password']);
 
         if ($request->file('image')) {
             if ($request->old_image) {

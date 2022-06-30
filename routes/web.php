@@ -46,6 +46,9 @@ Route::post('/contact', [PagesController::class, 'submitcontact']);
 // Ini adalah Route yang mengarahkan ke view Dashboard
 // Route Dashboard
 Route::get('/dashboard', [PagesController::class, 'index'])->middleware('auth');
+Route::get('/dashboard/profile/{superadmin:username}', [PagesController::class, 'profileSuperadmin'])->middleware('auth');
+Route::get('/dashboard/profile/{admin:username}', [PagesController::class, 'profileAdmin'])->middleware('auth');
+Route::get('/dashboard/profile/{anggota:username}', [PagesController::class, 'profileAnggota'])->middleware('auth');
 // Route Data Admin
 Route::resource('/dashboard/admin', AdminController::class)->middleware('can:superadmin');
 Route::get('/dashboard/admin/{status:slug}', [AdminController::class, 'status'])->middleware('can:superadmin');

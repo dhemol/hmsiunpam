@@ -37,19 +37,53 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer text-justify">
-                            <div class="font-weight-bold mb-2">NBA</div>
-                            <div class="font-weight mb-2">{{ $admin->nba }}</div>
-                            <div class="font-weight-bold mb-2">Name</div>
-                            <div class="font-weight mb-2">{{ $admin->name }}</div>
-                            <div class="font-weight-bold mb-2">Username</div>
-                            <div class="font-weight mb-2">{{ $admin->username }}</div>
-                            <div class="font-weight-bold mb-2">Email</div>
-                            <div class="font-weight mb-2">{{ $admin->email }}</div>
-                            <div class="font-weight-bold mb-2">No.Hp</div>
-                            <div class="font-weight mb-2">{{ $admin->no_hp }}</div>
-                            <div class="font-weight-bold mb-2">Address</div>
-                            <div class="font-weight mb-2">{{ $admin->address }}</div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="list-unstyled list-unstyled-border mt-4">
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $admin->nba }}</h6>
+                                            <p>ID</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $admin->name }}</h6>
+                                            <p>Name</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $admin->username }}</h6>
+                                            <p>Username</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $admin->email }}</h6>
+                                            <p>Email</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $admin->no_hp }}</h6>
+                                            <p>Phone Number</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                                        <div class="media-body">
+                                            <h6>{{ $admin->address }}</h6>
+                                            <p>Address</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-12 col-lg-7">
@@ -136,8 +170,9 @@
                                             <label>No.Hp</label>
                                             <div class="col-sm-12 col-md-12">
                                                 <input type="number"
-                                                    class="form-control @error('no_hp') is-invalid @enderror" name="no_hp"
-                                                    id="no_hp" value="{{ old('no_hp', $admin->no_hp) }}" required>
+                                                    class="form-control @error('no_hp') is-invalid @enderror"
+                                                    name="no_hp" id="no_hp"
+                                                    value="{{ old('no_hp', $admin->no_hp) }}" required>
                                                 @error('no_hp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}

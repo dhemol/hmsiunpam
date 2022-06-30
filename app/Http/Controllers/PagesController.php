@@ -10,6 +10,9 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\About;
 use App\Models\User;
+use App\Models\Position;
+use App\Models\FIeld;
+use App\Models\Department;
 use App\Models\Contact;
 
 class PagesController extends Controller
@@ -153,11 +156,41 @@ class PagesController extends Controller
     public function index()
     {
         return view('dashboard.index', [
-            "anggota" => User::where('role', 'anggota')->get(),
-            "pengurus" => User::where('role', 'admin')->get(),
+            "anggota" => User::where('role', 'anggota')->latest()->filter(request(['field', 'department', 'position']))->paginate(5)->withQueryString(),
+            "pengurus" => User::where('role', 'admin')->with(['field', 'department', 'position'])->get(),
             "archives" => Archive::all(),
-            "posts" => Post::all(),
+            "contacts" => Contact::all(),
+            "post" => Post::all(),
+            "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(5)->withQueryString(),
 
+        ]);
+    }
+
+    public function profileSuperadmin(User $superadmin)
+    {
+        return view('dashboard/profile/profileSuperadmin', [
+            "superadmin" => $superadmin,
+            'fields' => Field::all(),
+            'departments' => Department::all(),
+            'positions' => Position::all(),
+        ]);
+    }
+    public function profileAdmin(User $admin)
+    {
+        return view('dashboard/profile/profileAdmin', [
+            "admin" => $admin,
+            'fields' => Field::all(),
+            'departments' => Department::all(),
+            'positions' => Position::all(),
+        ]);
+    }
+    public function profileAnggota(User $anggota)
+    {
+        return view('dashboard/profile/profileAnggota', [
+            "anggota" => $anggota,
+            'fields' => Field::all(),
+            'departments' => Department::all(),
+            'positions' => Position::all(),
         ]);
     }
 }

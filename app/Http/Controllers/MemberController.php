@@ -35,6 +35,7 @@ class MemberController extends Controller
     {
         // Route Tambah Anggota
         return view('dashboard.member.create', [
+            'member' => new User,
             'fields' => Field::all(),
             'departments' => Department::all(),
             'positions' => Position::all(),
@@ -51,7 +52,7 @@ class MemberController extends Controller
     {
         // Route Simpan Anggota
         $validatedData = $request->validate([
-            'nba' => 'filled',
+            'nba' => 'required|string|max:10|unique:users',
             'name' => 'required|string|max:50',
             'email' => 'required|string|email|max:50|unique:users',
             'username' => 'required|min:6|max:20|unique:users',
@@ -140,8 +141,13 @@ class MemberController extends Controller
             $rules['email'] = 'required|string|email|max:50|unique:users';
         }
 
+        if ($request->password != $member->password) {
+            if (!Hash::check($rules['password'], User::get('password'))) {
+                $request = $request->merge(['password' => bcrypt($request->password)]);
+            }
+        }
+
         $validatedData = $request->validate($rules);
-        $validatedData['password'] = bcrypt($validatedData['password']);
 
         if ($request->file('image')) {
             if ($request->old_image) {

@@ -61,14 +61,14 @@
                             <h4>Konten</h4>
                         </div>
                         <div class="card-body">
-                            {{ $posts->count() }}
+                            {{ $post->count() }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-6">
+            <div class="col-12 col-md-6 col-lg-5">
                 <div class="card">
                     <div class="card-header">
                         <h4>BPH HMSI UNPAM</h4>
@@ -101,56 +101,134 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-12 col-12 col-sm-12">
+            <div class="col-12 col-md-6 col-lg-7">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Recent Activities</h4>
+                        <h4>All Blogs</h4>
                     </div>
                     <div class="card-body">
-                        <ul class="list-unstyled list-unstyled-border">
-                            <li class="media">
-                                <img class="mr-3 rounded-circle" width="50"
-                                    src="{{ url('/template/assets/img/avatar/avatar-1.png') }}" alt="avatar">
-                                <div class="media-body">
-                                    <div class="float-right text-primary">Now</div>
-                                    <div class="media-title">Farhan A Mujib</div>
-                                    <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
-                                        Nulla
-                                        vel metus scelerisque ante sollicitudin.</span>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <img class="mr-3 rounded-circle" width="50"
-                                    src="{{ url('/template/assets/img/avatar/avatar-2.png') }}" alt="avatar">
-                                <div class="media-body">
-                                    <div class="float-right">12m</div>
-                                    <div class="media-title">Ujang Maman</div>
-                                    <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
-                                        Nulla
-                                        vel metus scelerisque ante sollicitudin.</span>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <img class="mr-3 rounded-circle" width="50"
-                                    src="{{ url('/template/assets/img/avatar/avatar-4.png') }}" alt="avatar">
-                                <div class="media-body">
-                                    <div class="float-right">17m</div>
-                                    <div class="media-title">Rizal Fakhri</div>
-                                    <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
-                                        Nulla
-                                        vel metus scelerisque ante sollicitudin.</span>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="text-center pt-1 pb-1">
-                            <a href="#" class="btn btn-primary btn-lg btn-round">
-                                View All
-                            </a>
+                        <div class="clearfix mb-3"></div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Excerpt</th>
+                                    <th>Created At</th>
+                                </tr>
+                                <tr>
+                                    @foreach ($posts as $post)
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td style="text-align: left" width="210px">
+                                            {{ $post->title }}
+                                        </td>
+                                        <td>
+                                            {{ $post->author->name }}
+                                        </td>
+                                        <td style="text-align: justify" width="300px">{{ $post->excerpt }}</td>
+                                        <td> {{ $post->created_at->format('d M Y') }}
+                                        </td>
+                                </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                        <div class="float-right">
+                            <nav>
+                                <ul class="pagination">
+                                    {{ $posts->links() }}
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
             </div>
 
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Anggota HMSI UNPAM</h4>
+                        <div class="card-header-action">
+                            <a href="/dashboard/member" class="btn btn-danger">View More <i
+                                    class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive table-invoice">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>No</th>
+                                    <th>NBA</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Join Date</th>
+                                    <th>Action</th>
+                                </tr>
+                                <tr>
+                                    @foreach ($anggota as $member)
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $member->nba }}</td>
+                                        <td class="font-weight-600">{{ $member->name }}</td>
+                                        <td>
+                                            @if ($member->status == 'demisioner')
+                                                <div class="badge badge-success">{{ $member->status }}</div>
+                                            @elseif ($member->status == 'nonaktif')
+                                                <div class="badge badge-danger">{{ $member->status }}</div>
+                                            @else
+                                                <div class="badge badge-primary">{{ $member->status }}</div>
+                                            @endif
+                                        </td>
+                                        <td>{{ $member->created_at }}</td>
+                                        <td>
+                                            <a href="/dashboard/member/{{ $member->username }}"
+                                                class="btn btn-primary">Detail</a>
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="float-right">
+                            <nav>
+                                <ul class="pagination">
+                                    {{ $anggota->links() }}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-hero">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="far fa-question-circle"></i>
+                        </div>
+                        <h4>{{ $contacts->count() }}</h4>
+                        <div class="card-description">View Message</div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="tickets-list">
+                            @foreach ($contacts as $contact)
+                                <a href="/dashboard/contact/{{ $contact->id }}" class="ticket-item">
+                                    <div class="ticket-title">
+                                        <h4>{{ $contact->subject }}</h4>
+                                    </div>
+                                    <div class="ticket-info">
+                                        <div>{{ $contact->name }}</div>
+                                        <div class="bullet"></div>
+                                        <div class="text-primary">{{ $contact->created_at->diffForHumans() }}</div>
+                                    </div>
+                                </a>
+                            @endforeach
+                            <a href="/dashboard/contact" class="ticket-item ticket-more">
+                                View All <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 @endsection

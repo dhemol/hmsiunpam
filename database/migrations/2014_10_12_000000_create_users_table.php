@@ -15,20 +15,20 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nba', 10);
+            $table->string('nba', 10)->nullable();
             $table->foreignId('position_id')->constrained()->default(1);
             $table->foreignId('field_id')->constrained()->default(1);
             $table->foreignId('department_id')->constrained()->default(1);
             $table->string('name', 50);
             $table->string('username', 20)->unique();
             $table->string('email', 50)->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('address');
-            $table->string('no_hp', 20);
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('address')->nullable();
+            $table->string('no_hp', 20)->nullable();
             $table->string('image')->nullable();
-            $table->enum('status', ['aktif', 'nonaktif', 'demisioner'])->default('aktif');
-            $table->enum('role', ['superadmin', 'admin', 'anggota'])->default('anggota');
+            $table->enum('status', ['aktif', 'nonaktif', 'demisioner'])->default('aktif')->nullable();
+            $table->enum('role', ['superadmin', 'admin', 'anggota'])->default('anggota')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
         });
