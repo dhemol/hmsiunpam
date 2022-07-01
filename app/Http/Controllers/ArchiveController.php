@@ -55,7 +55,7 @@ class ArchiveController extends Controller
             'type' => 'required',
             'file' => 'required|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,zip,rar,7z'
         ]);
-
+        $validatedData['file'] = $request->file('file')->store('Archives', 'public');
         Archive::create($validatedData);
 
         return redirect('/dashboard/archive')->with('success', 'Faq has been created');

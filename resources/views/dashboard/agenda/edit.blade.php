@@ -113,10 +113,9 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="category_id" id="category" class="form-select form-control-sm">
+                                        <select name="category_id" id="category" class="form-select form-control">
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}"
-                                                    {{ old('category_id', $event->category_id) == $category->id ? ' selected' : ' ' }}>
+                                                <option value="{{ $category->id }}"@selected(old('category_id', $category->id) == $category->id)>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach

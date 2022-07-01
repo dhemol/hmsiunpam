@@ -73,7 +73,7 @@ class EventController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:100',
             'slug' =>  'required|string|max:100|unique:events',
-            'cost' => 'required|numeric',
+            'cost' => 'required',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'start' => 'required|date',
@@ -133,7 +133,7 @@ class EventController extends Controller
         //
         $rules = [
             'title' => 'required|string|max:100',
-            'cost' => 'required|numeric',
+            'cost' => 'required',
             'description' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'start' => 'required|date',

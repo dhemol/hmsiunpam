@@ -63,8 +63,7 @@
                                     <div class="col-sm-12 col-md-7">
                                         <select name="field_id" id="field" class="form-select form-control-sm">
                                             @foreach ($fields as $field)
-                                                <option value="{{ $field->id }}"
-                                                    {{ old('field_id', $department->field_id) == $field->id ? ' selected' : ' ' }}>
+                                                <option value="{{ $field->id }}"@selected(old('field_id', $department->field_id) == $field->id)>
                                                     {{ $field->name }}
                                                 </option>
                                             @endforeach

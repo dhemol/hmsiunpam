@@ -119,10 +119,10 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="status" id="status" class="form-select form-control-sm">
-                                            <option value="{{ $member->status }}">
-                                                {{ old('status') == $member->status ? ' selected' : ' ' }}
-                                                {{ $member->status }}
+                                        <select name="status" id="status" class="form-select form-control">
+                                            <option value="{{ $member->status }}"" @selected(old('status') == $member->status)
+                                                @disabled(true)>
+                                                -- Select Status --
                                             </option>
                                             <option value="Aktif" {{ $member->status == 'aktif' ? 'selected' : '' }}>
                                                 Aktif
@@ -143,8 +143,7 @@
                                     <div class="col-sm-12 col-md-7">
                                         <select name="position_id" id="position" class="form-select">
                                             @foreach ($positions as $position)
-                                                <option value="{{ $position->id }}">
-                                                    {{ old('position_id') == $position->id ? ' selected' : ' ' }}
+                                                <option value="{{ $position->id }}" @selected(old('position_id') == $position->id)>
                                                     {{ $position->name }}
                                                 </option>
                                             @endforeach
@@ -156,8 +155,7 @@
                                     <div class="col-sm-12 col-md-7">
                                         <select name="field_id" id="field" class="form-select">
                                             @foreach ($fields as $field)
-                                                <option value="{{ $field->id }}">
-                                                    {{ old('field_id') == $field->id ? ' selected' : ' ' }}
+                                                <option value="{{ $field->id }}" @selected(old('field_id') == $field->id)>
                                                     {{ $field->name }}
                                                 </option>
                                             @endforeach
@@ -169,8 +167,7 @@
                                     <div class="col-sm-12 col-md-7">
                                         <select name="department_id" id="department" class="form-select">
                                             @foreach ($departments as $department)
-                                                <option value="{{ $department->id }}">
-                                                    {{ old('department_id') == $department->id ? ' selected' : ' ' }}
+                                                <option value="{{ $department->id }}"@selected(old('department_id') == $department->id)>
                                                     {{ $department->name }}
                                                 </option>
                                             @endforeach

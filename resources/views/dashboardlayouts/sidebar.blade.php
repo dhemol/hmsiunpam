@@ -34,7 +34,7 @@
         @endcan
         @can('superadmin')
             <li
-                class="nav-item dropdown {{ Request::is('dashboard/post') && 'dashboard/event' && 'dashboard/about' && 'dashboard/faq' ? 'active' : '' }}">
+                class="nav-item dropdown {{ Request::is(['dashboard/field*', 'dashboard/department*', 'dashboard/position*', 'dashboard/member*']) ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-home"></i>
                     <span>Data Organisasi</span></a>
                 <ul class="dropdown-menu">
@@ -50,7 +50,7 @@
             </li>
         @elsecan('admin')
             <li
-                class="nav-item dropdown {{ Request::is('dashboard/post') && 'dashboard/event' && 'dashboard/about' && 'dashboard/faq' ? 'active' : '' }}">
+                class="nav-item dropdown {{ Request::is(['dashboard/field*', 'dashboard/department*', 'dashboard/position*', 'dashboard/member*']) ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-home"></i>
                     <span>Data Organisasi</span></a>
                 <ul class="dropdown-menu">
@@ -66,13 +66,11 @@
             </li>
         @endcan
         @can('superadmin')
-            <li class="nav-item dropdown"
-                class="{{ Request::is('dashboard/post') && 'dashboard/event' && 'dashboard/about' && 'dashboard/faq' ? 'active' : '' }}">
+            <li
+                class="nav-item dropdown {{ Request::is(['dashboard/category*', 'dashboard/event*', 'dashboard/about*', 'dashboard/faq*']) ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-newspaper"></i>
                     <span>Data Konten</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('dashboard/post*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/post') }}">Blog</a></li>
                     <li class="{{ Request::is('dashboard/category*') ? 'active' : '' }}"><a class="nav-link "
                             href="{{ url('/dashboard/category') }}">Category</a></li>
                     <li class="{{ Request::is('dashboard/event*') ? 'active' : '' }}"><a class="nav-link "
@@ -84,13 +82,11 @@
                 </ul>
             </li>
         @elsecan('admin')
-            <li class="nav-item dropdown"
-                class="{{ Request::is('dashboard/post') && 'dashboard/event' && 'dashboard/about' && 'dashboard/faq' ? 'active' : '' }}">
+            <li
+                class="nav-item dropdown {{ Request::is(['dashboard/category*', 'dashboard/event*', 'dashboard/about*', 'dashboard/faq*']) ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-newspaper"></i>
                     <span>Data Konten</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('dashboard/post*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/post') }}">Blog</a></li>
                     <li class="{{ Request::is('dashboard/category*') ? 'active' : '' }}"><a class="nav-link "
                             href="{{ url('/dashboard/category') }}">Category</a></li>
                     <li class="{{ Request::is('dashboard/event*') ? 'active' : '' }}"><a class="nav-link "

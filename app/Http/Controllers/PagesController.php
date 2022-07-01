@@ -33,8 +33,8 @@ class PagesController extends Controller
         return view('index', [
 
             "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(2)->withQueryString(),
-            "pengurus" => User::where('role', 'admin')->with(['field', 'department', 'position'])->get(),
-            "events" => Event::latest()->filter(request(['searchEvent', 'category']))->get(),
+            "pengurus" => User::where('role', 'admin')->filter(request(['searchAdmin', 'field', 'department', 'position']))->get(),
+            "events" => Event::with(['category'])->get(),
             "title" => "Home | HMSI UNPAM" . $title,
             "active" => "Home | HMSI UNPAM"
         ]);

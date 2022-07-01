@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title', 50);
             $table->string('slug')->unique();
-            $table->string('perihal', 30)->nullable();
-            $table->string('nomor_surat', 20)->nullable();
+            $table->string('perihal')->nullable();
+            $table->string('nomor_surat')->nullable();
             $table->enum('type', ['Surat Masuk', 'Surat Keluar', 'Surat Internal', 'Laporan', 'Lain-lain']);
             $table->string('file');
             $table->timestamps();

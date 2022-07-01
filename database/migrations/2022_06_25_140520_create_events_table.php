@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->float('cost', 8, 2)->nullable();
             $table->string('excerpt')->nullable();
-            $table->text('description')->nullable();
+            $table->text('description')->fulltext()->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

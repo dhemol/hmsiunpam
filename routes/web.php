@@ -2,18 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArchiveController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FieldController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FaqController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ArchiveController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\FieldController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\PositionController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 
@@ -28,83 +28,104 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-// Ini adalah Route yang mengarahkan ke view Tampilan Umum
+// Homepage PagesController
+Route::controller(PagesController::class)->group(function () {
+    Route::get('/', 'home');
+    Route::get('/about', 'about');
+    Route::get('/event', 'event');
+    Route::get('/post', 'post');
+    Route::get('/post/{posts:slug}', 'show');
+    Route::get('/category', 'categories');
+    Route::get('/category/{categories:slug}', 'category');
+    Route::get('/author/{author:username}', 'author');
+    Route::get('/faq', 'faq');
+    Route::get('/contact', 'contact');
+    Route::post('/contact', 'submitcontact');
+    Route::get('/dashboard', 'index')->middleware('auth');
+    Route::get('/dashboard/profile/{superadmin:username}', 'profileSuperadmin')->middleware('auth');
+    Route::get('/dashboard/profile/{admin:username}', 'profileAdmin')->middleware('auth');
+    Route::get('/dashboard/profile/{anggota:username}', 'profileAnggota')->middleware('auth');
+});
 
-//Halaman Tampilan Umum 
-Route::get('/', [PagesController::class, 'home']);
-Route::get('/about', [PagesController::class, 'about']);
-Route::get('/event', [PagesController::class, 'event']);
-Route::get('/post', [PagesController::class, 'post']);
-Route::get('/post/{posts:slug}', [PagesController::class, 'show']);
-Route::get('/category', [PagesController::class, 'categories']);
-Route::get('/category/{category:slug}', [PagesController::class, 'category']);
-Route::get('/author/{author:username}', [PagesController::class, 'author']);
-Route::get('/faq', [PagesController::class, 'faq']);
-Route::get('/contact', [PagesController::class, 'contact']);
-Route::post('/contact', [PagesController::class, 'submitcontact']);
 
-// Ini adalah Route yang mengarahkan ke view Dashboard
-// Route Dashboard
-Route::get('/dashboard', [PagesController::class, 'index'])->middleware('auth');
-Route::get('/dashboard/profile/{superadmin:username}', [PagesController::class, 'profileSuperadmin'])->middleware('auth');
-Route::get('/dashboard/profile/{admin:username}', [PagesController::class, 'profileAdmin'])->middleware('auth');
-Route::get('/dashboard/profile/{anggota:username}', [PagesController::class, 'profileAnggota'])->middleware('auth');
-// Route Data Admin
-Route::resource('/dashboard/admin', AdminController::class)->middleware('can:superadmin');
-Route::get('/dashboard/admin/{status:slug}', [AdminController::class, 'status'])->middleware('can:superadmin');
-Route::get('/dashboard/admin/{role:slug}', [AdminController::class, 'role'])->middleware('can:superadmin');
-Route::get('/dashboard/admin/{field:slug}', [AdminController::class, 'field'])->middleware('can:superadmin');
-Route::get('/dashboard/admin/{department:slug}', [AdminController::class, 'department'])->middleware('can:superadmin');
-Route::get('/dashboard/adminPDF', [AdminController::class, 'export'])->middleware('can:superadmin');
+// Homepage AdminController
+Route::controller(AdminController::class)->group(function () {
+    Route::resource('/dashboard/admin', AdminController::class)->middleware('can:superadmin');
+    Route::get('/dashboard/admin/{field:slug}', 'field')->middleware('can:superadmin');
+    Route::get('/dashboard/admin/{department:slug}', 'department')->middleware('can:superadmin');
+    Route::get('/dashboard/admin/{position:slug}', 'position')->middleware('can:superadmin');
+    Route::get('/dashboard/adminPDF', 'export')->middleware('can:superadmin');
+});
 
-// Route Data Field (Bidang)
-Route::resource('/dashboard/field', FieldController::class)->except('show')->middleware('can:admin');
+// Homepage ArchiveController
+Route::controller(ArchiveController::class)->group(function () {
+    Route::resource('/dashboard/archive', ArchiveController::class)->middleware('can:admin');
+    Route::get('/download', 'download')->middleware('can:admin');
+});
 
-// Route Data Department
-Route::resource('/dashboard/department', DepartmentController::class)->except('show')->middleware('can:admin');
+// Homepage ContactController
+Route::controller(ContactController::class)->group(function () {
+    Route::resource('/dashboard/contact', ContactController::class)->except(['show', 'edit'])->middleware('can:admin');
+});
 
-// Route Data Department
-Route::resource('/dashboard/position', PositionController::class)->except('show')->middleware('can:admin');
+// Homepage FieldController
+Route::controller(FieldController::class)->group(function () {
+    Route::resource('/dashboard/field', FieldController::class)->except('show')->middleware('can:admin');
+});
 
-// Route Data Anggota
-Route::resource('/dashboard/member', MemberController::class)->middleware('can:admin');
-Route::get('/dashboard/member/{status:slug}', [MemberController::class, 'status'])->middleware('can:admin');
-Route::get('/dashboard/member/{role:slug}', [MemberController::class, 'role'])->middleware('can:admin');
-Route::get('/dashboard/member/{field:slug}', [MemberController::class, 'field'])->middleware('can:admin');
-Route::get('/dashboard/member/{department:slug}', [MemberController::class, 'department'])->middleware('can:admin');
-Route::get('/dashboard/memberPDF', [MemberController::class, 'export'])->middleware('can:admin');
+// Homepage DepartmentController
+Route::controller(DepartmentController::class)->group(function () {
+    Route::resource('/dashboard/department', DepartmentController::class)->except('show')->middleware('can:admin');
+});
 
-// Route Data Arsip
-Route::get('/download', [ArchiveController::class, 'download'])->middleware('can:admin');
-Route::resource('/dashboard/archive', ArchiveController::class)->middleware('can:admin');
+// Homepage PositionController
+Route::controller(PositionController::class)->group(function () {
+    Route::resource('/dashboard/position', PositionController::class)->except('show')->middleware('can:admin');
+});
 
-// Route Data Agenda
-Route::get('/dashboard/agenda', [EventController::class, 'home'])->middleware('auth');
-Route::resource('/dashboard/event', EventController::class)->middleware('can:admin');
-Route::get('/dashboard/eventPDF', [EventController::class, 'export'])->middleware('can:admin');
+// Homepage MemberController
+Route::controller(MemberController::class)->group(function () {
+    Route::resource('/dashboard/member', MemberController::class)->middleware('can:admin');
+    Route::get('/dashboard/member/{field:slug}', 'field')->middleware('can:admin');
+    Route::get('/dashboard/member/{department:slug}', 'department')->middleware('can:admin');
+    Route::get('/dashboard/member/{position:slug}', 'position')->middleware('can:admin');
+    Route::get('/dashboard/memberPDF', 'export')->middleware('can:admin');
+});
 
-// Route Data Konten
-// Route Data Post
-Route::resource('/dashboard/post', PostController::class)->middleware('auth');
+// Data Konten
+// Homepage PostController
+Route::controller(PostController::class)->group(function () {
+    Route::resource('/dashboard/post', PostController::class)->middleware('auth');
+});
+// Homepage EventController
+Route::controller(EventController::class)->group(function () {
+    Route::get('/dashboard/agenda', 'home')->middleware('auth');
+    Route::resource('/dashboard/event', EventController::class)->middleware('can:admin');
+    Route::get('/dashboard/eventPDF', 'export')->middleware('can:admin');
+});
+// Homepage CategoryController
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/dashboard/kategori', 'home')->middleware('auth');
+    Route::resource('/dashboard/category', CategoryController::class)->except('show')->middleware('can:admin');
+});
+// Homepage AboutController
+Route::controller(AboutController::class)->group(function () {
+    Route::resource('/dashboard/about', AboutController::class)->middleware('can:admin');
+});
+// Homepage FaqController
+Route::controller(FaqController::class)->group(function () {
+    Route::resource('/dashboard/faq', FaqController::class)->except('show')->middleware('can:admin');
+});
 
-// Route Data Kategori
-Route::get('/dashboard/kategori', [CategoryController::class, 'home'])->middleware('auth');
-Route::resource('/dashboard/category', CategoryController::class)->except('show')->middleware('can:admin');
+// Homepage LoginController
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'index')->name('login')->middleware('guest');
+    Route::post('/login', 'authenticate');
+    Route::post('/logout', 'logout');
+});
 
-// // Route Data About
-Route::resource('/dashboard/about', AboutController::class)->middleware('can:admin');
-
-// Route Data FAQ
-Route::resource('/dashboard/faq', FaqController::class)->except('show')->middleware('can:admin');
-
-// Route Data Contact
-Route::resource('/dashboard/contact', ContactController::class)->except(['show', 'edit'])->middleware('can:admin');
-
-// Ini adalah Route yang mengarahkan ke view Login
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);
-
-// Ini adalah Route yang mengarahkan ke view Register
-Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
-Route::post('/register', [RegisterController::class, 'store']);
+// Homepage RegisterController
+Route::controller(RegisterController::class)->group(function () {
+    Route::get('/register', 'create')->middleware('guest');
+    Route::post('/register', 'store');
+});

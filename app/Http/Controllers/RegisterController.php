@@ -33,9 +33,9 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6',
             'role' => 'required',
             'status' => 'required',
-            'field_id' => 'required',
-            'department_id' => 'required',
-            'position_id' => 'required',
+            'field_id' => 'filled',
+            'department_id' => 'filled',
+            'position_id' => 'filled',
 
         ]);
 

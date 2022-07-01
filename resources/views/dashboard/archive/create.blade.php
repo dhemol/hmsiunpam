@@ -83,10 +83,11 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Type</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="type" id="type" class="form-select form-control">
-                                            <option value="{{ $archive->type }}">
-                                                {{ old('type') == $archive->type ? ' selected' : ' ' }}
-                                                {{ $archive->type }}
+                                        <select name="type" id="type"
+                                            class="form-select form-control @error('type') is-invalid @enderror">
+                                            <option value="{{ $archive->type }}" @selected(old('type') == $archive->type)
+                                                @disabled(true)>
+                                                -- Select Type --
                                             </option>
                                             <option value="Surat Masuk"
                                                 {{ $archive->type == 'Surat Masuk' ? 'selected' : '' }}>
@@ -108,6 +109,11 @@
                                                 Lain-lain
                                             </option>
                                         </select>
+                                        @error('type')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">

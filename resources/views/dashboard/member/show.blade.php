@@ -199,9 +199,8 @@
                                         <div class="form-group col-md-12 col-12">
                                             <label>Status</label>
                                             <div class="col-sm-12 col-md-12">
-                                                <select name="status" id="status" class="form-select">
-                                                    <option value="{{ $member->status }}">
-                                                        {{ old('status', $member->status) == $member->status ? ' selected' : ' ' }}
+                                                <select name="status" id="status" class="form-select form-control">
+                                                    <option value="{{ $member->status }}" @selected(old('status', $member->status) == $member->status)>
                                                         {{ $member->status }}
                                                     </option>
                                                     <option value="Aktif"
@@ -222,10 +221,11 @@
                                         <div class="form-group col-md-12 col-12">
                                             <label>Position</label>
                                             <div class="col-sm-12 col-md-12">
-                                                <select name="position_id" id="position" class="form-select">
+                                                <select name="position_id" id="position"
+                                                    class="form-select form-control">
                                                     @foreach ($positions as $position)
-                                                        <option value="{{ $position->id }}">
-                                                            {{ old('position_id', $member->position_id) == $position->id ? ' selected' : ' ' }}
+                                                        <option value="{{ $position->id }}"
+                                                            @selected(old('position_id', $member->position_id) == $position->id)>
                                                             {{ $position->name }}
                                                         </option>
                                                     @endforeach
@@ -235,10 +235,9 @@
                                         <div class="form-group col-md-12 col-12">
                                             <label>Field</label>
                                             <div class="col-sm-12 col-md-12">
-                                                <select name="field_id" id="field" class="form-select">
+                                                <select name="field_id" id="field" class="form-select form-control">
                                                     @foreach ($fields as $field)
-                                                        <option value="{{ $field->id }}">
-                                                            {{ old('field_id', $member->field_id) == $field->id ? ' selected' : ' ' }}
+                                                        <option value="{{ $field->id }}" @selected(old('field_id', $member->field_id) == $field->id)>
                                                             {{ $field->name }}
                                                         </option>
                                                     @endforeach
@@ -248,10 +247,11 @@
                                         <div class="form-group col-md-12 col-12">
                                             <label>Department</label>
                                             <div class="col-sm-12 col-md-12">
-                                                <select name="department_id" id="department" class="form-select">
+                                                <select name="department_id" id="department"
+                                                    class="form-select form-control">
                                                     @foreach ($departments as $department)
-                                                        <option value="{{ $department->id }}">
-                                                            {{ old('department_id', $member->department_id) == $department->id ? ' selected' : ' ' }}
+                                                        <option
+                                                            value="{{ $department->id }}"@selected(old('department_id', $member->department_id) == $department->id)>
                                                             {{ $department->name }}
                                                         </option>
                                                     @endforeach

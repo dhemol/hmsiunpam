@@ -20,22 +20,12 @@ class PostController extends Controller
     public function index()
     {
         // Route Post
-        $title = '';
-        if (request('category')) {
-            $category = Category::firstWhere('slug', request('category'));
-            $title = ' in ' . $category->name;
-        }
-
-        if (request('author')) {
-            $author = Admin::firstWhere('username', request('author'));
-            $title = ' by ' . $author->name;
-        }
 
         return view(
             '/dashboard.post.index',
             [
                 "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(10)->withQueryString(),
-                "title" => "Blog | HMSI UNPAM" . $title,
+                "title" => "Blog | HMSI UNPAM",
                 "active" => "Blog | HMSI UNPAM"
             ]
         );
@@ -76,7 +66,7 @@ class PostController extends Controller
         }
 
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 50);
 
         Post::create($validatedData);
     }
@@ -143,7 +133,7 @@ class PostController extends Controller
         }
 
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 50);
 
         Post::where('id', $post->id)->update($validatedData);
         return redirect('/dashboard/post')->with('success', 'Post Has Been Updated');

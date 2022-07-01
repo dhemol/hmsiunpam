@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('email', 50)->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('address')->nullable();
+            $table->text('address')->fulltext()->nullable();
             $table->string('no_hp', 20)->nullable();
             $table->string('image')->nullable();
             $table->enum('status', ['aktif', 'nonaktif', 'demisioner'])->default('aktif')->nullable();
