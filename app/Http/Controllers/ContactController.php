@@ -53,7 +53,6 @@ class ContactController extends Controller
             'message' => 'required|text'
         ]);
 
-        $validatedData['excerpt'] = Str::limit(strip_tags($request->message), 100);
         Contact::create($validatedData);
         return redirect('/dashboard/contact')->with('success', 'Contact has been created');
     }
@@ -106,7 +105,6 @@ class ContactController extends Controller
             'message' => 'required|text'
         ]);
 
-        $validatedData['excerpt'] = Str::limit(strip_tags($request->message), 100);
         $contact->update($validatedData);
         return redirect('/dashboard/contact')->with('success', 'Contact has been updated');
     }

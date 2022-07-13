@@ -144,8 +144,8 @@
     </section>
 
     <!-- Map Section -->
-    <div class="map-section">
+    {{-- <div class="map-section">
         <div id="myMap"></div>
-    </div>
+    </div> --}}
     <!--/ End Map Section -->
 @endsection

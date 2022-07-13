@@ -9,6 +9,7 @@ use App\Models\Position;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+use Prophecy\Call\Call;
 
 class MemberController extends Controller
 {
@@ -17,11 +18,13 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // Route Anggota
-        return view('dashboard.member.index', [
-            "anggota" => User::where('role', 'anggota')->latest()->filter(request(['searchAnggota', 'status', 'field', 'department']))->paginate(10)->withQueryString(),
+        $anggota = User::where('role', 'anggota')->filter(request(['searchAnggota', 'field', 'department', 'position']))->paginate(10)->withQueryString();
+
+        return view('dashboard/member/index', [
+            "anggota" => $anggota,
             "title" => "Anggota | HMSI UNPAM",
         ]);
     }
@@ -35,12 +38,13 @@ class MemberController extends Controller
     {
         // Route Tambah Anggota
         return view('dashboard.member.create', [
-            'fields' => Field::all(),
-            'departments' => Department::all(),
+            'title' => "Tambah Anggota | HMSI UNPAM",
+            'member' => new User(),
             'positions' => Position::all(),
+            'departments' => Department::all(),
+            'fields' => Field::all()
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -51,7 +55,7 @@ class MemberController extends Controller
     {
         // Route Simpan Anggota
         $validatedData = $request->validate([
-            'nba' => 'filled',
+            'nba' => 'required|string|max:10|unique:users',
             'name' => 'required|string|max:50',
             'email' => 'required|string|email|max:50|unique:users',
             'username' => 'required|min:6|max:20|unique:users',
@@ -104,9 +108,9 @@ class MemberController extends Controller
         // Route Edit Anggota
         return view('dashboard/member/edit', [
             "member" => $member,
-            'fields' => Field::all(),
-            'departments' => Department::all(),
-            'positions' => Position::all()
+            'fieldSelected' => $member->field,
+            'departmentSelected' => $member->department,
+            'positionSelected' => $member->position,
         ]);
     }
 
@@ -140,8 +144,13 @@ class MemberController extends Controller
             $rules['email'] = 'required|string|email|max:50|unique:users';
         }
 
+        if ($request->password != $member->password) {
+            if (!Hash::check($rules['password'], User::get('password'))) {
+                $request = $request->merge(['password' => bcrypt($request->password)]);
+            }
+        }
+
         $validatedData = $request->validate($rules);
-        $validatedData['password'] = bcrypt($validatedData['password']);
 
         if ($request->file('image')) {
             if ($request->old_image) {

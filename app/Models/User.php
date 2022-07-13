@@ -12,7 +12,7 @@ use App\Models\Category;
 use App\Models\Field;
 use App\Models\Department;
 use App\Models\Position;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -44,19 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getHMSINBA()
-    {
-        return sprintf('%03d-1-2022', $this->nba);
-    }
-
     public function posts()
     {
         return $this->hasMany(Post::class);
-    }
-
-    public function categories()
-    {
-        return $this->hasMany(Category::class);
     }
 
     public function field()
@@ -110,6 +100,12 @@ class User extends Authenticatable
         $query->when($filters['department'] ?? false, function ($query, $department) {
             return $query->whereHas('department', function ($query) use ($department) {
                 $query->where('slug', $department);
+            });
+        });
+
+        $query->when($filters['position'] ?? false, function ($query, $position) {
+            return $query->whereHas('position', function ($query) use ($position) {
+                $query->where('slug', $position);
             });
         });
     }

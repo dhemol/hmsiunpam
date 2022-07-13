@@ -10,7 +10,11 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\About;
 use App\Models\User;
+use App\Models\Position;
+use App\Models\FIeld;
+use App\Models\Department;
 use App\Models\Contact;
+use App\Models\Comment;
 
 class PagesController extends Controller
 {
@@ -30,18 +34,29 @@ class PagesController extends Controller
         return view('index', [
 
             "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(2)->withQueryString(),
-            "pengurus" => User::where('role', 'admin')->with(['field', 'department', 'position'])->get(),
-            "events" => Event::latest()->filter(request(['searchEvent', 'category']))->get(),
+            "pengurus" => User::where('role', 'admin')->filter(request(['searchAdmin', 'field', 'department', 'position']))->get(),
+            "events" => Event::with(['category'])->get(),
             "title" => "Home | HMSI UNPAM" . $title,
             "active" => "Home | HMSI UNPAM"
         ]);
     }
 
     // Route About
-    public function about()
+    public function visimisi()
     {
-        return view('about', [
+        return view('visimisi', [
             "abouts" => About::all(),
+            "categories" => Category::all(),
+            "title" => "About | HMSI UNPAM",
+            "active" => "About | HMSI UNPAM"
+        ]);
+    }
+
+    public function struktural()
+    {
+        return view('struktural', [
+            "abouts" => About::all(),
+            "categories" => Category::all(),
             "title" => "About | HMSI UNPAM",
             "active" => "About | HMSI UNPAM"
         ]);
@@ -86,11 +101,30 @@ class PagesController extends Controller
 
     public function show(Post $posts)
     {
-        return view('post_detail', [
-            "title" => "Blog | HMSI UNPAM",
+        return view('post_detail',  [
+            "title" => "Blog's Detail | HMSI UNPAM",
             "active" => "Blog | HMSI UNPAM",
-            "posts" => $posts->with('category', 'author')->first(),
+            "posts" => $posts,
+            "categories" => Category::all(),
+            "comments" => Comment::where('on_post', $posts->id)->get(),
         ]);
+    }
+
+    public function comments(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'body' => 'required',
+        ]);
+        $validatedData['on_post'] = $request->post_id;
+        Comment::create($validatedData);
+        return redirect()->back()->with('success', 'Comment has been added');
+    }
+
+    public function destroyComment(Comment $comment, Post $posts)
+    {
+        $comment->where('on_post', $posts->id)->delete();
+        return redirect()->back()->with('success', 'Comment has been deleted');
     }
 
     public function categories()
@@ -98,7 +132,8 @@ class PagesController extends Controller
         return view('category', [
             "title" => "All Categories",
             "active" => "Blog | HMSI UNPAM",
-            "categories" => Category::all()
+            "categories" => Category::all(),
+
         ]);
     }
 
@@ -153,11 +188,54 @@ class PagesController extends Controller
     public function index()
     {
         return view('dashboard.index', [
-            "anggota" => User::where('role', 'anggota')->get(),
-            "pengurus" => User::where('role', 'admin')->get(),
+            "anggota" => User::where('role', 'anggota')->latest()->filter(request(['field', 'department', 'position']))->paginate(5)->withQueryString(),
+            "pengurus" => User::where('role', 'admin')->with(['field', 'department', 'position'])->get(),
             "archives" => Archive::all(),
-            "posts" => Post::all(),
+            "contacts" => Contact::all(),
+            "post" => Post::all(),
+            "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(5)->withQueryString(),
 
+        ]);
+    }
+
+    public function anggota()
+    {
+        return view('dashboard.anggota', [
+            "archives" => Archive::all(),
+            "post" => Post::all(),
+            "anggota" => User::where('role', 'anggota')->latest()->filter(request(['field', 'department', 'position']))->paginate(5)->withQueryString(),
+            "pengurus" => User::where('role', 'admin')->with(['field', 'department', 'position'])->get(),
+            "posts" => Post::where('user_id', auth()->id())->latest()->filter(request(['search', 'category', 'author']))->paginate(5)->withQueryString(),
+            "title" => "Dashboard Anggota | HMSI UNPAM",
+
+        ]);
+    }
+
+    public function profileSuperadmin(User $superadmin)
+    {
+        return view('dashboard/profile/profileSuperadmin', [
+            "superadmin" => $superadmin,
+            'fields' => Field::all(),
+            'departments' => Department::all(),
+            'positions' => Position::all(),
+        ]);
+    }
+    public function profileAdmin(User $admin)
+    {
+        return view('dashboard/profile/profileAdmin', [
+            "admin" => $admin,
+            'fields' => Field::all(),
+            'departments' => Department::all(),
+            'positions' => Position::all(),
+        ]);
+    }
+    public function profileAnggota(User $anggota)
+    {
+        return view('dashboard/profile/profileAnggota', [
+            "anggota" => $anggota,
+            'fields' => Field::all(),
+            'departments' => Department::all(),
+            'positions' => Position::all(),
         ]);
     }
 }

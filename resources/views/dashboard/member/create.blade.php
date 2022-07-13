@@ -116,26 +116,48 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="status" id="status" class="form-select form-control">
+                                            <option value="{{ $member->status }}"" @selected(old('status') == $member->status)
+                                                @disabled(true)>
+                                                -- Select Status --
+                                            </option>
+                                            <option value="Aktif" {{ $member->status == 'aktif' ? 'selected' : '' }}>
+                                                Aktif
+                                            </option>
+                                            <option value="Nonaktif"
+                                                {{ $member->status == 'nonaktif' ? 'selected' : '' }}>
+                                                Nonaktif
+                                            </option>
+                                            <option value="Demisioner"
+                                                {{ $member->status == 'demisioner' ? 'selected' : '' }}>
+                                                Demisioner
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class=" form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Position</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="position_id" id="position" class="form-select">
+                                        <select name="position_id" id="position" class="form-select form-control">
                                             @foreach ($positions as $position)
-                                                <option value="{{ $position->id }}">
-                                                    {{ old('position_id') == $position->id ? ' selected' : ' ' }}
+                                                <option value="{{ $position->id }}" @selected(old('position_id') == $position->id)>
                                                     {{ $position->name }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <div class=" form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Field</label>
+                                <div class="form-group row mb-4">
+                                    <label for="field"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Field</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="field_id" id="field" class="form-select">
+                                        <select name="field" id="field" class="form-select form-control">
+                                            <option hidden>Choose Field</option>
                                             @foreach ($fields as $field)
-                                                <option value="{{ $field->id }}">
-                                                    {{ old('field_id') == $field->id ? ' selected' : ' ' }}
+                                                <option value="{{ $field->id }}" @selected(old('field') == $field->id)>
                                                     {{ $field->name }}
                                                 </option>
                                             @endforeach
@@ -143,12 +165,13 @@
                                     </div>
                                 </div>
                                 <div class=" form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Department</label>
+                                    <label for="department"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Department</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="department_id" id="department" class="form-select">
+                                        <select name="department" id="department" class="form-select form-control">
+                                            <option hidden>Choose Department</option>
                                             @foreach ($departments as $department)
-                                                <option value="{{ $department->id }}">
-                                                    {{ old('department_id') == $department->id ? ' selected' : ' ' }}
+                                                <option value="{{ $department->id }}" @selected(old('department') == $department->id)>
                                                     {{ $department->name }}
                                                 </option>
                                             @endforeach
@@ -183,4 +206,39 @@
             </div>
         </div>
     </section>
+    @push('javascript-internal')
+        <script>
+            $(document).ready(function() {
+                $('#field').on('change', function() {
+                    var field_id = $(this).val();
+                    if (field_id) {
+                        $.ajax({
+                            url: '/departments/' + field_id
+                            type: "GET",
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data) {
+                                    $('#department').empty();
+                                    $('#department').append(
+                                        '<option hidden>Choose Department</option>');
+                                    $.each(data, function(key, department) {
+                                        $('select[name="department"]').append(
+                                            '<option value="' + key + '">' + department
+                                            .name + '</option>');
+                                    });
+                                } else {
+                                    $('#department').empty();
+                                }
+                            }
+                        });
+                    } else {
+                        $('#department').empty();
+                    }
+                });
+            });
+        </script>
+    @endpush
 @endsection

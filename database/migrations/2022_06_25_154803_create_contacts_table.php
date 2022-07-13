@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('email', 50);
             $table->string('no_hp', 15);
             $table->string('subject');
-            $table->string('excerpt');
             $table->text('message');
             $table->timestamps();
         });

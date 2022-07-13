@@ -23,6 +23,22 @@
                             <h4>All Contact</h4>
                         </div>
                         <div class="card-body">
+                            <div class="float-left">
+                            </div>
+                            <div class="float-right">
+                                <form name="searchContact" method="get" action="/dashboard/contact">
+                                    <div class="input-group">
+                                        <input class="form-control" name="searchContact" placeholder="Search Here....."
+                                            type="search" value="{{ request('searchContact') }}">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" value="searchContact" type="submit"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tr>
@@ -51,7 +67,7 @@
                                             <td style="text-align: left" width="230px">
                                                 {{ $contact->subject }}
                                             </td>
-                                            <td style="text-align: justify" width="230px">
+                                            <td style="text-align: justify" width="500px">
                                                 {{ $contact->message }}
                                             </td>
                                             <td>

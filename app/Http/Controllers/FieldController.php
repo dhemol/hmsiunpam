@@ -125,4 +125,16 @@ class FieldController extends Controller
 
         return redirect('/dashboard/field')->with('success', 'Field has been deleted');
     }
+
+    public function select(Request $request)
+    {
+        $fields = [];
+        if ($request->has('q')) {
+            $search = $request->q;
+            $fields = Field::select('id', 'name')->where('name', 'like', '%' . $search . '%')->get();
+        } else {
+            $fields = Field::limit(10)->get();
+        }
+        return response()->json($fields);
+    }
 }
