@@ -48,10 +48,10 @@
                                                 {{ $field->name }}
                                             </td>
                                             <td>
-                                                {{ $field->departments->count('pivot.field_id') }}
+                                                {{ $field->departments->count() }}
                                             </td>
                                             <td>
-                                                {{ $field->users->count('pivot.field_id') }}
+                                                {{ $field->users->count() }}
                                             </td>
                                             <td>
                                                 <a href="/dashboard/field/{{ $field->slug }}/edit"

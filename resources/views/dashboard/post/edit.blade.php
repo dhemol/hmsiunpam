@@ -5,12 +5,12 @@
     <section class="section">
         <div class="section-header">
             <div class="section-header-back">
-                <a href="{{ url('/dashboard/post') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+                <a href="{{ url('/dashboard/blog') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
             <h1>Edit Data Blog</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ url('/dashboard/post') }}">Data Blog</a></div>
+                <div class="breadcrumb-item"><a href="{{ url('/dashboard/blog') }}">Data Blog</a></div>
                 <div class="breadcrumb-item">Edit Data Blog</div>
             </div>
         </div>

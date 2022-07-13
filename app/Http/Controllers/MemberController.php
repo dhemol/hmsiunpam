@@ -9,6 +9,7 @@ use App\Models\Position;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+use Prophecy\Call\Call;
 
 class MemberController extends Controller
 {
@@ -17,11 +18,13 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // Route Anggota
-        return view('dashboard.member.index', [
-            "anggota" => User::where('role', 'anggota')->latest()->filter(request(['searchAnggota', 'status', 'field', 'department']))->paginate(10)->withQueryString(),
+        $anggota = User::where('role', 'anggota')->filter(request(['searchAnggota', 'field', 'department', 'position']))->paginate(10)->withQueryString();
+
+        return view('dashboard/member/index', [
+            "anggota" => $anggota,
             "title" => "Anggota | HMSI UNPAM",
         ]);
     }
@@ -35,13 +38,13 @@ class MemberController extends Controller
     {
         // Route Tambah Anggota
         return view('dashboard.member.create', [
-            'member' => new User,
-            'fields' => Field::all(),
-            'departments' => Department::all(),
+            'title' => "Tambah Anggota | HMSI UNPAM",
+            'member' => new User(),
             'positions' => Position::all(),
+            'departments' => Department::all(),
+            'fields' => Field::all()
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -105,9 +108,9 @@ class MemberController extends Controller
         // Route Edit Anggota
         return view('dashboard/member/edit', [
             "member" => $member,
-            'fields' => Field::all(),
-            'departments' => Department::all(),
-            'positions' => Position::all()
+            'fieldSelected' => $member->field,
+            'departmentSelected' => $member->department,
+            'positionSelected' => $member->position,
         ]);
     }
 

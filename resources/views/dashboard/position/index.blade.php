@@ -47,7 +47,7 @@
                                                 {{ $position->name }}
                                             </td>
                                             <td>
-                                                {{ $position->users->count('pivot.field_id') }}
+                                                {{ $position->users->count() }}
                                             </td>
                                             <td>
                                                 <a href="/dashboard/position/{{ $position->slug }}/edit"

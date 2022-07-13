@@ -38,7 +38,7 @@
         </div>
     </div>
     <section class="cown-down">
-        <div class="section-inner ">
+        <div class="section-inner">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -61,7 +61,7 @@
                                     <h1>HMSI UNPAM PROUDLY PRESENT</h1>
                                     </p>
                                     <h3><a href="{{ $event->slug }}" class="title">{{ $event->title }}</a></h3>
-                                    <p class="text">{{ $event->description }}</p>
+                                    <p class="text">{!! $event->description !!}</p>
                                     <h1 class="price">Rp{{ $event->cost }}</h1>
                                     <p class="small-title">{{ $event->location }}</p>
                                     <div class="coming-time">
@@ -73,7 +73,6 @@
                     @endforeach
                 </div>
             </div>
-        </div>
         </div>
     </section>
     <section class="shop-blog section">
@@ -99,7 +98,8 @@
                                 </div>
                                 <a href="/post/{{ $post->slug }}">
                                     @if ($post->image)
-                                        <img src="{{ $post->image }}" alt="#">
+                                        <img src="{{ asset('storage/' . $post->image) }}"
+                                            style="overflow:hidden; max-height: 500px; max-width: 300px;" alt="#">
                                     @else
                                         <img
                                             src="https://source.unsplash.com/400x400?{{ $post->category->name }}"alt="#">

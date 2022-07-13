@@ -90,6 +90,7 @@
     <!-- Page Specific JS File -->
     <script src="{{ url('/template/assets/js/page/calendar.js') }}"></script>
     <script type="text/javascript" src="{{ url('/template/assets/js/trix.js') }}"></script>
+    @stack('javascript-internal')
 
 </body>
 

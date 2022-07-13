@@ -49,24 +49,19 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function categories()
-    {
-        return $this->hasMany(Category::class);
-    }
-
     public function field()
     {
-        return $this->belongsTo(Field::class, 'field_id');
+        return $this->belongsTo(Field::class);
     }
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'department_id');
+        return $this->belongsTo(Department::class);
     }
 
     public function position()
     {
-        return $this->belongsTo(Position::class, 'position_id');
+        return $this->belongsTo(Position::class);
     }
 
     public function getRouteKeyName()

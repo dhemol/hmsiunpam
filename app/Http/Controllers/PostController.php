@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
-use App\Models\Admin;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Str;
@@ -17,10 +16,22 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function home()
+    {
+        // Route Post
+        return view(
+            '/dashboard.post.home',
+            [
+                "posts" => Post::where('user_id', auth()->id())->latest()->filter(request(['search', 'category', 'author']))->paginate(10)->withQueryString(),
+                "title" => "Blog | HMSI UNPAM",
+                "active" => "Blog | HMSI UNPAM"
+            ]
+        );
+    }
+
     public function index()
     {
         // Route Post
-
         return view(
             '/dashboard.post.index',
             [
@@ -68,7 +79,11 @@ class PostController extends Controller
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 50);
 
-        Post::create($validatedData);
+        if (Post::create($validatedData)->where('user_id', auth()->id())->exists()) {
+            return redirect('/dashboard/blog')->with('success', 'Post berhasil ditambahkan');
+        } else {
+            return redirect('/dashboard/post')->with('success', 'Post Has Been Added');
+        }
     }
 
     /**
@@ -136,7 +151,7 @@ class PostController extends Controller
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 50);
 
         Post::where('id', $post->id)->update($validatedData);
-        return redirect('/dashboard/post')->with('success', 'Post Has Been Updated');
+        return redirect('/dashboard/blog')->with('success', 'Post Has Been Updated');
     }
 
     /**
@@ -153,6 +168,6 @@ class PostController extends Controller
         }
         Post::destroy($post->id);
 
-        return redirect('/dashboard/post')->with('success', 'Post Has Been Deleted');
+        return redirect('/dashboard/blog')->with('success', 'Post Has Been Deleted');
     }
 }

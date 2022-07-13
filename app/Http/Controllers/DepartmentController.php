@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\User;
 use App\Models\Field;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -126,5 +127,18 @@ class DepartmentController extends Controller
         Department::destroy($department->id);
 
         return redirect('/dashboard/department')->with('success', 'Department has been deleted');
+    }
+
+    public function select(Request $request)
+    {
+        $departments = [];
+        $field_id = $request->field_id;
+        if ($request->has('q')) {
+            $search = $request->q;
+            $departments = Department::select('id', 'name')->where('field_id', $field_id)->where('name', 'like', '%' . $search . '%')->get();
+        } else {
+            $departments = Department::where('field_id', $field_id)->limit(10)->get();
+        }
+        return response()->json($departments);
     }
 }

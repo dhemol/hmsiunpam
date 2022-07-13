@@ -9,6 +9,7 @@ class Department extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $with = ['field'];
 
     public function users()
     {

@@ -31,10 +31,13 @@ use App\Http\Controllers\RegisterController;
 // Homepage PagesController
 Route::controller(PagesController::class)->group(function () {
     Route::get('/', 'home');
-    Route::get('/about', 'about');
+    Route::get('/visimisi', 'visimisi');
+    Route::get('/struktural', 'struktural');
     Route::get('/event', 'event');
     Route::get('/post', 'post');
     Route::get('/post/{posts:slug}', 'show');
+    Route::post('/post/{posts:slug}', 'comments');
+    Route::delete('/post/{posts:slug}/{comments:id}', 'destroyComment');
     Route::get('/category', 'categories');
     Route::get('/category/{categories:slug}', 'category');
     Route::get('/author/{author:username}', 'author');
@@ -42,6 +45,7 @@ Route::controller(PagesController::class)->group(function () {
     Route::get('/contact', 'contact');
     Route::post('/contact', 'submitcontact');
     Route::get('/dashboard', 'index')->middleware('auth');
+    Route::get('/dashboard', 'anggota')->middleware('auth');
     Route::get('/dashboard/profile/{superadmin:username}', 'profileSuperadmin')->middleware('auth');
     Route::get('/dashboard/profile/{admin:username}', 'profileAdmin')->middleware('auth');
     Route::get('/dashboard/profile/{anggota:username}', 'profileAnggota')->middleware('auth');
@@ -65,7 +69,7 @@ Route::controller(ArchiveController::class)->group(function () {
 
 // Homepage ContactController
 Route::controller(ContactController::class)->group(function () {
-    Route::resource('/dashboard/contact', ContactController::class)->except(['show', 'edit'])->middleware('can:admin');
+    Route::resource('/dashboard/contact', ContactController::class)->except(['edit'])->middleware('can:admin');
 });
 
 // Homepage FieldController
@@ -92,10 +96,15 @@ Route::controller(MemberController::class)->group(function () {
     Route::get('/dashboard/memberPDF', 'export')->middleware('can:admin');
 });
 
+// select2
+// Route::get('/fields', [FieldController::class, 'select'])->name('fields.select');
+Route::get('/departments', [DepartmentController::class, 'select']);
+
 // Data Konten
 // Homepage PostController
 Route::controller(PostController::class)->group(function () {
     Route::resource('/dashboard/post', PostController::class)->middleware('auth');
+    Route::get('/dashboard/blog', 'home')->middleware('auth');
 });
 // Homepage EventController
 Route::controller(EventController::class)->group(function () {

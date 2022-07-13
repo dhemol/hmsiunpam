@@ -39,13 +39,13 @@
                     <span>Data Organisasi</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('dashboard/field*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/field') }}">Daftar Bidang</a></li>
+                            href="{{ url('/dashboard/field') }}">Data Bidang</a></li>
                     <li class="{{ Request::is('dashboard/department*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/department') }}">Daftar Departement</a></li>
+                            href="{{ url('/dashboard/department') }}">Data Departement</a></li>
                     <li class="{{ Request::is('dashboard/position*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/position') }}">Daftar Jabatan</a></li>
+                            href="{{ url('/dashboard/position') }}">Data Jabatan</a></li>
                     <li class="{{ Request::is('dashboard/member*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/member') }}">Daftar Anggota</a></li>
+                            href="{{ url('/dashboard/member') }}">Data Anggota</a></li>
                 </ul>
             </li>
         @elsecan('admin')
@@ -55,13 +55,13 @@
                     <span>Data Organisasi</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('dashboard/field*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/field') }}">Daftar Bidang</a></li>
+                            href="{{ url('/dashboard/field') }}">Data Bidang</a></li>
                     <li class="{{ Request::is('dashboard/department*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/department') }}">Daftar Department</a></li>
+                            href="{{ url('/dashboard/department') }}">Data Department</a></li>
                     <li class="{{ Request::is('dashboard/position*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/position') }}">Daftar Jabatan</a></li>
+                            href="{{ url('/dashboard/position') }}">Data Jabatan</a></li>
                     <li class="{{ Request::is('dashboard/member*') ? 'active' : '' }}"><a class="nav-link "
-                            href="{{ url('/dashboard/member') }}">Daftar Anggota</a></li>
+                            href="{{ url('/dashboard/member') }}">Data Anggota</a></li>
                 </ul>
             </li>
         @endcan
@@ -71,6 +71,8 @@
                 <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-newspaper"></i>
                     <span>Data Konten</span></a>
                 <ul class="dropdown-menu">
+                    <li class="{{ Request::is('dashboard/post*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/post') }}">Blog</a></li>
                     <li class="{{ Request::is('dashboard/category*') ? 'active' : '' }}"><a class="nav-link "
                             href="{{ url('/dashboard/category') }}">Category</a></li>
                     <li class="{{ Request::is('dashboard/event*') ? 'active' : '' }}"><a class="nav-link "
@@ -87,6 +89,8 @@
                 <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i class="fas fa-newspaper"></i>
                     <span>Data Konten</span></a>
                 <ul class="dropdown-menu">
+                    <li class="{{ Request::is('dashboard/post*') ? 'active' : '' }}"><a class="nav-link "
+                            href="{{ url('/dashboard/post') }}">Blog</a></li>
                     <li class="{{ Request::is('dashboard/category*') ? 'active' : '' }}"><a class="nav-link "
                             href="{{ url('/dashboard/category') }}">Category</a></li>
                     <li class="{{ Request::is('dashboard/event*') ? 'active' : '' }}"><a class="nav-link "
@@ -99,8 +103,8 @@
             </li>
         @endcan
         <li class="menu-header">Main Menu</li>
-        <li class="{{ Request::is('dashboard/post*') ? 'active' : '' }}"><a class="nav-link "
-                href="{{ url('/dashboard/post') }}"><i class="fas fa-newspaper"></i>
+        <li class="{{ Request::is('dashboard/blog*') ? 'active' : '' }}"><a class="nav-link "
+                href="{{ url('/dashboard/blog') }}"><i class="fas fa-newspaper"></i>
                 <span>Blog</span></a></li>
         <li class="{{ Request::is('dashboard/kategori*') ? 'active' : '' }}"><a class="nav-link "
                 href="{{ url('/dashboard/kategori') }}"><i class="fas fa-newspaper"></i>

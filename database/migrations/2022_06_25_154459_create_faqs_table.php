@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('question', 100);
             $table->string('slug')->unique();
-            $table->text('answer')->fulltext();
+            $table->text('answer');
             $table->timestamps();
         });
     }
