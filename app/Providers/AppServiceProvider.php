@@ -6,6 +6,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use \Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,5 +38,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('superadmin', function (User $user) {
             return $user->role === 'superadmin';
         });
+
+        if (env('APP_ENV') != 'local') {
+            URL::forceScheme('https');
+        }
     }
 }
