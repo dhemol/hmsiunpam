@@ -88,9 +88,8 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Type</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="type" id="type" class="form-select form-control-sm">
-                                            <option value="{{ $archive->type }}">
-                                                {{ old('type', $archive->type) == $archive->type ? ' selected' : ' ' }}
+                                        <select name="type" id="type" class="form-select form-control">
+                                            <option value="{{ $archive->type }}" @selected(old('type', $archive->type) == $archive->type)>
                                                 {{ $archive->type }}
                                             </option>
                                             <option value="Surat Masuk"
@@ -119,10 +118,19 @@
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
                                         File</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="hidden" name="old_file" value="{{ $archive->file }}"
-                                            id="old_file">
-                                        <input type="file" class="form-control @error('file') is-invalid @enderror"
-                                            name="file" id="file" value="{{ old('file', $archive->file) }}">
+                                        <label for="file" id="file"></label>
+                                        <input type="hidden" name="old_file" value="{{ $archive->file }}" id="old_file"
+                                            onchange="document.getElementById('file-preview').src = window.URL.createObjectURL(this.files[0])">
+                                        @if ($archive->file)
+                                            <img src="{{ asset('storage/' . $archive->file) }}"
+                                                alt="{{ $archive->name }} " class="file-fluid mb-3 col-sm-5 d-block"
+                                                id="file-preview">
+                                        @else
+                                            <img class="file-fluid mb-3 col-sm-5" id="file-preview">
+                                        @endif
+                                        <input class="form-control @error('file') is-invalid @enderror" type="file"
+                                            id="file" name="file"
+                                            onchange="document.getElementById('file-preview').src = window.URL.createObjectURL(this.files[0])">
                                         @error('file')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

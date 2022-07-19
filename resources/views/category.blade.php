@@ -35,7 +35,7 @@
                     @foreach ($categories as $category)
                         <div class="shop-single-blog">
                             <a href="/post?category={{ $category->slug }}">
-                                <img src="https://source.unsplash.com/400x400? {{ $category->name }}"
+                                <img src="https://source.unsplash.com/400x400?{{ $category->name }}"
                                     alt="{{ $category->name }}">
                                 <div class="card-img-overlay position-absolute d-flex align-items-center text-white p-0">
                                     <h4 class="card-title text-center flex-fil p-4 f-s-3"

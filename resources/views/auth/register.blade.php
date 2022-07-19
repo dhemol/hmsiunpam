@@ -72,6 +72,79 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label>Role</label>
+                                        <select name="role" id="role" class="form-select form-control">
+                                            <option value="{{ $member->role }}"@selected(old('role', $member->role == 'aktif') == $member->role)
+                                                @disabled(true)>
+                                                --Select Role--
+                                            </option>
+                                            <option value="Anggota" {{ $member->role == 'anggota' ? 'selected' : '' }}>
+                                                Anggota
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Status</label>
+                                        <select name="status" id="status" class="form-select form-control">
+                                            <option value="{{ $member->status }}" @selected(old('status', $member->status == 'aktif') == $member->status)
+                                                @disabled(true)>
+                                                --Select Status--
+                                            </option>
+                                            <option value="Aktif" {{ $member->status == 'aktif' ? 'selected' : '' }}>
+                                                Aktif
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Position</label>
+                                        <select name="position_id" id="position" class="form-select form-control">
+                                            @foreach ($positions as $position)
+                                                <option value="{{ $position->id }}" @selected(old('position_id', $position->name == 'Anggota') == $position->id)>
+                                                    @if ($position->name !== 'Anggota' ? 'disabled' : '')
+                                                    @else
+                                                        {{ $position->name }}
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Fields</label>
+                                        <select name="field_id" id="field_id" class="form-select form-control">
+                                            @foreach ($fields as $field)
+                                                <option value="{{ $field->id }}" @selected(old('field_id', $field->name == '--') == $field->id)>
+                                                    @if ($field->name !== '--' ? 'disabled' : '')
+                                                    @else
+                                                        {{ $field->name }}
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Department</label>
+                                        <select name="department_id" id="department_id" class="form-select form-control">
+                                            @foreach ($departments as $department)
+                                                <option value="{{ $department->id }}" @selected(old('department_id', $department->name == '---') == $department->id)>
+                                                    @if ($department->name !== '---' ? 'disabled' : '')
+                                                    @else
+                                                        {{ $department->name }}
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 {{-- <div class="form-group">
                                     <label for="email">Email</label>
                                     <input id="email" type="email" class="form-control" name="email">

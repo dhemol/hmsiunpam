@@ -18,7 +18,7 @@
     </div>
     <!-- End Breadcrumbs -->
     <section class="cown-down">
-        <div class="section-inner ">
+        <div class="section-inner">
             <div class="container">
                 <div class="row">
                     @foreach ($events as $event)
@@ -34,7 +34,7 @@
                                     <h1>HMSI UNPAM PROUDLY PRESENT</h1>
                                     </p>
                                     <h3><a href="{{ $event->slug }}" class="title">{{ $event->title }}</a></h3>
-                                    <p class="text">{{ $event->description }}</p>
+                                    <p class="text">{!! $event->description !!}</p>
                                     <h1 class="price">Rp{{ $event->cost }}</h1>
                                     <p class="small-title">{{ $event->location }}</p>
                                     <div class="coming-time">
@@ -46,7 +46,6 @@
                     @endforeach
                 </div>
             </div>
-        </div>
         </div>
     </section>
 @endsection

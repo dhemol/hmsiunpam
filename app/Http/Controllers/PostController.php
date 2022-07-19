@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
-use App\Models\Admin;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Str;
@@ -17,25 +16,27 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function home()
+    {
+        // Route Post
+        return view(
+            '/dashboard.post.home',
+            [
+                "posts" => Post::where('user_id', auth()->id())->latest()->filter(request(['search', 'category', 'author']))->paginate(10)->withQueryString(),
+                "title" => "Blog | HMSI UNPAM",
+                "active" => "Blog | HMSI UNPAM"
+            ]
+        );
+    }
+
     public function index()
     {
         // Route Post
-        $title = '';
-        if (request('category')) {
-            $category = Category::firstWhere('slug', request('category'));
-            $title = ' in ' . $category->name;
-        }
-
-        if (request('author')) {
-            $author = Admin::firstWhere('username', request('author'));
-            $title = ' by ' . $author->name;
-        }
-
         return view(
             '/dashboard.post.index',
             [
                 "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(10)->withQueryString(),
-                "title" => "Blog | HMSI UNPAM" . $title,
+                "title" => "Blog | HMSI UNPAM",
                 "active" => "Blog | HMSI UNPAM"
             ]
         );
@@ -64,7 +65,7 @@ class PostController extends Controller
     {
         // Route Simpan Post
         $validatedData = $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required|max:100',
             'slug' => 'required|unique:posts',
             'category_id' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -76,9 +77,13 @@ class PostController extends Controller
         }
 
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 50);
 
-        Post::create($validatedData);
+        if (Post::create($validatedData)->where('user_id', auth()->id())->exists()) {
+            return redirect('/dashboard/blog')->with('success', 'Post berhasil ditambahkan');
+        } else {
+            return redirect('/dashboard/post')->with('success', 'Post Has Been Added');
+        }
     }
 
     /**
@@ -123,7 +128,7 @@ class PostController extends Controller
     {
         // Route Update Post
         $rules = [
-            'title' => 'required|max:255',
+            'title' => 'required|max:100',
             'category_id' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'body' => 'required'
@@ -143,10 +148,10 @@ class PostController extends Controller
         }
 
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 50);
 
         Post::where('id', $post->id)->update($validatedData);
-        return redirect('/dashboard/post')->with('success', 'Post Has Been Updated');
+        return redirect('/dashboard/blog')->with('success', 'Post Has Been Updated');
     }
 
     /**
@@ -163,6 +168,6 @@ class PostController extends Controller
         }
         Post::destroy($post->id);
 
-        return redirect('/dashboard/post')->with('success', 'Post Has Been Deleted');
+        return redirect('/dashboard/blog')->with('success', 'Post Has Been Deleted');
     }
 }

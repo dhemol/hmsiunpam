@@ -4,12 +4,12 @@
     <section class="section">
         <div class="section-header">
             <div class="section-header-back">
-                <a href="{{ url('/dashboard/post') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+                <a href="{{ url('/dashboard/blog') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
             <h1>Blog's Detail</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ url('/dashboard/post') }}">Blogs</a></div>
+                <div class="breadcrumb-item"><a href="{{ url('/dashboard/blog') }}">Blogs</a></div>
                 <div class="breadcrumb-item">Blog's Detail</div>
             </div>
         </div>
@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="ticket-description">
                                         @if ($post->image)
-                                            <div style="max-height: 500px; overflow:hidden">
+                                            <div>
                                                 <img src="{{ asset('storage/' . $post->image) }}"
                                                     alt="image"class="img-fluid">
                                             </div>

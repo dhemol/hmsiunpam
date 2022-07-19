@@ -20,8 +20,8 @@ class Category extends Model
         return 'slug';
     }
 
-    public function event()
+    public function events()
     {
-        return $this->belongsTo(Event::class);
+        return $this->hasMany(Event::class);
     }
 }

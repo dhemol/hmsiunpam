@@ -48,14 +48,14 @@ class ArchiveController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:50',
             'slug' => 'required||unique:archives',
             'perihal' => 'required',
             'nomor_surat' => 'required',
             'type' => 'required',
             'file' => 'required|mimes:pdf,doc,docx,ppt,pptx,xls,xlsx,zip,rar,7z'
         ]);
-
+        $validatedData['file'] = $request->file('file')->store('Archives', 'public');
         Archive::create($validatedData);
 
         return redirect('/dashboard/archive')->with('success', 'Faq has been created');
@@ -102,7 +102,7 @@ class ArchiveController extends Controller
     {
         //
         $rules = [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:50',
             'perihal' => 'required',
             'nomor_surat' => 'required',
             'type' => 'required',

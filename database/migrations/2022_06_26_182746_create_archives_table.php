@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('archives', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
+            $table->string('title', 50);
+            $table->string('slug')->unique();
             $table->string('perihal')->nullable();
             $table->string('nomor_surat')->nullable();
             $table->enum('type', ['Surat Masuk', 'Surat Keluar', 'Surat Internal', 'Laporan', 'Lain-lain']);

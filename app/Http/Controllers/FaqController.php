@@ -47,7 +47,7 @@ class FaqController extends Controller
     {
         // Route Faq Store
         $validatedData = $request->validate([
-            'question' => 'required|string|max:255',
+            'question' => 'required|string|max:100',
             'slug' => 'required||unique:faqs',
             'answer' => 'required'
         ]);
@@ -98,7 +98,7 @@ class FaqController extends Controller
     {
         // Route Faq Update
         $rules = [
-            'question' => 'required|string|max:255',
+            'question' => 'required|string|max:100',
             'answer' => 'required'
         ];
 

@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\Position;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -52,12 +53,12 @@ class AdminController extends Controller
     {
         // 
         $validatedData = $request->validate([
-            'nba' => 'filled',
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'username' => 'required|min:6|max:255|unique:users',
+            'nba' => 'required|unique:users',
+            'name' => 'required|string|max:50',
+            'email' => 'required|string|email|max:50|unique:users',
+            'username' => 'required|min:6|max:20|unique:users',
             'password' => 'required|string|min:6',
-            'no_hp' => 'required|string|max:255',
+            'no_hp' => 'required|min:8|max:14|regex:/^[0-9]+$/',
             'address' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'position_id' => 'required',
@@ -74,7 +75,7 @@ class AdminController extends Controller
 
         User::create($validatedData);
 
-        return redirect('/dashboard/admin')->with('success', 'New Member Has Been Added');
+        return redirect('/dashboard/admin')->with('success', 'New Admin Has Been Added');
     }
 
     /**
@@ -124,9 +125,9 @@ class AdminController extends Controller
         //
         $rules = [
             'nba' => 'filled',
-            'name' => 'required|string|max:255',
-            'password' => 'required|string|min:6',
-            'no_hp' => 'required|string|max:255',
+            'name' => 'required|string|max:50',
+            'password' => 'required',
+            'no_hp' => 'required|min:8|max:14|regex:/^[0-9]+$/',
             'address' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'position_id' => 'required',
@@ -138,9 +139,14 @@ class AdminController extends Controller
 
         if ($request->email != $admin->email) {
             if ($request->username != $admin->username) {
-                $rules['username'] = 'required|min:6|max:255|unique:users';
+                $rules['username'] = 'required|min:6|unique:users';
             }
-            $rules['email'] = 'required|string|email|max:255|unique:users';
+            $rules['email'] = 'required|string|email|unique:users';
+        }
+        if ($request->password != $admin->password) {
+            if (!Hash::check($rules['password'], User::get('password'))) {
+                $request = $request->merge(['password' => bcrypt($request->password)]);
+            }
         }
 
         $validatedData = $request->validate($rules);
@@ -153,7 +159,7 @@ class AdminController extends Controller
         }
         User::where('id', $admin->id)->update($validatedData);
 
-        return redirect('/dashboard/admin')->with('success', 'Member Has Been Updated');
+        return redirect('/dashboard/admin')->with('success', 'Admin Has Been Updated');
     }
 
     /**

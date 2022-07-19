@@ -43,7 +43,7 @@
                                                 {{ $faq->question }}
                                             </td>
                                             <td style="text-align: justify" width="500px">
-                                                {{ $faq->answer }}
+                                                {!! $faq->answer !!}
                                             </td>
                                             <td>
                                                 <a href="/dashboard/faq/{{ $faq->slug }}/edit"

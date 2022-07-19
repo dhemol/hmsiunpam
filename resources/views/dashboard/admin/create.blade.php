@@ -119,10 +119,10 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Role</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="role" id="role" class="form-select form-control-sm">
-                                            <option value="{{ $admin->role }}">
-                                                {{ old('role') == $admin->role ? ' selected' : ' ' }}
-                                                {{ $admin->role }}
+                                        <select name="role" id="role" class="form-select form-control">
+                                            <option value="{{ $admin->role }}" @selected(old('role') == $admin->role)
+                                                @disabled(true)>
+                                                -- Select Role --
                                             </option>
                                             <option value="Anggota" {{ $admin->role == 'anggota' ? 'selected' : '' }}>
                                                 Anggota
@@ -140,10 +140,10 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="status" id="status" class="form-select form-control-sm">
-                                            <option value="{{ $admin->status }}">
-                                                {{ old('status', $admin->status) == $admin->status ? ' selected' : ' ' }}
-                                                {{ $admin->status }}
+                                        <select name="status" id="status" class="form-select form-control">
+                                            <option value="{{ $admin->status }}" @selected(old('status') == $admin->status)
+                                                @disabled(true)>
+                                                -- Select Status --
                                             </option>
                                             <option value="Aktif" {{ $admin->status == 'aktif' ? 'selected' : '' }}>
                                                 Aktif
@@ -162,10 +162,9 @@
                                 <div class=" form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Position</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="position_id" id="position" class="form-select form-control-sm">
+                                        <select name="position_id" id="position" class="form-select form-control">
                                             @foreach ($positions as $position)
-                                                <option value="{{ $position->id }}">
-                                                    {{ old('position_id') == $position->id ? ' selected' : ' ' }}
+                                                <option value="{{ $position->id }}" @selected(old('position_id') == $position->id)>
                                                     {{ $position->name }}
                                                 </option>
                                             @endforeach
@@ -175,10 +174,9 @@
                                 <div class=" form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Field</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="field_id" id="field" class="form-select form-control-sm">
+                                        <select name="field_id" id="field" class="form-select form-control">
                                             @foreach ($fields as $field)
-                                                <option value="{{ $field->id }}">
-                                                    {{ old('field_id') == $field->id ? ' selected' : ' ' }}
+                                                <option value="{{ $field->id }}" @selected(old('field_id') == $field->id)>
                                                     {{ $field->name }}
                                                 </option>
                                             @endforeach
@@ -188,10 +186,9 @@
                                 <div class=" form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Department</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="department_id" id="department" class="form-select form-control-sm">
+                                        <select name="department_id" id="department" class="form-select form-control">
                                             @foreach ($departments as $department)
-                                                <option value="{{ $department->id }}">
-                                                    {{ old('department_id') == $department->id ? ' selected' : ' ' }}
+                                                <option value="{{ $department->id }}"@selected(old('department_id') == $department->id)>
                                                     {{ $department->name }}
                                                 </option>
                                             @endforeach

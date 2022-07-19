@@ -10,6 +10,7 @@ class Post extends Model
     use HasFactory;
     protected $guarded = ['id'];
     protected $with = ['author', 'category'];
+    protected $table = 'posts';
 
     public function scopeFilter($query, array $filters)
 
@@ -35,7 +36,7 @@ class Post extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function author()
@@ -46,5 +47,9 @@ class Post extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'on_post');
     }
 }

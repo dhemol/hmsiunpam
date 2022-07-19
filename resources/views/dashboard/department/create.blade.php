@@ -58,10 +58,9 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Field</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="field_id" id="field" class="form-select form-control-sm">
+                                        <select name="field_id" id="field" class="form-select form-control">
                                             @foreach ($fields as $field)
-                                                <option value="{{ $field->id }}"
-                                                    {{ old('field_id') == $field->id ? ' selected' : ' ' }}>
+                                                <option value="{{ $field->id }}" @selected(old('field_id') == $field->id)>
                                                     {{ $field->name }}
                                                 </option>
                                             @endforeach

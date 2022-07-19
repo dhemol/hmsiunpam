@@ -9,6 +9,7 @@ use App\Models\Position;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+use Prophecy\Call\Call;
 
 class MemberController extends Controller
 {
@@ -17,11 +18,13 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // Route Anggota
-        return view('dashboard.member.index', [
-            "anggota" => User::where('role', 'anggota')->latest()->filter(request(['searchAnggota', 'status', 'field', 'department']))->paginate(10)->withQueryString(),
+        $anggota = User::where('role', 'anggota')->filter(request(['searchAnggota', 'field', 'department', 'position']))->paginate(10)->withQueryString();
+
+        return view('dashboard/member/index', [
+            "anggota" => $anggota,
             "title" => "Anggota | HMSI UNPAM",
         ]);
     }
@@ -35,12 +38,13 @@ class MemberController extends Controller
     {
         // Route Tambah Anggota
         return view('dashboard.member.create', [
-            'fields' => Field::all(),
-            'departments' => Department::all(),
+            'title' => "Tambah Anggota | HMSI UNPAM",
+            'member' => new User(),
             'positions' => Position::all(),
+            'departments' => Department::all(),
+            'fields' => Field::all()
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -51,12 +55,12 @@ class MemberController extends Controller
     {
         // Route Simpan Anggota
         $validatedData = $request->validate([
-            'nba' => 'filled',
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'username' => 'required|min:6|max:255|unique:users',
+            'nba' => 'required|string|max:10|unique:users',
+            'name' => 'required|string|max:50',
+            'email' => 'required|string|email|max:50|unique:users',
+            'username' => 'required|min:6|max:20|unique:users',
             'password' => 'required|string|min:6',
-            'no_hp' => 'required|string|max:255',
+            'no_hp' => 'required|min:8|max:14|regex:/^[0-9]+$/',
             'address' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'position_id' => 'required',
@@ -104,9 +108,9 @@ class MemberController extends Controller
         // Route Edit Anggota
         return view('dashboard/member/edit', [
             "member" => $member,
-            'fields' => Field::all(),
-            'departments' => Department::all(),
-            'positions' => Position::all()
+            'fieldSelected' => $member->field,
+            'departmentSelected' => $member->department,
+            'positionSelected' => $member->position,
         ]);
     }
 
@@ -122,9 +126,9 @@ class MemberController extends Controller
         // Route Update Anggota
         $rules = [
             'nba' => 'filled',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:50',
             'password' => 'required|string|min:6',
-            'no_hp' => 'required|string|max:255',
+            'no_hp' => 'required|min:8|max:14|regex:/^[0-9]+$/',
             'address' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'position_id' => 'required',
@@ -135,9 +139,15 @@ class MemberController extends Controller
 
         if ($request->email != $member->email) {
             if ($request->username != $member->username) {
-                $rules['username'] = 'required|min:6|max:255|unique:users';
+                $rules['username'] = 'required|min:6|max:20|unique:users';
             }
-            $rules['email'] = 'required|string|email|max:255|unique:users';
+            $rules['email'] = 'required|string|email|max:50|unique:users';
+        }
+
+        if ($request->password != $member->password) {
+            if (!Hash::check($rules['password'], User::get('password'))) {
+                $request = $request->merge(['password' => bcrypt($request->password)]);
+            }
         }
 
         $validatedData = $request->validate($rules);

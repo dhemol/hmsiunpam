@@ -88,28 +88,9 @@
     <script src="{{ url('/template/assets/js/custom.js') }}"></script>
 
     <!-- Page Specific JS File -->
-    <script src="{{ url('/template/assets/js/page/index-0.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/index.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/features-posts.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/features-post-create.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/features-setting-detail.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/forms-advanced-forms.js') }}"></script>
     <script src="{{ url('/template/assets/js/page/calendar.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/components-chat-box.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/components-multiple-upload.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/components-statistic.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/components-table.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/components-user.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/bootstrap-modal.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/modules-slider.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/modules-chartjs.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/modules-datatables.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/modules-ion-icons.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/modules-sparkline.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/modules-sweetalert.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/modules-toastr.js') }}"></script>
-    <script src="{{ url('/template/assets/js/page/utilities-contact.js') }}"></script>
     <script type="text/javascript" src="{{ url('/template/assets/js/trix.js') }}"></script>
+    @stack('javascript-internal')
 
 </body>
 
